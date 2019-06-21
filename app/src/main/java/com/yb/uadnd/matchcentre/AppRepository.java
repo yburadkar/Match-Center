@@ -1,12 +1,13 @@
 package com.yb.uadnd.matchcentre;
 
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.yb.uadnd.matchcentre.model.Commentary;
+import com.yb.uadnd.matchcentre.model.Match;
 import com.yb.uadnd.matchcentre.model.MatchFeedApiInterface;
-
-import java.net.URL;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -42,20 +43,38 @@ public class AppRepository {
         call.enqueue(new Callback<Commentary>() {
             @Override
             public void onResponse(Call<Commentary> call, Response<Commentary> response) {
-                call.request().toString();
+                Log.i("url: ",call.request().toString());
                 Commentary comm = response.body();
                 if(comm != null){
                     commentary.setValue(comm);
                 }
-
             }
-
             @Override
             public void onFailure(Call<Commentary> call, Throwable t) {
 
             }
         });
         return commentary;
+    }
+
+    LiveData<Match> fetchMatch(String matchId){
+        MutableLiveData<Match> matchMutableLiveData = new MutableLiveData<>();
+        Call<Match> call = mApi.getMatch(matchId);
+        call.enqueue(new Callback<Match>() {
+            @Override
+            public void onResponse(Call<Match> call, Response<Match> response) {
+                Match match = response.body();
+                if(match != null){
+                    matchMutableLiveData.setValue(match);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Match> call, Throwable t) {
+
+            }
+        });
+        return matchMutableLiveData;
     }
 
 }

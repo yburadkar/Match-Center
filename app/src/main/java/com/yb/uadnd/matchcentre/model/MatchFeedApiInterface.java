@@ -7,6 +7,9 @@ import retrofit2.http.Path;
 public interface MatchFeedApiInterface {
 
     @GET("{matchId}/commentary")
-    Call<Commentary> getMatchCommentary(@Path("matchId") String matchId);
+    Call<Commentary> getMatchCommentary(@Path("matchId") String id);
+
+    @GET("{matchId}")
+    Call<Match> getMatch(@Path("matchId") String id);
 
 }

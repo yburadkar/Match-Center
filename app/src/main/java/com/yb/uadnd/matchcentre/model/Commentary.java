@@ -8,7 +8,7 @@ public class Commentary {
     Data data;
     Metadata metadata;
 
-    private class Data {
+    static class Data {
         String id;
         int matchId;
         String homeTeamName;
@@ -31,6 +31,13 @@ public class Commentary {
 
         public ArrayList<CommentaryEntry> getCommentaryEntries() {
             return commentaryEntries;
+        }
+
+        static class CommentaryEntry {
+            String type;
+            String comment;
+            String time;
+            String period;
         }
     }
 
