@@ -37,7 +37,7 @@ public class AppRepository {
         return appRepository;
     }
 
-    LiveData<Commentary> fetchMatchCommentary(String matchId){
+    public LiveData<Commentary> fetchMatchCommentary(String matchId){
         MutableLiveData<Commentary> commentary = new MutableLiveData<>();
         Call<Commentary> call = mApi.getMatchCommentary(matchId);
         call.enqueue(new Callback<Commentary>() {
@@ -57,7 +57,7 @@ public class AppRepository {
         return commentary;
     }
 
-    LiveData<Match> fetchMatch(String matchId){
+    public LiveData<Match> fetchMatch(String matchId){
         MutableLiveData<Match> matchMutableLiveData = new MutableLiveData<>();
         Call<Match> call = mApi.getMatch(matchId);
         call.enqueue(new Callback<Match>() {

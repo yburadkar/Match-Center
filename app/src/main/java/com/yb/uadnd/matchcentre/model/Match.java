@@ -26,7 +26,6 @@ public class Match {
         private ArrayList<Event> events;
         private ArrayList<Official> officials;
 
-
         static class Team {
             private String id;
             private String name;
