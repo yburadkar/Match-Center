@@ -1,6 +1,7 @@
 package com.yb.uadnd.matchcentre.ui
 
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -21,6 +22,7 @@ class CommentaryFragment : Fragment() {
     private lateinit var mViewModel: MainActivityViewModel
     private lateinit var mAdapter: CommentaryAdpater
     private var mCommentary: ArrayList<Commentary.Data.CommentaryEntry> = ArrayList()
+    private var mContext: Context? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +34,7 @@ class CommentaryFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_commentary, container, false)
+        mContext = context
         return view
     }
 
@@ -47,7 +50,7 @@ class CommentaryFragment : Fragment() {
 
     private fun initRecyclerView() {
         commRecyclerView.layoutManager = LinearLayoutManager(context)
-        mAdapter = CommentaryAdpater(mCommentary)
+        mAdapter = CommentaryAdpater(mCommentary, mContext)
         commRecyclerView.adapter = mAdapter
         commRecyclerView.hasFixedSize()
     }
