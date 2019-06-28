@@ -5,18 +5,19 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProvider.NewInstanceFactory
 
-class MainActivityViewModelFactory : ViewModelProvider.AndroidViewModelFactory {
+class MainActivityViewModelFactory( matchId: Int)
+    : ViewModelProvider.NewInstanceFactory() {
 
     private var matchId: Int
-    private lateinit var application: Application
+//    private lateinit var application: Application
 
-    constructor(application: Application, matchId: Int) : super(application) {
-        this.application = application;
+    init {
+//        this.application = application;
         this.matchId = matchId;
     }
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return MainActivityViewModel(application, matchId)
+        return MainActivityViewModel(matchId) as T
     }
 
 }

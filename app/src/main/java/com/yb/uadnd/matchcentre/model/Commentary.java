@@ -8,7 +8,11 @@ public class Commentary {
     Data data;
     Metadata metadata;
 
-    static class Data {
+    public Data getData() {
+        return data;
+    }
+    public static class Data {
+
         String id;
         int matchId;
         String homeTeamName;
@@ -33,11 +37,27 @@ public class Commentary {
             return commentaryEntries;
         }
 
-        static class CommentaryEntry {
+        public static class CommentaryEntry {
             String type;
             String comment;
             String time;
             String period;
+
+            public String getType() {
+                return type;
+            }
+
+            public String getComment() {
+                return comment;
+            }
+
+            public String getTime() {
+                return time;
+            }
+
+            public String getPeriod() {
+                return period;
+            }
         }
     }
 

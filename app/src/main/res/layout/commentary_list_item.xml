@@ -13,15 +13,15 @@
         android:padding="4dp">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:id="@+id/time"
             tools:text="40'"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:layout_gravity="center"/>
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:id="@+id/type"
             tools:text="GOAL"
@@ -36,7 +36,7 @@
             android:layout_weight="1"
             android:id="@+id/comment"
             android:layout_marginStart="8dp"
-            android:textSize="14sp"
+            android:textSize="12sp"
             tools:text="Goal!  Manchester United 2, Leicester City 0. Luke Shaw (Manchester United) left footed shot from a difficult angle on the left to the bottom right corner. Assisted by Juan Mata."
             android:layout_gravity="center"/>
 
