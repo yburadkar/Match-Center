@@ -35,7 +35,7 @@
             android:layout_marginEnd="60dp"
             android:scaleType="fitXY"
             tools:src="@drawable/manunited"
-            android:contentDescription="home team logo"/>
+            android:contentDescription="@string/home_logo_content_desc"/>
 
         <TextView
             android:id="@+id/home_team"
@@ -43,10 +43,9 @@
             android:layout_height="wrap_content"
             tools:text="Manchester United"
             app:layout_constraintTop_toBottomOf="@+id/home_logo"
-            app:layout_constraintRight_toLeftOf="@id/score"
+            app:layout_constraintLeft_toRightOf="@id/home_logo"
+            app:layout_constraintRight_toLeftOf="@id/home_logo"
             android:textColor="@android:color/white"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="40dp"
             android:layout_marginTop="4dp"
             android:gravity="center_horizontal"/>
 
@@ -58,8 +57,8 @@
             android:textSize="40sp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/home_logo"
-            app:layout_constraintBottom_toTopOf="@id/home_logo"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             android:textColor="@android:color/white"/>
 
         <ImageView
@@ -72,7 +71,7 @@
             android:layout_marginStart="60dp"
             tools:src="@drawable/leicestercity"
             android:scaleType="fitXY"
-            android:contentDescription="away team logo"/>
+            android:contentDescription="@string/away_logo_content_desc"/>
 
         <TextView
             android:id="@+id/away_team"
@@ -80,10 +79,10 @@
             android:layout_height="wrap_content"
             tools:text="Leicester City"
             app:layout_constraintTop_toBottomOf="@+id/away_logo"
-            app:layout_constraintRight_toRightOf="@id/away_logo"
+            app:layout_constraintLeft_toRightOf="@id/away_logo"
+            app:layout_constraintRight_toLeftOf="@id/away_logo"
+            android:layout_marginTop="4dp"
             android:textColor="@android:color/white"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="40dp"
             android:gravity="center_horizontal"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

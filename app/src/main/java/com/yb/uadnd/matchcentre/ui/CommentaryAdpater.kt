@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.yb.uadnd.matchcentre.R
-import com.yb.uadnd.matchcentre.model.Commentary
 import com.yb.uadnd.matchcentre.model.Commentary.Data.CommentaryEntry
 import java.lang.Exception
 
@@ -27,13 +26,13 @@ class CommentaryAdpater(private var mCommentary: ArrayList<CommentaryEntry>, pri
         holder.time.text = entry.time
         var type: String? = entry.type
         if(entry.type.equals("start")) type = (entry.type + entry.period)
-        var style: TypeStyle = getTypeStyle(type)
+        var style: TypeStyle = getCommentaryTypeStyle(type)
         holder.type.text = style.text
         holder.type.background = style.drawable
         holder.comment.text = entry.comment
     }
 
-    private fun getTypeStyle(type: String?): TypeStyle {
+    private fun getCommentaryTypeStyle(type: String?): TypeStyle {
         return when(type) {
             "end 14" -> TypeStyle("FINISH", mContext?.getDrawable(R.color.grey))
             "end 2" -> TypeStyle("END 2", mContext?.getDrawable(R.color.grey))

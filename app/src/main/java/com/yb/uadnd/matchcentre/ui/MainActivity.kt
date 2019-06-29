@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.yb.uadnd.matchcentre.MyApp
 import com.yb.uadnd.matchcentre.R
 import com.yb.uadnd.matchcentre.model.Commentary
 import com.yb.uadnd.matchcentre.viewmodel.MainActivityViewModel
@@ -29,6 +30,7 @@ class MainActivity : AppCompatActivity() {
         pagerAdapter = MatchPagerAdapter(supportFragmentManager);
         viewPager.adapter = pagerAdapter
         matchTabLayout.setupWithViewPager(viewPager)
+
     }
 
     private fun intiViewModel() {

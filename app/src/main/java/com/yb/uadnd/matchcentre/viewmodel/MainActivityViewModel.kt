@@ -28,4 +28,8 @@ class MainActivityViewModel(matchId: Int) : ViewModel() {
         return mCommentary
     }
 
+    fun getMatch(): LiveData<Match> {
+        return mMatch
+    }
+
 }

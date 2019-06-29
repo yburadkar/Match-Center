@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:padding="4dp">
+
+        <TextView
+            android:layout_width="52dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/time"
+            tools:text="40'"
+            android:textSize="14sp"
+            android:gravity="center"
+            android:layout_gravity="center"/>
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:id="@+id/team_logo"
+            android:layout_gravity="center"
+            android:layout_marginStart="4dp"
+            android:scaleType="fitXY"
+            tools:src="@drawable/manunited"
+            android:contentDescription="@string/team_logo_content_desc"/>
+
+        <TextView
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/type"
+            tools:text="GOAL"
+            android:padding="2dp"
+            android:layout_marginStart="12dp"
+            android:textSize="12sp"
+            android:textColor="@android:color/white"
+            android:gravity="center_horizontal"
+            android:layout_gravity="center"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:id="@+id/event_notes"
+            android:layout_marginStart="8dp"
+            android:textSize="12sp"
+            tools:text="Goal!  Manchester United 2, Leicester City 0. Luke Shaw (Manchester United) left footed shot from a difficult angle on the left to the bottom right corner. Assisted by Juan Mata."
+            android:layout_gravity="center"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"/>
+
+</LinearLayout>

@@ -28,7 +28,6 @@ class CommentaryFragment : Fragment() {
         super.onCreate(savedInstanceState)
         mViewModel = activity?.run { ViewModelProviders.of(this)
                 .get(MainActivityViewModel::class.java) } ?: throw Exception("Invalid Activity")
-
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

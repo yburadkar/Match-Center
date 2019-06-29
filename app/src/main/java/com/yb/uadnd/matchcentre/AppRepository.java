@@ -63,6 +63,7 @@ public class AppRepository {
         call.enqueue(new Callback<Match>() {
             @Override
             public void onResponse(Call<Match> call, Response<Match> response) {
+                Log.i("url: ",call.request().toString());
                 Match match = response.body();
                 if(match != null){
                     matchMutableLiveData.setValue(match);
@@ -71,7 +72,7 @@ public class AppRepository {
 
             @Override
             public void onFailure(Call<Match> call, Throwable t) {
-
+                Log.i("Retrofit Call Failed", t.getMessage());
             }
         });
         return matchMutableLiveData;
