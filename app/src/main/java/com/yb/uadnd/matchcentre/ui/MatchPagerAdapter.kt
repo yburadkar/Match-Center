@@ -10,6 +10,7 @@ class MatchPagerAdapter(fm: FragmentManager?) : FragmentPagerAdapter(fm) {
         return when(position) {
             0 -> CommentaryFragment()
             1 -> EventsFragment()
+            2 -> LineUpFragment()
             else -> return Fragment()
 
         }

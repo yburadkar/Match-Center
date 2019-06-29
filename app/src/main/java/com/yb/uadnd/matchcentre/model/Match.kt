@@ -20,30 +20,34 @@ class Match {
         private val minute: Int = 0
         private val attendance: Int = 0
         private val date: String? = null
-        private val homeTeam: Team? = null
-        private val awayTeam: Team? = null
+        val homeTeam: Team? = null
+        val awayTeam: Team? = null
         private val venue: Venue? = null
         val events: ArrayList<Event>? = null
         private val officials: ArrayList<Official>? = null
 
         class Team {
             private val id: String? = null
-            private val name: String? = null
+            val name: String? = null
             private val shortname: String? = null
             private val score: Int = 0
             private val halfTimeScore: Int = 0
-            private val players: ArrayList<Player>? = null
+            val players: ArrayList<Player>? = null
             private val teamStats: TeamStats? = null
 
             class Player {
                 private val id: Int = 0
                 private val firstName: String? = null
                 private val lastName: String? = null
-                private val position: String? = null
-                private val shirtNumber: Int = 0
+                val position: String? = null
+                val shirtNumber: Int = 0
                 private val status: String? = null
                 private val captain: Boolean = false
                 private val playerStats: PlayerStats? = null
+
+                fun getPlayerName(): String {
+                    return "${firstName} ${lastName}"
+                }
 
                 class PlayerStats {
                     private val bottomCentreSaves: Int = 0
