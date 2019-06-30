@@ -11,6 +11,7 @@
         android:layout_centerVertical="true"
         android:textSize="20sp"
         android:textStyle="bold"
+        android:textColor="@color/black"
         android:gravity="center_horizontal"
         tools:text="23"/>
 
@@ -22,6 +23,7 @@
         android:layout_marginStart="4dp"
         android:layout_alignParentEnd="true"
         android:textSize="16sp"
+        android:textColor="@color/black"
         tools:text="Juan Mata"/>
 
     <TextView
@@ -29,10 +31,10 @@
         android:layout_height="wrap_content"
         android:id="@+id/position"
         android:layout_below="@id/name"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="6dp"
         android:layout_toEndOf="@id/shirt_number"
         android:layout_alignParentEnd="true"
-        android:textSize="14sp"
+        android:textSize="12sp"
         android:textStyle="italic"
         tools:text="Striker"/>
 

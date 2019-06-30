@@ -38,7 +38,7 @@ class LineUpFragment : Fragment() {
             mHomePlayers.clear()
             mHomePlayers.addAll(homeTeam?.players!!)
             mHomeAdapter.notifyDataSetChanged()
-            val awayTeam = it.data?.awayTeam
+            val awayTeam = it.data.awayTeam
             away_team.text = awayTeam?.name
             mAwayPlayers.clear()
             mAwayPlayers.addAll(awayTeam?.players!!)

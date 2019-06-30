@@ -11,8 +11,8 @@ class MatchPagerAdapter(fm: FragmentManager?) : FragmentPagerAdapter(fm) {
             0 -> CommentaryFragment()
             1 -> EventsFragment()
             2 -> LineUpFragment()
+            3 -> StatsFragment()
             else -> return Fragment()
-
         }
     }
 

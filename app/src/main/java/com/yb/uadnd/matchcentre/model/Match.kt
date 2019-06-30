@@ -33,7 +33,7 @@ class Match {
             private val score: Int = 0
             private val halfTimeScore: Int = 0
             val players: ArrayList<Player>? = null
-            private val teamStats: TeamStats? = null
+            val teamStats: TeamStats? = null
 
             class Player {
                 private val id: Int = 0
@@ -134,7 +134,7 @@ class Match {
                 private val concededShotsOnTargetOutsideBox: Int = 0
                 private val cornersLost: Int = 0
                 private val cornersTaken: Int = 0
-                private val cornersWon: Int = 0
+                val cornersWon: Int = 0
                 private val defenderBlocks: Int = 0
                 private val defenderGoals: Int = 0
                 private val directFreeKicks: Int = 0
@@ -179,18 +179,18 @@ class Match {
                 private val penaltiesWon: Int = 0
                 private val penaltyGoals: Int = 0
                 private val penaltyGoalsConceded: Int = 0
-                private val possession: Float = 0.0F
+                val possession: Float = 0.0F
                 private val rightFootGoals: Int = 0
                 private val rightFootSaves: Int = 0
                 private val rightFootShots: Int = 0
                 private val rightMisses: Int = 0
-                private val saves: Int = 0
+                val saves: Int = 0
                 private val shotsBlocked: Int = 0
                 private val shotsOffTarget: Int = 0
-                private val shotsOnGoal: Int = 0
-                private val shotsOnTarget: Int = 0
+                val shotsOnGoal: Int = 0
+                val shotsOnTarget: Int = 0
                 private val shotsOnTargetAssists: Int = 0
-                private val substitutionsMade: Int = 0
+                val substitutionsMade: Int = 0
                 private val teamYellowCards: Int = 0
                 private val throwIns: Int = 0
                 private val topMisses: Int = 0
@@ -199,6 +199,28 @@ class Match {
                 private val woodworkHits: Int = 0
             }
         }
+
+        public fun getTeamStats(): ArrayList<TeamStat> {
+            val stats = ArrayList<TeamStat>()
+            val homeStats = homeTeam?.teamStats
+            val awayStats = awayTeam?.teamStats
+            if(homeStats != null && awayStats != null) {
+                stats.add(TeamStat("Possession", "${homeStats.possession}%",
+                        "${awayStats.possession}%", true))
+                stats.add(TeamStat("Shots", homeStats.shotsOnGoal.toString(),
+                        awayStats.shotsOnGoal.toString(),false))
+                stats.add(TeamStat("Shot on Target", homeStats.shotsOnTarget.toString(),
+                        awayStats.shotsOnTarget.toString(), false))
+                stats.add(TeamStat("Corners", homeStats.cornersWon.toString(),
+                        awayStats.cornersWon.toString(), false))
+                stats.add(TeamStat("Saves", homeStats.saves.toString(),
+                        awayStats.saves.toString(), false))
+                stats.add(TeamStat("Substitutions", homeStats.substitutionsMade.toString(),
+                        awayStats.substitutionsMade.toString(), false))
+            }
+            return stats
+        }
+
 
         internal class Venue {
             private val id: Int = 0
