@@ -72,6 +72,5 @@ class CommentaryAdpater(private var mCommentary: ArrayList<Comment>, private var
         }
     }
 
-    class TypeStyle(var text: String, var drawable: Drawable?){
-    }
+    class TypeStyle(var text: String, var drawable: Drawable?)
 }

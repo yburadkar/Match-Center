@@ -33,6 +33,7 @@ public class AppRepository {
     private static AppRepository appRepository;
     private MatchFeedApiInterface mApi;
     private LocalDatabase mDb;
+    private SimpleIdlingResource mRes;
     private MyApp mApp;
     private Executor mExecutor = Executors.newSingleThreadExecutor();
 
@@ -44,6 +45,7 @@ public class AppRepository {
         mApi = retrofit.create(MatchFeedApiInterface.class);
         mApp = (MyApp) application;
         mDb = mApp.getDatabase();
+        mRes = MyApp.Companion.getIdlingResource();
     }
 
     public static AppRepository getInstance(Application application){
@@ -53,8 +55,18 @@ public class AppRepository {
         return appRepository;
     }
 
+    public void deleteOldMatchComments(@NotNull String matchId) {
+        mExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                mDb.commentDao().deleteAllMatchComments(Integer.parseInt(matchId));
+            }
+        });
+    }
+
     public void fetchMatchCommentaryAndCacheInDb(String matchId){
         Call<Commentary> call = mApi.getMatchCommentary(matchId);
+        if(mRes != null) mRes.setIdleState(false);
         call.enqueue(new Callback<Commentary>() {
             @Override
             public void onResponse(Call<Commentary> call, Response<Commentary> response) {

@@ -19,9 +19,10 @@ class MyApp: Application() {
     }
 
     public fun getDatabase(): LocalDatabase {
-        return mDb;
+        return mDb
     }
-    public fun getRepository(): AppRepository{
+
+    fun getRepository(): AppRepository{
         return mRepository
     }
 
@@ -30,6 +31,12 @@ class MyApp: Application() {
             "1" -> mContext.getDrawable(R.drawable.manunited)
             "13" -> mContext.getDrawable(R.drawable.leicestercity)
             else -> mContext.getDrawable(R.drawable.ic_launcher_foreground)
+        }
+    }
+    companion object{
+        private var mIdlingRes = SimpleIdlingResource()
+        public fun getIdlingResource(): SimpleIdlingResource{
+            return mIdlingRes
         }
     }
 

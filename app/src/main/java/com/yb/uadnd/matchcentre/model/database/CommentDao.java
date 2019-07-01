@@ -2,7 +2,6 @@ package com.yb.uadnd.matchcentre.model.database;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
-import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 
@@ -16,5 +15,8 @@ public interface CommentDao {
 
     @Query("SELECT * FROM comment WHERE matchId = :matchId")
     LiveData<List<Comment>> getAllMatchComments(int matchId);
+
+    @Query("DELETE FROM comment WHERE matchId = :matchId")
+    void deleteAllMatchComments(int matchId);
 
 }

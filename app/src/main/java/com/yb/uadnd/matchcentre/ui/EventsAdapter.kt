@@ -70,7 +70,5 @@ class EventsAdapter(var mEvents: ArrayList<Event> , var mContext: Context ):
         }
     }
 
-    class TypeStyle(var text: String, var drawable: Drawable?){
-
-    }
+    class TypeStyle(var text: String, var drawable: Drawable?)
 }

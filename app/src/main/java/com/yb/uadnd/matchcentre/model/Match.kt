@@ -46,7 +46,7 @@ class Match {
                 private val playerStats: PlayerStats? = null
 
                 fun getPlayerName(): String {
-                    return "${firstName} ${lastName}"
+                    return "$firstName $lastName"
                 }
 
                 class PlayerStats {
@@ -200,7 +200,7 @@ class Match {
             }
         }
 
-        public fun getTeamStats(): ArrayList<TeamStat> {
+        fun getTeamStats(): ArrayList<TeamStat> {
             val stats = ArrayList<TeamStat>()
             val homeStats = homeTeam?.teamStats
             val awayStats = awayTeam?.teamStats
@@ -276,7 +276,7 @@ class Match {
                 var goalText = "${player?.firstName} ${player?.lastName} scores."
                 val type = goalDetails?.type
                 if(!type.equals("Goal"))
-                    goalText = goalText + " Type: ${type}"
+                    goalText = goalText + " Type: $type"
                 return goalText
             }
 
@@ -292,7 +292,7 @@ class Match {
                 val known: String? = null
 
                 fun getPlayerName(): String{
-                    return "${firstName} ${lastName}"
+                    return "$firstName $lastName"
                 }
             }
 

@@ -1,15 +1,12 @@
 package com.yb.uadnd.matchcentre.ui
 
-import android.graphics.drawable.Drawable
-import androidx.appcompat.app.AppCompatActivity
-
 import android.os.Bundle
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.yb.uadnd.matchcentre.MyApp
 import com.yb.uadnd.matchcentre.R
-import com.yb.uadnd.matchcentre.model.Commentary
 import com.yb.uadnd.matchcentre.model.database.MatchInfo
 import com.yb.uadnd.matchcentre.viewmodel.MainActivityViewModel
 import com.yb.uadnd.matchcentre.viewmodel.MainActivityViewModelFactory
@@ -30,7 +27,7 @@ class MainActivity : AppCompatActivity() {
         matchId = 987597
 
         intiViewModel()
-        pagerAdapter = MatchPagerAdapter(supportFragmentManager);
+        pagerAdapter = MatchPagerAdapter(supportFragmentManager)
         viewPager.adapter = pagerAdapter
         matchTabLayout.setupWithViewPager(viewPager)
         mApp = application as MyApp

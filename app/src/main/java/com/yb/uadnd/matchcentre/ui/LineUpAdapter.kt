@@ -7,9 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.yb.uadnd.matchcentre.R
-import com.yb.uadnd.matchcentre.model.Match
 import com.yb.uadnd.matchcentre.model.Match.Data.Team.Player
-import kotlinx.android.synthetic.main.line_up_list_item.view.*
 
 class LineUpAdapter(var mPlayers: ArrayList<Player>): RecyclerView.Adapter<LineUpAdapter.PlayerViewHolder>() {
 
