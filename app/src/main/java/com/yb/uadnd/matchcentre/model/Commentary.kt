@@ -6,21 +6,20 @@ class Commentary {
 
     internal var status: String? = null
     var data: Data? = null
-        internal set
     internal var metadata: Metadata? = null
 
     class Data {
 
-        internal var id: String? = null
-        internal var matchId: Int = 0
-        internal var homeTeamName: String? = null
-        internal var homeTeamId: String? = null
+        var id: String? = null
+        var matchId: Int = 0
+        var homeTeamName: String? = null
+        var homeTeamId: String? = null
         var homeScore: Int = 0
-        internal var awayTeamName: String? = null
-        internal var awayTeamId: String? = null
+        var awayTeamName: String? = null
+        var awayTeamId: String? = null
         var awayScore: Int = 0
-        internal var competitionId: Int = 0
-        internal var competition: String? = null
+        var competitionId: Int = 0
+        var competition: String? = null
         var commentaryEntries: ArrayList<CommentaryEntry>? = null
 
         class CommentaryEntry {
@@ -28,6 +27,15 @@ class Commentary {
             var comment: String? = null
             var time: String? = null
             var period: String? = null
+
+            constructor()
+
+            constructor(type: String?, comment: String?, time: String?, period: String?) {
+                this.type = type
+                this.comment = comment
+                this.time = time
+                this.period = period
+            }
         }
     }
 

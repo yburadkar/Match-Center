@@ -3,13 +3,26 @@ package com.yb.uadnd.matchcentre
 import android.app.Application
 import android.content.Context
 import android.graphics.drawable.Drawable
+import com.yb.uadnd.matchcentre.model.database.LocalDatabase
 
 class MyApp: Application() {
 
-    private val mContext: Context
+    private lateinit var mContext: Context
+    private lateinit var mRepository: AppRepository
+    private lateinit var mDb: LocalDatabase
 
-    init {
+    override fun onCreate() {
+        super.onCreate()
         mContext = applicationContext
+        mDb = LocalDatabase.getInstance(mContext)
+        mRepository = AppRepository.getInstance(this)
+    }
+
+    public fun getDatabase(): LocalDatabase {
+        return mDb;
+    }
+    public fun getRepository(): AppRepository{
+        return mRepository
     }
 
     public fun getTeamLogo(teamId: String?): Drawable? {

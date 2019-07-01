@@ -1,13 +1,25 @@
 package com.yb.uadnd.matchcentre;
 
+import android.app.Application;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.yb.uadnd.matchcentre.model.Commentary;
+import com.yb.uadnd.matchcentre.model.Commentary.Data.CommentaryEntry;
 import com.yb.uadnd.matchcentre.model.Match;
 import com.yb.uadnd.matchcentre.model.MatchFeedApiInterface;
+import com.yb.uadnd.matchcentre.model.database.Comment;
+import com.yb.uadnd.matchcentre.model.database.LocalDatabase;
+import com.yb.uadnd.matchcentre.model.database.MatchInfo;
+
+import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -20,25 +32,28 @@ public class AppRepository {
     private static final String BASE_URL = "https://feeds.incrowdsports.com/provider/opta/football/v1/matches/";
     private static AppRepository appRepository;
     private MatchFeedApiInterface mApi;
+    private LocalDatabase mDb;
+    private MyApp mApp;
+    private Executor mExecutor = Executors.newSingleThreadExecutor();
 
-
-    private AppRepository() {
+    private AppRepository(Application application) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         mApi = retrofit.create(MatchFeedApiInterface.class);
+        mApp = (MyApp) application;
+        mDb = mApp.getDatabase();
     }
 
-    public static AppRepository getInstance(){
+    public static AppRepository getInstance(Application application){
         if(appRepository == null){
-            appRepository = new AppRepository();
+            appRepository = new AppRepository(application);
         }
         return appRepository;
     }
 
-    public LiveData<Commentary> fetchMatchCommentary(String matchId){
-        MutableLiveData<Commentary> commentary = new MutableLiveData<>();
+    public void fetchMatchCommentaryAndCacheInDb(String matchId){
         Call<Commentary> call = mApi.getMatchCommentary(matchId);
         call.enqueue(new Callback<Commentary>() {
             @Override
@@ -46,7 +61,27 @@ public class AppRepository {
                 Log.i("url: ",call.request().toString());
                 Commentary comm = response.body();
                 if(comm != null){
-                    commentary.setValue(comm);
+                    Commentary.Data data = comm.getData();
+                    if(data != null) {
+                        final MatchInfo info = new MatchInfo(data.getId(), Integer.parseInt(matchId),
+                                data.getHomeTeamName(), data.getHomeTeamId(), data.getHomeScore(),
+                                data.getAwayTeamName(), data.getAwayTeamId(), data.getAwayScore(),
+                                data.getCompetitionId(), data.getCompetition());
+
+                        ArrayList<CommentaryEntry> entries = data.getCommentaryEntries();
+                        mExecutor.execute(new Runnable() {
+                            @Override
+                            public void run() {
+                                mDb.matchInfoDao().insertMatchInfo(info);
+                                if(entries != null) {
+                                    for (CommentaryEntry entry : entries) {
+                                        mDb.commentDao().insertComment(
+                                                new Comment(Integer.parseInt(matchId), entry));
+                                    }
+                                }
+                            }
+                        });
+                    }
                 }
             }
             @Override
@@ -54,7 +89,6 @@ public class AppRepository {
 
             }
         });
-        return commentary;
     }
 
     public LiveData<Match> fetchMatch(String matchId){
@@ -78,4 +112,13 @@ public class AppRepository {
         return matchMutableLiveData;
     }
 
+    @NotNull
+    public LiveData<List<Comment>> getMatchComments(@NotNull String matchId) {
+        return mDb.commentDao().getAllMatchComments(Integer.parseInt(matchId));
+    }
+
+    @NotNull
+    public LiveData<MatchInfo> getMatchInfo(@NotNull String matchId) {
+        return mDb.matchInfoDao().getMatchInfo(Integer.parseInt(matchId));
+    }
 }

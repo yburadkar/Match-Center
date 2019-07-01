@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.yb.uadnd.matchcentre.R
 import com.yb.uadnd.matchcentre.model.Commentary
+import com.yb.uadnd.matchcentre.model.database.Comment
 import com.yb.uadnd.matchcentre.viewmodel.MainActivityViewModel
 import kotlinx.android.synthetic.main.fragment_commentary.*
 
@@ -21,7 +22,7 @@ class CommentaryFragment : Fragment() {
 
     private lateinit var mViewModel: MainActivityViewModel
     private lateinit var mAdapter: CommentaryAdpater
-    private var mCommentary: ArrayList<Commentary.Data.CommentaryEntry> = ArrayList()
+    private var mCommentary: ArrayList<Comment> = ArrayList()
     private var mContext: Context? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,12 +40,16 @@ class CommentaryFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         initRecyclerView()
-        val observer = Observer<List<Commentary.Data.CommentaryEntry>> {
+        watchCommentaryFromDb()
+    }
+
+    private fun watchCommentaryFromDb() {
+        val observer = Observer<List<Comment>> {
             mCommentary.clear()
             mCommentary.addAll(it)
             mAdapter.notifyDataSetChanged()
         }
-        mViewModel.getCommentaryList().observe(activity as LifecycleOwner, observer )
+        mViewModel.getComments().observe(activity as LifecycleOwner, observer )
     }
 
     private fun initRecyclerView() {
@@ -53,6 +58,4 @@ class CommentaryFragment : Fragment() {
         commRecyclerView.adapter = mAdapter
         commRecyclerView.hasFixedSize()
     }
-
-
 }

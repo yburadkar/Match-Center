@@ -8,25 +8,25 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.yb.uadnd.matchcentre.R
-import com.yb.uadnd.matchcentre.model.Commentary.Data.CommentaryEntry
+import com.yb.uadnd.matchcentre.model.database.Comment
 import java.lang.Exception
 
-class CommentaryAdpater(private var mCommentary: ArrayList<CommentaryEntry>, private var mContext: Context?):
+class CommentaryAdpater(private var mCommentary: ArrayList<Comment>, private var mContext: Context?):
         RecyclerView.Adapter<CommentaryAdpater.CommentaryViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CommentaryViewHolder {
-        var layoutInflater: LayoutInflater = LayoutInflater.from(parent.context)
-        var view: View = layoutInflater.inflate(R.layout.commentary_list_item, parent, false)
+        val layoutInflater: LayoutInflater = LayoutInflater.from(parent.context)
+        val view: View = layoutInflater.inflate(R.layout.commentary_list_item, parent, false)
         return CommentaryViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: CommentaryViewHolder, position: Int) {
-        var entry: CommentaryEntry = mCommentary.get(position)
+        val entry: Comment = mCommentary.get(position)
 
         holder.time.text = entry.time
         var type: String? = entry.type
         if(entry.type.equals("start")) type = (entry.type + entry.period)
-        var style: TypeStyle = getCommentaryTypeStyle(type)
+        val style: TypeStyle = getCommentaryTypeStyle(type)
         holder.type.text = style.text
         holder.type.background = style.drawable
         holder.comment.text = entry.comment
@@ -72,8 +72,6 @@ class CommentaryAdpater(private var mCommentary: ArrayList<CommentaryEntry>, pri
         }
     }
 
-
     class TypeStyle(var text: String, var drawable: Drawable?){
-
     }
 }

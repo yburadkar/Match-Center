@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.yb.uadnd.matchcentre.MyApp
 import com.yb.uadnd.matchcentre.R
 import com.yb.uadnd.matchcentre.model.Match.Data.Event
 
@@ -24,7 +25,7 @@ class EventsAdapter(var mEvents: ArrayList<Event> , var mContext: Context ):
     }
 
     override fun onBindViewHolder(holder: EventViewHolder, position: Int) {
-        var event = mEvents.get(position)
+        val event = mEvents.get(position)
         holder.time.text = event.time
         holder.team_logo.setImageDrawable(getTeamLogo(event.teamId?.substring(1)))
         val typeStyle = getEventTypeStyle(event.type)
@@ -34,6 +35,7 @@ class EventsAdapter(var mEvents: ArrayList<Event> , var mContext: Context ):
     }
 
     fun getTeamLogo(teamId: String?): Drawable? {
+        mContext.applicationContext as MyApp
         return when(teamId) {
             "1" -> mContext.getDrawable(R.drawable.manunited)
             "13" -> mContext.getDrawable(R.drawable.leicestercity)
@@ -43,14 +45,14 @@ class EventsAdapter(var mEvents: ArrayList<Event> , var mContext: Context ):
 
     private fun getEventTypeStyle(type: String?): TypeStyle {
         return when(type) {
-            "Kick Off" -> TypeStyle("START 1", mContext?.getDrawable(R.color.grey))
-            "Half Time" -> TypeStyle("END 1", mContext?.getDrawable(R.color.grey))
-            "Second Half Start" -> TypeStyle("START 2", mContext?.getDrawable(R.color.grey))
-            "Full Time" -> TypeStyle("END 2", mContext?.getDrawable(R.color.grey))
-            "Goal" -> TypeStyle("GOAL", mContext?.getDrawable(R.color.green))
-            "Substitution" -> TypeStyle("SUB", mContext?.getDrawable(R.color.purple))
-            "Yellow Card" -> TypeStyle("YELLOW", mContext?.getDrawable(R.color.yellow))
-            "Red Card" -> TypeStyle("RED", mContext?.getDrawable(R.color.red))
+            "Kick Off" -> TypeStyle("START 1", mContext.getDrawable(R.color.grey))
+            "Half Time" -> TypeStyle("END 1", mContext.getDrawable(R.color.grey))
+            "Second Half Start" -> TypeStyle("START 2", mContext.getDrawable(R.color.grey))
+            "Full Time" -> TypeStyle("END 2", mContext.getDrawable(R.color.grey))
+            "Goal" -> TypeStyle("GOAL", mContext.getDrawable(R.color.green))
+            "Substitution" -> TypeStyle("SUB", mContext.getDrawable(R.color.purple))
+            "Yellow Card" -> TypeStyle("YELLOW", mContext.getDrawable(R.color.yellow))
+            "Red Card" -> TypeStyle("RED", mContext.getDrawable(R.color.red))
             else -> throw Exception("Unknown type: " + type)
         }
     }
