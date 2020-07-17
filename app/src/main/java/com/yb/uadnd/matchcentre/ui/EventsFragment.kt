@@ -21,7 +21,7 @@ class EventsFragment : Fragment() {
 
     private lateinit var mViewModel: MainActivityViewModel
     private lateinit var mAdapter: EventsAdapter
-    private var mEvents = ArrayList<Event>()
+    private val mEvents = mutableListOf<Event>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

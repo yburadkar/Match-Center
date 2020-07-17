@@ -47,16 +47,14 @@ class CommentaryFragment : Fragment() {
     }
 
     private fun watchCommentaryFromDb() {
-        val observer = Observer<List<Comment>> {
+        mViewModel.getComments().observe(viewLifecycleOwner, Observer {
             mCommentary.clear()
             mCommentary.addAll(it)
             mAdapter.notifyDataSetChanged()
-            if(it?.size!! > 0){
-                mRes.setIdleState(true)
+            it.let {
+                if(it.isNotEmpty()) mRes.setIdleState(true)
             }
-            Log.i("Number of comments: ", mCommentary.size.toString())
-        }
-        mViewModel.getComments().observe(activity as LifecycleOwner, observer )
+        })
     }
 
     private fun initRecyclerView() {

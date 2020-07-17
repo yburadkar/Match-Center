@@ -12,7 +12,7 @@ import com.yb.uadnd.matchcentre.MyApp
 import com.yb.uadnd.matchcentre.R
 import com.yb.uadnd.matchcentre.model.Match.Data.Event
 
-class EventsAdapter(var mEvents: ArrayList<Event> , var mContext: Context ):
+class EventsAdapter(private val mEvents: List<Event>, var mContext: Context ):
         RecyclerView.Adapter<EventsAdapter.EventViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventViewHolder {
