@@ -2,6 +2,7 @@ package com.yb.uadnd.matchcentre.ui
 
 import android.content.Context
 import android.graphics.drawable.Drawable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +10,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.yb.uadnd.matchcentre.R
 import com.yb.uadnd.matchcentre.model.database.Comment
-import java.lang.Exception
 
 class CommentaryAdpater(private var mCommentary: ArrayList<Comment>, private var mContext: Context?):
         RecyclerView.Adapter<CommentaryAdpater.CommentaryViewHolder>() {
@@ -53,7 +53,10 @@ class CommentaryAdpater(private var mCommentary: ArrayList<Comment>, private var
             "yellow card" -> TypeStyle("YELLOW", mContext?.getDrawable(R.color.yellow))
             "red card" -> TypeStyle("RED", mContext?.getDrawable(R.color.red))
             "lineup" -> TypeStyle("LINEUP", mContext?.getDrawable(R.color.dark_green))
-            else -> throw Exception("Unknown type: " + type)
+            else -> {
+                Log.i("Commentary Adapter: ", "Unknown type: $type")
+                TypeStyle( "", mContext?.getDrawable(R.color.red))
+            }
         }
     }
 

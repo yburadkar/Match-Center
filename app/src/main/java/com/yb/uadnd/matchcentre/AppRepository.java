@@ -11,7 +11,7 @@ import com.yb.uadnd.matchcentre.model.Commentary.Data.CommentaryEntry;
 import com.yb.uadnd.matchcentre.model.Match;
 import com.yb.uadnd.matchcentre.model.MatchFeedApiInterface;
 import com.yb.uadnd.matchcentre.model.database.Comment;
-import com.yb.uadnd.matchcentre.model.database.LocalDatabase;
+import com.yb.uadnd.matchcentre.model.database.MovieDatabase;
 import com.yb.uadnd.matchcentre.model.database.MatchInfo;
 
 import org.jetbrains.annotations.NotNull;
@@ -32,7 +32,7 @@ public class AppRepository {
     private static final String BASE_URL = "https://feeds.incrowdsports.com/provider/opta/football/v1/matches/";
     private static AppRepository appRepository;
     private MatchFeedApiInterface mApi;
-    private LocalDatabase mDb;
+    private MovieDatabase mDb;
     private SimpleIdlingResource mRes;
     private MyApp mApp;
     private Executor mExecutor = Executors.newSingleThreadExecutor();
@@ -59,7 +59,7 @@ public class AppRepository {
         mExecutor.execute(new Runnable() {
             @Override
             public void run() {
-                mDb.commentDao().deleteAllMatchComments(Integer.parseInt(matchId));
+                mDb.getCommentDao().deleteAllMatchComments(Integer.parseInt(matchId));
             }
         });
     }
@@ -84,10 +84,10 @@ public class AppRepository {
                         mExecutor.execute(new Runnable() {
                             @Override
                             public void run() {
-                                mDb.matchInfoDao().insertMatchInfo(info);
+                                mDb.getMatchInfoDao().insertMatchInfo(info);
                                 if(entries != null) {
                                     for (CommentaryEntry entry : entries) {
-                                        mDb.commentDao().insertComment(
+                                        mDb.getCommentDao().insertComment(
                                                 new Comment(Integer.parseInt(matchId), entry));
                                     }
                                 }
@@ -126,11 +126,11 @@ public class AppRepository {
 
     @NotNull
     public LiveData<List<Comment>> getMatchComments(@NotNull String matchId) {
-        return mDb.commentDao().getAllMatchComments(Integer.parseInt(matchId));
+        return mDb.getCommentDao().getAllMatchComments(Integer.parseInt(matchId));
     }
 
     @NotNull
     public LiveData<MatchInfo> getMatchInfo(@NotNull String matchId) {
-        return mDb.matchInfoDao().getMatchInfo(Integer.parseInt(matchId));
+        return mDb.getMatchInfoDao().getMatchInfo(Integer.parseInt(matchId));
     }
 }

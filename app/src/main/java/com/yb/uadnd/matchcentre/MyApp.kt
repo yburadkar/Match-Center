@@ -3,22 +3,22 @@ package com.yb.uadnd.matchcentre
 import android.app.Application
 import android.content.Context
 import android.graphics.drawable.Drawable
-import com.yb.uadnd.matchcentre.model.database.LocalDatabase
+import com.yb.uadnd.matchcentre.model.database.MovieDatabase
 
 class MyApp: Application() {
 
     private lateinit var mContext: Context
     private lateinit var mRepository: AppRepository
-    private lateinit var mDb: LocalDatabase
+    private lateinit var mDb: MovieDatabase
 
     override fun onCreate() {
         super.onCreate()
         mContext = applicationContext
-        mDb = LocalDatabase.getInstance(mContext)
+        mDb = MovieDatabase.getInstance(mContext)
         mRepository = AppRepository.getInstance(this)
     }
 
-    public fun getDatabase(): LocalDatabase {
+    public fun getDatabase(): MovieDatabase {
         return mDb
     }
 
