@@ -9,20 +9,20 @@ import com.yb.uadnd.matchcentre.R
 import com.yb.uadnd.matchcentre.model.TeamStat
 import kotlinx.android.synthetic.main.stats_list_item.view.*
 
-class StatsAdapter(private val mStats: MutableList<TeamStat> = mutableListOf()): RecyclerView.Adapter<StatsAdapter.StatViewHolder>() {
+class StatsAdapter(private val stats: MutableList<TeamStat> = mutableListOf()): RecyclerView.Adapter<StatsAdapter.StatViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StatViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.stats_list_item, parent, false)
         return StatViewHolder(view)
     }
 
-    override fun getItemCount(): Int = mStats.size
+    override fun getItemCount(): Int = stats.size
 
-    override fun onBindViewHolder(holder: StatViewHolder, position: Int) = holder.bind(mStats[position])
+    override fun onBindViewHolder(holder: StatViewHolder, position: Int) = holder.bind(stats[position])
 
     fun updateList(statList: List<TeamStat>) {
-        mStats.clear()
-        mStats.addAll(statList)
+        stats.clear()
+        stats.addAll(statList)
         notifyDataSetChanged()
     }
 
@@ -34,11 +34,11 @@ class StatsAdapter(private val mStats: MutableList<TeamStat> = mutableListOf()):
                 away_stat.text = stat.awayText
 
                 var params = home_stat.layoutParams as LinearLayout.LayoutParams
-                params.weight = stat.homeWeight
+                params.weight = stat.homePercent
                 home_stat.layoutParams = params
 
                 params = away_stat.layoutParams as LinearLayout.LayoutParams
-                params.weight = stat.awayWeight
+                params.weight = stat.awayPercent
                 away_stat.layoutParams = params
             }
         }

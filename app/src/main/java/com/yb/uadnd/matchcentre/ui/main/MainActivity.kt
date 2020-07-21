@@ -14,7 +14,7 @@ import timber.log.Timber
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var mViewModel: MainActivityViewModel
+    private lateinit var viewModel: MainActivityViewModel
     private lateinit var pagerAdapter: MatchPagerAdapter
     private var matchId: Int = 0
 
@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun intiViewModel() {
-        mViewModel = ViewModelProviders.of(this,
+        viewModel = ViewModelProviders.of(this,
                 MainActivityViewModelFactory(application, matchId))
                 .get(MainActivityViewModel::class.java)
         val matchInfoObserver = Observer<MatchInfo> {
@@ -47,7 +47,7 @@ class MainActivity : AppCompatActivity() {
                 away_logo.setImageResource(Utils.getTeamLogo(it.awayTeamId))
             }
         }
-        mViewModel.getMatchInfo().observe(this, matchInfoObserver)
+        viewModel.getMatchInfo().observe(this, matchInfoObserver)
     }
 
 }

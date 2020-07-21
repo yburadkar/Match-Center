@@ -6,7 +6,7 @@ import java.util.concurrent.atomic.AtomicBoolean
 
 class SimpleIdlingResource : IdlingResource {
     private val isIdle = AtomicBoolean(true)
-    private var mCallback: IdlingResource.ResourceCallback? = null
+    private var resourceCallback: IdlingResource.ResourceCallback? = null
 
     override fun getName(): String {
         return this.javaClass.simpleName
@@ -17,13 +17,13 @@ class SimpleIdlingResource : IdlingResource {
     }
 
     override fun registerIdleTransitionCallback(callback: IdlingResource.ResourceCallback) {
-        this.mCallback = callback
+        this.resourceCallback = callback
     }
 
     fun setIdleState(isIdleNow: Boolean) {
         isIdle.set(isIdleNow)
-        if (mCallback != null) {
-            if (isIdle.get()) mCallback!!.onTransitionToIdle()
+        if (resourceCallback != null) {
+            if (isIdle.get()) resourceCallback!!.onTransitionToIdle()
         }
     }
 }

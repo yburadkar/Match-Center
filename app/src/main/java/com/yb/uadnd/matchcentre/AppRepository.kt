@@ -3,7 +3,7 @@ package com.yb.uadnd.matchcentre
 import androidx.lifecycle.LiveData
 import com.yb.uadnd.matchcentre.model.Commentary
 import com.yb.uadnd.matchcentre.model.Match
-import com.yb.uadnd.matchcentre.model.MatchFeedApiInterface
+import com.yb.uadnd.matchcentre.model.MatchService
 import com.yb.uadnd.matchcentre.model.database.Comment
 import com.yb.uadnd.matchcentre.model.database.MovieDatabase
 import com.yb.uadnd.matchcentre.model.database.MatchInfo
@@ -13,11 +13,11 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
-class AppRepository(private val mDb: MovieDatabase,
-                    private val mRes: SimpleIdlingResource) {
+class AppRepository(private val db: MovieDatabase,
+                    private val idlingResource: SimpleIdlingResource) {
 
     private val BASE_URL = "https://feeds.incrowdsports.com/provider/opta/football/v1/matches/"
-    private var mApiService: MatchFeedApiInterface
+    private var matchService: MatchService
 
     init {
         val retrofit =  Retrofit.Builder()
@@ -25,28 +25,28 @@ class AppRepository(private val mDb: MovieDatabase,
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
-        mApiService = retrofit.create(MatchFeedApiInterface::class.java)
+        matchService = retrofit.create(MatchService::class.java)
     }
 
     fun fetchMatchCommentaryAndCacheInDb(matchId: String): Single<Commentary> {
-        mRes.setIdleState(false)
-        return mApiService.getMatchCommentary(matchId)
+        idlingResource.setIdleState(false)
+        return matchService.getMatchCommentary(matchId)
     }
 
     fun fetchMatch(matchId: String): Single<Match> {
-        return mApiService.getMatch(matchId)
+        return matchService.getMatch(matchId)
     }
 
     fun deleteOldMatchComments(matchId: String): Completable {
-        return mDb.commentDao.deleteAllMatchComments(matchId.toInt())
+        return db.commentDao.deleteAllMatchComments(matchId.toInt())
     }
 
     fun getMatchComments(matchId: String): LiveData<List<Comment>> {
-        return mDb.commentDao.getAllMatchComments(matchId.toInt())
+        return db.commentDao.getAllMatchComments(matchId.toInt())
     }
 
     fun getMatchInfo(matchId: String): LiveData<MatchInfo>{
-        return mDb.matchInfoDao.getMatchInfo(matchId.toInt())
+        return db.matchInfoDao.getMatchInfo(matchId.toInt())
     }
 
     companion object {

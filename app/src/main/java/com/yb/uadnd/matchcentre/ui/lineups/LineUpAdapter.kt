@@ -8,20 +8,20 @@ import com.yb.uadnd.matchcentre.R
 import com.yb.uadnd.matchcentre.model.Match.Data.Team.Player
 import kotlinx.android.synthetic.main.line_up_list_item.view.*
 
-class LineUpAdapter(private val mPlayers: MutableList<Player> = mutableListOf()): RecyclerView.Adapter<LineUpAdapter.PlayerViewHolder>() {
+class LineUpAdapter(private val players: MutableList<Player> = mutableListOf()): RecyclerView.Adapter<LineUpAdapter.PlayerViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlayerViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.line_up_list_item, parent, false)
         return PlayerViewHolder(view)
     }
 
-    override fun getItemCount(): Int = mPlayers.size
+    override fun getItemCount(): Int = players.size
 
-    override fun onBindViewHolder(holder: PlayerViewHolder, position: Int) = holder.bind(mPlayers[position])
+    override fun onBindViewHolder(holder: PlayerViewHolder, position: Int) = holder.bind(players[position])
 
     fun updateList(playerList: List<Player>) {
-        mPlayers.clear()
-        mPlayers.addAll(playerList)
+        players.clear()
+        players.addAll(playerList)
         notifyDataSetChanged()
     }
 

@@ -17,15 +17,15 @@ import kotlinx.android.synthetic.main.fragment_commentary.*
 
 class CommentaryFragment : Fragment() {
 
-    private lateinit var mViewModel: MainActivityViewModel
-    private lateinit var mAdapter: CommentaryAdapter
-    private lateinit var mRes: SimpleIdlingResource
+    private lateinit var viewModel: MainActivityViewModel
+    private lateinit var commentaryAdapter: CommentaryAdapter
+    private lateinit var idlingResource: SimpleIdlingResource
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mViewModel = activity?.run { ViewModelProviders.of(this)
+        viewModel = activity?.run { ViewModelProviders.of(this)
                 .get(MainActivityViewModel::class.java) } ?: throw Exception("Invalid Activity")
-        mRes = MyApp.getIdlingResource()
+        idlingResource = MyApp.getIdlingResource()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -39,16 +39,16 @@ class CommentaryFragment : Fragment() {
     }
 
     private fun watchCommentaryFromDb() {
-        mViewModel.getComments().observe(viewLifecycleOwner, Observer {
-            mAdapter.updateList(it)
-            if(it.isNotEmpty()) mRes.setIdleState(true)
+        viewModel.getComments().observe(viewLifecycleOwner, Observer {
+            commentaryAdapter.updateList(it)
+            if(it.isNotEmpty()) idlingResource.setIdleState(true)
         })
     }
 
     private fun initRecyclerView() {
         commRecyclerView.layoutManager = LinearLayoutManager(context)
-        mAdapter = CommentaryAdapter()
-        commRecyclerView.adapter = mAdapter
+        commentaryAdapter = CommentaryAdapter()
+        commRecyclerView.adapter = commentaryAdapter
         commRecyclerView.hasFixedSize()
     }
 }
