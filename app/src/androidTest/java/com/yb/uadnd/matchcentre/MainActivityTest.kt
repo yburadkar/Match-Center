@@ -14,7 +14,7 @@ import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 
-import com.yb.uadnd.matchcentre.ui.MainActivity
+import com.yb.uadnd.matchcentre.ui.main.MainActivity
 
 import org.junit.After
 import org.junit.Before

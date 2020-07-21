@@ -1,4 +1,4 @@
-package com.yb.uadnd.matchcentre.ui
+package com.yb.uadnd.matchcentre.ui.main
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

@@ -4,6 +4,8 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.yb.uadnd.matchcentre.AppRepository
 import com.yb.uadnd.matchcentre.MyApp
 import com.yb.uadnd.matchcentre.model.Match
@@ -100,4 +102,13 @@ class MainActivityViewModel(application: Application, matchId: Int) : AndroidVie
         super.onCleared()
         disposables.clear()
     }
+}
+
+class MainActivityViewModelFactory(private var application: Application, private var matchId: Int)
+    : ViewModelProvider.AndroidViewModelFactory(application) {
+
+    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+        return MainActivityViewModel(application, matchId) as T
+    }
+
 }

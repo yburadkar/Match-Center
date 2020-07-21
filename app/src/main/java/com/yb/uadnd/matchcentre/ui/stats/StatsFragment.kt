@@ -1,4 +1,4 @@
-package com.yb.uadnd.matchcentre.ui
+package com.yb.uadnd.matchcentre.ui.stats
 
 
 import android.os.Bundle
