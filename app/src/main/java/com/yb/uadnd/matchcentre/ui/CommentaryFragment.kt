@@ -1,30 +1,24 @@
 package com.yb.uadnd.matchcentre.ui
 
 
-import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.yb.uadnd.matchcentre.MyApp
 import com.yb.uadnd.matchcentre.R
 import com.yb.uadnd.matchcentre.SimpleIdlingResource
-import com.yb.uadnd.matchcentre.model.database.Comment
 import com.yb.uadnd.matchcentre.viewmodel.MainActivityViewModel
 import kotlinx.android.synthetic.main.fragment_commentary.*
 
 class CommentaryFragment : Fragment() {
 
     private lateinit var mViewModel: MainActivityViewModel
-    private lateinit var mAdapter: CommentaryAdpater
-    private var mCommentary: ArrayList<Comment> = ArrayList()
-    private var mContext: Context? = null
+    private lateinit var mAdapter: CommentaryAdapter
     private lateinit var mRes: SimpleIdlingResource
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,9 +30,7 @@ class CommentaryFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_commentary, container, false)
-        mContext = context
-        return view
+        return inflater.inflate(R.layout.fragment_commentary, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -48,18 +40,14 @@ class CommentaryFragment : Fragment() {
 
     private fun watchCommentaryFromDb() {
         mViewModel.getComments().observe(viewLifecycleOwner, Observer {
-            mCommentary.clear()
-            mCommentary.addAll(it)
-            mAdapter.notifyDataSetChanged()
-            it.let {
-                if(it.isNotEmpty()) mRes.setIdleState(true)
-            }
+            mAdapter.updateList(it)
+            if(it.isNotEmpty()) mRes.setIdleState(true)
         })
     }
 
     private fun initRecyclerView() {
         commRecyclerView.layoutManager = LinearLayoutManager(context)
-        mAdapter = CommentaryAdpater(mCommentary, mContext)
+        mAdapter = CommentaryAdapter()
         commRecyclerView.adapter = mAdapter
         commRecyclerView.hasFixedSize()
     }

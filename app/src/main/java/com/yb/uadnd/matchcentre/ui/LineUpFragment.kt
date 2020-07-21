@@ -11,17 +11,14 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.yb.uadnd.matchcentre.R
-import com.yb.uadnd.matchcentre.model.Match
 import com.yb.uadnd.matchcentre.viewmodel.MainActivityViewModel
 import kotlinx.android.synthetic.main.fragment_line_up.*
 
 class LineUpFragment : Fragment() {
 
-    private lateinit var mViewModel: MainActivityViewModel
-    private var mHomePlayers = ArrayList<Match.Data.Team.Player>()
-    private var mAwayPlayers = ArrayList<Match.Data.Team.Player>()
-    private val mHomeAdapter = LineUpAdapter(mHomePlayers)
-    private val mAwayAdapter = LineUpAdapter(mAwayPlayers)
+    private lateinit var viewModel: MainActivityViewModel
+    private lateinit var homeAdapter: LineUpAdapter
+    private lateinit var awayAdapter: LineUpAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -31,27 +28,24 @@ class LineUpFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initRecylerViews()
-        mViewModel = ViewModelProviders.of(activity!!).get(MainActivityViewModel::class.java)
-        val observer = Observer<Match>() {
-            val homeTeam = it.data?.homeTeam
-            home_team.text = homeTeam?.name
-            mHomePlayers.clear()
-            mHomePlayers.addAll(homeTeam?.players!!)
-            mHomeAdapter.notifyDataSetChanged()
-            val awayTeam = it.data.awayTeam
-            away_team.text = awayTeam?.name
-            mAwayPlayers.clear()
-            mAwayPlayers.addAll(awayTeam?.players!!)
-            mAwayAdapter.notifyDataSetChanged()
-        }
-        mViewModel.getMatch().observe(activity!!, observer)
+        viewModel = ViewModelProviders.of(requireActivity()).get(MainActivityViewModel::class.java)
+        viewModel.getMatch().observe(viewLifecycleOwner, Observer { match ->
+            match.data?.let {
+                homeAdapter.updateList(it.homeTeam?.players ?: emptyList())
+                home_team.text = it.homeTeam?.name
+                awayAdapter.updateList(it.awayTeam?.players ?: emptyList())
+                away_team.text = it.awayTeam?.name
+            }
+        })
     }
 
     private fun initRecylerViews() {
-        home_list.layoutManager = LinearLayoutManager(activity)
-        home_list.adapter = mHomeAdapter
-        away_list.layoutManager = LinearLayoutManager(activity)
-        away_list.adapter = mAwayAdapter
+        homeAdapter = LineUpAdapter()
+        awayAdapter = LineUpAdapter()
+        home_list.layoutManager = LinearLayoutManager(context)
+        home_list.adapter = homeAdapter
+        away_list.layoutManager = LinearLayoutManager(context)
+        away_list.adapter = awayAdapter
     }
 
 }

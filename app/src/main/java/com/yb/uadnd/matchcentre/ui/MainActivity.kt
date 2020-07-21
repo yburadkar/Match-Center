@@ -1,22 +1,21 @@
 package com.yb.uadnd.matchcentre.ui
 
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.yb.uadnd.matchcentre.MyApp
 import com.yb.uadnd.matchcentre.R
+import com.yb.uadnd.matchcentre.Utils
 import com.yb.uadnd.matchcentre.model.database.MatchInfo
 import com.yb.uadnd.matchcentre.viewmodel.MainActivityViewModel
 import com.yb.uadnd.matchcentre.viewmodel.MainActivityViewModelFactory
 import kotlinx.android.synthetic.main.activity_main.*
+import timber.log.Timber
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var mViewModel: MainActivityViewModel
     private lateinit var pagerAdapter: MatchPagerAdapter
-    private lateinit var mApp: MyApp
     private var matchId: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,7 +29,6 @@ class MainActivity : AppCompatActivity() {
         pagerAdapter = MatchPagerAdapter(supportFragmentManager)
         viewPager.adapter = pagerAdapter
         matchTabLayout.setupWithViewPager(viewPager)
-        mApp = application as MyApp
     }
 
     private fun intiViewModel() {
@@ -39,14 +37,14 @@ class MainActivity : AppCompatActivity() {
                 .get(MainActivityViewModel::class.java)
         val matchInfoObserver = Observer<MatchInfo> {
             if(it != null) {
-                Log.i("MatchInfo list size: ", it.toString())
+                Timber.i(it.toString())
                 val scoreText = "${it.homeScore} - ${it.awayScore}"
                 score.text = scoreText
                 home_team.text = it.homeTeamName
                 away_team.text = it.awayTeamName
                 competition.text = it.competition
-                home_logo.setImageDrawable(mApp.getTeamLogo(it.homeTeamId))
-                away_logo.setImageDrawable(mApp.getTeamLogo(it.awayTeamId))
+                home_logo.setImageResource(Utils.getTeamLogo(it.homeTeamId))
+                away_logo.setImageResource(Utils.getTeamLogo(it.awayTeamId))
             }
         }
         mViewModel.getMatchInfo().observe(this, matchInfoObserver)

@@ -2,19 +2,18 @@ package com.yb.uadnd.matchcentre.model.database
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
-import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import io.reactivex.Completable
 
 @Dao
 interface MatchInfoDao {
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertMatchInfo(matchInfo: MatchInfo?)
+    fun insertMatchInfo(matchInfo: MatchInfo): Completable
 
-    @Query("SELECT * FROM matchInfo WHERE matchId = :matchId")
-    fun getMatchInfo(matchId: Int): LiveData<MatchInfo?>?
+    @Query("SELECT * FROM matchInfo WHERE matchId = :id")
+    fun getMatchInfo(id: Int): LiveData<MatchInfo>
 
-    @Delete
-    fun deleteMatch(matchInfo: MatchInfo?)
 }

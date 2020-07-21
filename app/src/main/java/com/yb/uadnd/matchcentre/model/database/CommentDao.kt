@@ -4,15 +4,17 @@ import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
+import io.reactivex.Completable
 
 @Dao
 interface CommentDao {
+
     @Insert
-    fun insertComment(comment: Comment)
+    fun insertComment(comment: Comment): Completable
 
     @Query("SELECT * FROM comment WHERE matchId = :matchId")
-    fun getAllMatchComments(matchId: Int): LiveData<List<Comment?>?>?
+    fun getAllMatchComments(matchId: Int): LiveData<List<Comment>>
 
     @Query("DELETE FROM comment WHERE matchId = :matchId")
-    fun deleteAllMatchComments(matchId: Int)
+    fun deleteAllMatchComments(matchId: Int): Completable
 }

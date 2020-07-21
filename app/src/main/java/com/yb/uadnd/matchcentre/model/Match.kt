@@ -39,8 +39,8 @@ class Match {
                 private val id: Int = 0
                 private val firstName: String? = null
                 private val lastName: String? = null
-                internal var position: String? = null
-                internal val shirtNumber: Int = 0
+                val position: String? = null
+                val shirtNumber: Int = 0
                 private val status: String? = null
                 private val captain: Boolean = false
                 private val playerStats: PlayerStats? = null
@@ -134,7 +134,7 @@ class Match {
                 private val concededShotsOnTargetOutsideBox: Int = 0
                 private val cornersLost: Int = 0
                 private val cornersTaken: Int = 0
-                internal val cornersWon: Int = 0
+                val cornersWon: Int = 0
                 private val defenderBlocks: Int = 0
                 private val defenderGoals: Int = 0
                 private val directFreeKicks: Int = 0
@@ -179,18 +179,18 @@ class Match {
                 private val penaltiesWon: Int = 0
                 private val penaltyGoals: Int = 0
                 private val penaltyGoalsConceded: Int = 0
-                internal val possession: Float = 0.0F
+                val possession: Float = 0.0F
                 private val rightFootGoals: Int = 0
                 private val rightFootSaves: Int = 0
                 private val rightFootShots: Int = 0
                 private val rightMisses: Int = 0
-                internal val saves: Int = 0
+                val saves: Int = 0
                 private val shotsBlocked: Int = 0
                 private val shotsOffTarget: Int = 0
-                internal val shotsOnGoal: Int = 0
-                internal val shotsOnTarget: Int = 0
+                val shotsOnGoal: Int = 0
+                val shotsOnTarget: Int = 0
                 private val shotsOnTargetAssists: Int = 0
-                internal val substitutionsMade: Int = 0
+                val substitutionsMade: Int = 0
                 private val teamYellowCards: Int = 0
                 private val throwIns: Int = 0
                 private val topMisses: Int = 0
@@ -276,7 +276,7 @@ class Match {
                 var goalText = "${player?.firstName} ${player?.lastName} scores."
                 val type = goalDetails?.type
                 if(!type.equals("Goal"))
-                    goalText = goalText + " Type: $type"
+                    goalText = "$goalText Type: $type"
                 return goalText
             }
 

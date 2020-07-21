@@ -1,43 +1,37 @@
 package com.yb.uadnd.matchcentre.ui
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.yb.uadnd.matchcentre.R
 import com.yb.uadnd.matchcentre.model.Match.Data.Team.Player
+import kotlinx.android.synthetic.main.line_up_list_item.view.*
 
-class LineUpAdapter(var mPlayers: ArrayList<Player>): RecyclerView.Adapter<LineUpAdapter.PlayerViewHolder>() {
-
-    private lateinit var mContext: Context
+class LineUpAdapter(private val mPlayers: MutableList<Player> = mutableListOf()): RecyclerView.Adapter<LineUpAdapter.PlayerViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlayerViewHolder {
-        mContext = parent.context
-        var view = LayoutInflater.from(mContext).inflate(R.layout.line_up_list_item, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.line_up_list_item, parent, false)
         return PlayerViewHolder(view)
     }
 
-    override fun getItemCount(): Int {
-        return mPlayers.size
-    }
+    override fun getItemCount(): Int = mPlayers.size
 
-    override fun onBindViewHolder(holder: PlayerViewHolder, position: Int) {
-        val player = mPlayers.get(position)
-        holder.shirtNumber.text = player.shirtNumber.toString()
-        holder.name.text = player.getPlayerName()
-        holder.position.text = player.position
+    override fun onBindViewHolder(holder: PlayerViewHolder, position: Int) = holder.bind(mPlayers[position])
+
+    fun updateList(playerList: List<Player>) {
+        mPlayers.clear()
+        mPlayers.addAll(playerList)
+        notifyDataSetChanged()
     }
 
     class PlayerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var shirtNumber: TextView
-        var name: TextView
-        var position: TextView
-        init {
-            shirtNumber = itemView.findViewById(R.id.shirt_number)
-            name = itemView.findViewById(R.id.name)
-            position = itemView.findViewById(R.id.position)
+        fun bind(player: Player) {
+            with(itemView) {
+                shirt_number.text = player.shirtNumber.toString()
+                name.text = player.getPlayerName()
+                position.text = player.position
+            }
         }
     }
 }
