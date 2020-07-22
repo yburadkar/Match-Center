@@ -5,7 +5,7 @@ import com.yb.uadnd.matchcentre.model.Commentary
 import com.yb.uadnd.matchcentre.model.Match
 import com.yb.uadnd.matchcentre.model.MatchService
 import com.yb.uadnd.matchcentre.model.database.Comment
-import com.yb.uadnd.matchcentre.model.database.MovieDatabase
+import com.yb.uadnd.matchcentre.model.database.MatchCentreDatabase
 import com.yb.uadnd.matchcentre.model.database.MatchInfo
 import io.reactivex.Completable
 import io.reactivex.Single
@@ -13,7 +13,7 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
-class AppRepository(private val db: MovieDatabase,
+class AppRepository(private val db: MatchCentreDatabase,
                     private val idlingResource: SimpleIdlingResource) {
 
     private val BASE_URL = "https://feeds.incrowdsports.com/provider/opta/football/v1/matches/"
@@ -52,7 +52,7 @@ class AppRepository(private val db: MovieDatabase,
     companion object {
         private var instance: AppRepository? = null
 
-        fun getInstance(roomDatabase: MovieDatabase, res: SimpleIdlingResource): AppRepository {
+        fun getInstance(roomDatabase: MatchCentreDatabase, res: SimpleIdlingResource): AppRepository {
             if(instance == null) {
                 instance = AppRepository(roomDatabase, res)
             }

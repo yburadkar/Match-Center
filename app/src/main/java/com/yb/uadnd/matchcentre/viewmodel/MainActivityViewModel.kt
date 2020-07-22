@@ -10,7 +10,7 @@ import com.yb.uadnd.matchcentre.AppRepository
 import com.yb.uadnd.matchcentre.MyApp
 import com.yb.uadnd.matchcentre.model.Match
 import com.yb.uadnd.matchcentre.model.database.Comment
-import com.yb.uadnd.matchcentre.model.database.MovieDatabase
+import com.yb.uadnd.matchcentre.model.database.MatchCentreDatabase
 import com.yb.uadnd.matchcentre.model.database.MatchInfo
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -21,7 +21,7 @@ import timber.log.Timber
 
 class MainActivityViewModel(application: Application, matchId: Int) : AndroidViewModel(application) {
     private var matchRepo: AppRepository
-    private var movieDb: MovieDatabase
+    private var movieDb: MatchCentreDatabase
     private var match: LiveData<Match>
     private var comments: LiveData<List<Comment>>
     private var matchInfo: LiveData<MatchInfo>
@@ -30,8 +30,8 @@ class MainActivityViewModel(application: Application, matchId: Int) : AndroidVie
     private var mApp: MyApp = application as MyApp
 
     init {
-        matchRepo = mApp.getRepository()
-        movieDb = mApp.getDatabase()
+        matchRepo = mApp.getMatchRepository()
+        movieDb = mApp.getMatchDb()
         val matchIdText = matchId.toString()
         match = fetchMatch(matchIdText)
 

@@ -1,33 +1,37 @@
 package com.yb.uadnd.matchcentre
 
 import android.app.Application
-import com.yb.uadnd.matchcentre.model.database.MovieDatabase
+import com.yb.uadnd.matchcentre.model.database.MatchCentreDatabase
 import timber.log.Timber
 
 class MyApp: Application() {
 
-    private lateinit var matchRepo: AppRepository
-    private lateinit var db: MovieDatabase
+    private val matchRepo: AppRepository by lazy {
+        AppRepository.getInstance(db, idlingRes)
+    }
+    private val db: MatchCentreDatabase by lazy {
+        MatchCentreDatabase.getInstance(applicationContext)
+    }
 
     override fun onCreate() {
         super.onCreate()
-        db = MovieDatabase.getInstance(applicationContext)
-        matchRepo = AppRepository.getInstance(db, idlingRes)
         initTimber()
     }
 
-    fun getRepository(): AppRepository = matchRepo
+    fun getMatchDb(): MatchCentreDatabase = db
+
+    fun getMatchRepository(): AppRepository = matchRepo
 
     private fun initTimber() {
         if(BuildConfig.DEBUG)
             Timber.plant(Timber.DebugTree())
     }
 
-    fun getDatabase(): MovieDatabase = db
-
     companion object{
-        private var idlingRes = SimpleIdlingResource()
+        private var idlingRes = SimpleIdlingResource
         fun getIdlingResource(): SimpleIdlingResource = idlingRes
     }
 
 }
+
+

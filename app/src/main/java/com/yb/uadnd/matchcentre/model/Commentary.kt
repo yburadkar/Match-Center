@@ -1,7 +1,5 @@
 package com.yb.uadnd.matchcentre.model
 
-import java.util.ArrayList
-
 class Commentary {
 
     var data: Data? = null
@@ -18,7 +16,7 @@ class Commentary {
         var awayScore: Int = 0
         var competitionId: Int = 0
         var competition: String? = null
-        var commentaryEntries: ArrayList<CommentaryEntry>? = null
+        var commentaryEntries: List<CommentaryEntry>? = null
 
         class CommentaryEntry(
             var type: String? = null,

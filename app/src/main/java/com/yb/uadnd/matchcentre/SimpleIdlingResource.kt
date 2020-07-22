@@ -4,7 +4,7 @@ import androidx.test.espresso.IdlingResource
 
 import java.util.concurrent.atomic.AtomicBoolean
 
-class SimpleIdlingResource : IdlingResource {
+object SimpleIdlingResource : IdlingResource {
     private val isIdle = AtomicBoolean(true)
     private var resourceCallback: IdlingResource.ResourceCallback? = null
 
