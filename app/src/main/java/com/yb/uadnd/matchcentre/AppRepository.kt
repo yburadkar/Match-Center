@@ -9,24 +9,12 @@ import com.yb.uadnd.matchcentre.model.database.MatchCentreDatabase
 import com.yb.uadnd.matchcentre.model.database.MatchInfo
 import io.reactivex.Completable
 import io.reactivex.Single
-import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
-import retrofit2.converter.gson.GsonConverterFactory
 
-class AppRepository(private val db: MatchCentreDatabase,
-                    private val idlingResource: SimpleIdlingResource) {
-
-    private val BASE_URL = "https://feeds.incrowdsports.com/provider/opta/football/v1/matches/"
-    private var matchService: MatchService
-
-    init {
-        val retrofit =  Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
-        matchService = retrofit.create(MatchService::class.java)
-    }
+class AppRepository(
+    private var matchService: MatchService,
+    private val db: MatchCentreDatabase,
+    private val idlingResource: SimpleIdlingResource
+) {
 
     fun fetchMatchCommentaryAndCacheInDb(matchId: String): Single<Commentary> {
         idlingResource.setIdleState(false)
@@ -52,9 +40,9 @@ class AppRepository(private val db: MatchCentreDatabase,
     companion object {
         private var instance: AppRepository? = null
 
-        fun getInstance(roomDatabase: MatchCentreDatabase, res: SimpleIdlingResource): AppRepository {
+        fun getInstance(service: MatchService, roomDatabase: MatchCentreDatabase, res: SimpleIdlingResource): AppRepository {
             if(instance == null) {
-                instance = AppRepository(roomDatabase, res)
+                instance = AppRepository(service, roomDatabase, res)
             }
             return instance as AppRepository
         }

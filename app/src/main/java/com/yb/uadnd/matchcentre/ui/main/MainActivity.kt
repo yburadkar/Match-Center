@@ -4,13 +4,12 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.yb.uadnd.matchcentre.MyApp
 import com.yb.uadnd.matchcentre.R
 import com.yb.uadnd.matchcentre.Utils
-import com.yb.uadnd.matchcentre.model.database.MatchInfo
 import com.yb.uadnd.matchcentre.viewmodel.MainActivityViewModel
 import com.yb.uadnd.matchcentre.viewmodel.MainActivityViewModelFactory
 import kotlinx.android.synthetic.main.activity_main.*
-import timber.log.Timber
 
 class MainActivity : AppCompatActivity() {
 
@@ -22,7 +21,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        //matchId hardcoded for this exercise, normally would be received in an intent
+        //matchId hardcoded for this sample app
         matchId = 987597
 
         intiViewModel()
@@ -32,22 +31,21 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun intiViewModel() {
-        viewModel = ViewModelProviders.of(this,
-                MainActivityViewModelFactory(application, matchId))
-                .get(MainActivityViewModel::class.java)
-        val matchInfoObserver = Observer<MatchInfo> {
-            if(it != null) {
-                Timber.i(it.toString())
-                val scoreText = "${it.homeScore} - ${it.awayScore}"
+        val app = (application as MyApp)
+        val factory = MainActivityViewModelFactory(app.matchRepo, app.db)
+        viewModel = ViewModelProviders.of(this, factory).get(MainActivityViewModel::class.java)
+        viewModel.setMatch(matchId)
+        viewModel.getMatchInfo().observe(this, Observer {
+            it?.run {
+                val scoreText = "$homeScore - $awayScore"
                 score.text = scoreText
-                home_team.text = it.homeTeamName
-                away_team.text = it.awayTeamName
-                competition.text = it.competition
-                home_logo.setImageResource(Utils.getTeamLogo(it.homeTeamId))
-                away_logo.setImageResource(Utils.getTeamLogo(it.awayTeamId))
+                home_team.text = homeTeamName
+                away_team.text = awayTeamName
+                this@MainActivity.competition.text = this.competition
+                home_logo.setImageResource(Utils.getTeamLogo(homeTeamId))
+                away_logo.setImageResource(Utils.getTeamLogo(awayTeamId))
             }
-        }
-        viewModel.getMatchInfo().observe(this, matchInfoObserver)
+        })
     }
 
 }

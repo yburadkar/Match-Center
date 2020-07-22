@@ -1,13 +1,10 @@
 package com.yb.uadnd.matchcentre.viewmodel
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.yb.uadnd.matchcentre.AppRepository
-import com.yb.uadnd.matchcentre.MyApp
 import com.yb.uadnd.matchcentre.model.Match
 import com.yb.uadnd.matchcentre.model.database.Comment
 import com.yb.uadnd.matchcentre.model.database.MatchCentreDatabase
@@ -19,52 +16,53 @@ import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
 
-class MainActivityViewModel(application: Application, matchId: Int) : AndroidViewModel(application) {
-    private var matchRepo: AppRepository
-    private var movieDb: MatchCentreDatabase
-    private var match: LiveData<Match>
-    private var comments: LiveData<List<Comment>>
-    private var matchInfo: LiveData<MatchInfo>
+class MainActivityViewModel(
+    private val matchRepo: AppRepository,
+    private val movieDb: MatchCentreDatabase
+) : ViewModel() {
+
+    private var _match = MutableLiveData<Match>()
+    private var match: LiveData<Match> = _match
+    private var _comments = MutableLiveData<List<Comment>>()
+    private var comments: LiveData<List<Comment>> = _comments
+    private var _matchInfo = MutableLiveData<MatchInfo>()
+    private var matchInfo: LiveData<MatchInfo> = _matchInfo
     private var disposables = CompositeDisposable()
 
-    private var mApp: MyApp = application as MyApp
-
-    init {
-        matchRepo = mApp.getMatchRepository()
-        movieDb = mApp.getMatchDb()
+    fun setMatch(matchId: Int) {
         val matchIdText = matchId.toString()
         match = fetchMatch(matchIdText)
 
         //Fetch match commentary and store in local Db, to demonstrate basic caching
         matchRepo.deleteOldMatchComments(matchIdText)
-                .subscribeOn(Schedulers.io())
-                .subscribe()
-                .addTo(disposables)
+            .subscribeOn(Schedulers.io())
+            .subscribe()
+            .addTo(disposables)
 
         matchRepo.fetchMatchCommentaryAndCacheInDb(matchIdText)
-                .subscribeOn(Schedulers.io())
-                .subscribeBy(
-                    onError = {
-                        Timber.i("Failed to get match commentary")
-                    },
-                    onSuccess = { commentary ->
-                        commentary?.data?.let{
-                            val info = MatchInfo(it.id, matchId,
-                                it.homeTeamName, it.homeTeamId, it.homeScore,
-                                it.awayTeamName, it.awayTeamId, it.awayScore,
-                                it.competitionId, it.competition)
-                            movieDb.matchInfoDao.insertMatchInfo(info)
-                                .subscribe()
-                            it.commentaryEntries?.let{ entries ->
-                                entries.forEach { entry ->
-                                    movieDb.commentDao.insertComment(Comment(matchId, entry))
-                                        .subscribe()
-                                }
+            .subscribeOn(Schedulers.io())
+            .subscribeBy(
+                onError = {
+                    Timber.i("Failed to get match commentary")
+                },
+                onSuccess = { commentary ->
+                    commentary?.data?.let{
+                        val info = MatchInfo(it.id, matchId,
+                            it.homeTeamName, it.homeTeamId, it.homeScore,
+                            it.awayTeamName, it.awayTeamId, it.awayScore,
+                            it.competitionId, it.competition)
+                        movieDb.matchInfoDao.insertMatchInfo(info)
+                            .subscribe()
+                        it.commentaryEntries?.let{ entries ->
+                            entries.forEach { entry ->
+                                movieDb.commentDao.insertComment(Comment(matchId, entry))
+                                    .subscribe()
                             }
                         }
                     }
-                )
-                .addTo(disposables)
+                }
+            )
+            .addTo(disposables)
 
         comments = matchRepo.getMatchComments(matchIdText)
         matchInfo = matchRepo.getMatchInfo(matchIdText)
@@ -104,11 +102,13 @@ class MainActivityViewModel(application: Application, matchId: Int) : AndroidVie
     }
 }
 
-class MainActivityViewModelFactory(private var application: Application, private var matchId: Int)
-    : ViewModelProvider.AndroidViewModelFactory(application) {
+class MainActivityViewModelFactory(
+    private val matchRepo: AppRepository,
+    private val matchDb: MatchCentreDatabase
+) : ViewModelProvider.NewInstanceFactory() {
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return MainActivityViewModel(application, matchId) as T
+        return MainActivityViewModel(matchRepo, matchDb) as T
     }
 
 }
