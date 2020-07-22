@@ -18,23 +18,29 @@ import timber.log.Timber
 
 class MainActivityViewModel(
     private val matchRepo: AppRepository,
-    private val movieDb: MatchCentreDatabase
+    private val matchDb: MatchCentreDatabase
 ) : ViewModel() {
 
-    private var _match = MutableLiveData<Match>()
-    private var match: LiveData<Match> = _match
-    private var _comments = MutableLiveData<List<Comment>>()
-    private var comments: LiveData<List<Comment>> = _comments
-    private var _matchInfo = MutableLiveData<MatchInfo>()
-    private var matchInfo: LiveData<MatchInfo> = _matchInfo
+    private lateinit var match: LiveData<Match>
+    private lateinit var comments: LiveData<List<Comment>>
+    private lateinit var matchInfo: LiveData<MatchInfo>
     private var disposables = CompositeDisposable()
+    private val matches: List<Int> = listOf(987597, 987598, 987599)  //using hardcoded match Ids for sample app
+    private var matchIndex = -1
+    private var matchId = 0
 
-    fun setMatch(matchId: Int) {
-        val matchIdText = matchId.toString()
+    fun loadMatch(newMatchId: Int) {
+        val matchIdText = newMatchId.toString()
         match = fetchMatch(matchIdText)
+        reloadMatchCommentary(newMatchId)
+        comments = matchRepo.getMatchComments(matchIdText)
+        matchInfo = matchRepo.getMatchInfo(matchIdText)
+    }
 
+    private fun reloadMatchCommentary(newMatchId: Int) {
+        val matchIdText = newMatchId.toString()
         //Fetch match commentary and store in local Db, to demonstrate basic caching
-        matchRepo.deleteOldMatchComments(matchIdText)
+        matchRepo.deleteOldMatchComments(matchId.toString())
             .subscribeOn(Schedulers.io())
             .subscribe()
             .addTo(disposables)
@@ -47,15 +53,15 @@ class MainActivityViewModel(
                 },
                 onSuccess = { commentary ->
                     commentary?.data?.let{
-                        val info = MatchInfo(it.id, matchId,
+                        val info = MatchInfo(it.id, newMatchId,
                             it.homeTeamName, it.homeTeamId, it.homeScore,
                             it.awayTeamName, it.awayTeamId, it.awayScore,
                             it.competitionId, it.competition)
-                        movieDb.matchInfoDao.insertMatchInfo(info)
+                        matchDb.matchInfoDao.insertMatchInfo(info)
                             .subscribe()
                         it.commentaryEntries?.let{ entries ->
                             entries.forEach { entry ->
-                                movieDb.commentDao.insertComment(Comment(matchId, entry))
+                                matchDb.commentDao.insertComment(Comment(newMatchId, entry))
                                     .subscribe()
                             }
                         }
@@ -63,9 +69,6 @@ class MainActivityViewModel(
                 }
             )
             .addTo(disposables)
-
-        comments = matchRepo.getMatchComments(matchIdText)
-        matchInfo = matchRepo.getMatchInfo(matchIdText)
     }
 
     private fun fetchMatch(matchId: String): LiveData<Match> {
@@ -84,16 +87,16 @@ class MainActivityViewModel(
         return match
     }
 
-    fun getComments(): LiveData<List<Comment>>{
-        return comments
-    }
+    fun getComments(): LiveData<List<Comment>> = comments
 
-    fun getMatch(): LiveData<Match> {
-        return match
-    }
+    fun getMatch(): LiveData<Match> = match
 
-    fun getMatchInfo(): LiveData<MatchInfo>{
-        return matchInfo
+    fun getMatchInfo(): LiveData<MatchInfo> = matchInfo
+
+    fun getNextMatchId(): Int {
+        matchIndex++
+        if(matchIndex == matches.size) matchIndex = 0
+        return  matches[matchIndex]
     }
 
     override fun onCleared() {

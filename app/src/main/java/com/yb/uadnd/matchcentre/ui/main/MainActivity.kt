@@ -15,16 +15,23 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var viewModel: MainActivityViewModel
     private lateinit var pagerAdapter: MatchPagerAdapter
-    private var matchId: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        //matchId hardcoded for this sample app
-        matchId = 987597
-
         intiViewModel()
+        initViewPager()
+        observeViewModel()
+        competition.setOnClickListener {
+            viewModel.getMatchInfo().removeObservers(this)
+            viewModel.loadMatch(viewModel.getNextMatchId())
+            initViewPager()
+            observeViewModel()
+        }
+    }
+
+    private fun initViewPager() {
         pagerAdapter = MatchPagerAdapter(supportFragmentManager)
         viewPager.adapter = pagerAdapter
         matchTabLayout.setupWithViewPager(viewPager)
@@ -34,7 +41,10 @@ class MainActivity : AppCompatActivity() {
         val app = (application as MyApp)
         val factory = MainActivityViewModelFactory(app.matchRepo, app.db)
         viewModel = ViewModelProviders.of(this, factory).get(MainActivityViewModel::class.java)
-        viewModel.setMatch(matchId)
+        viewModel.loadMatch(viewModel.getNextMatchId())
+    }
+
+    private fun observeViewModel() {
         viewModel.getMatchInfo().observe(this, Observer {
             it?.run {
                 val scoreText = "$homeScore - $awayScore"
