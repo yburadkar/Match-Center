@@ -4,9 +4,9 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.squareup.picasso.Picasso
 import com.yb.uadnd.matchcentre.MyApp
 import com.yb.uadnd.matchcentre.R
-import com.yb.uadnd.matchcentre.Utils
 import com.yb.uadnd.matchcentre.viewmodel.MainActivityViewModel
 import com.yb.uadnd.matchcentre.viewmodel.MainActivityViewModelFactory
 import kotlinx.android.synthetic.main.activity_main.*
@@ -42,8 +42,8 @@ class MainActivity : AppCompatActivity() {
                 home_team.text = homeTeamName
                 away_team.text = awayTeamName
                 this@MainActivity.competition.text = this.competition
-                home_logo.setImageResource(Utils.getTeamLogo(homeTeamId))
-                away_logo.setImageResource(Utils.getTeamLogo(awayTeamId))
+                Picasso.get().load(homeTeamImageUrl).into(home_logo)
+                Picasso.get().load(awayTeamImageUrl).into(away_logo)
             }
         })
     }
