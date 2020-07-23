@@ -35,7 +35,7 @@
         app:layout_constraintRight_toLeftOf="@id/score"
         android:layout_marginEnd="60dp"
         android:scaleType="fitXY"
-        tools:src="@drawable/manunited"
+        tools:background="@color/green"
         android:contentDescription="@string/home_logo_content_desc"/>
 
     <TextView
@@ -70,8 +70,8 @@
         app:layout_constraintBottom_toBottomOf="@id/score_view"
         app:layout_constraintLeft_toRightOf="@id/score"
         android:layout_marginStart="60dp"
-        tools:src="@drawable/leicestercity"
         android:scaleType="fitXY"
+        tools:background="@color/green"
         android:contentDescription="@string/away_logo_content_desc"/>
 
     <TextView

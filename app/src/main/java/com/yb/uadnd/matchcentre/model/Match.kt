@@ -16,11 +16,12 @@ class Match {
             val name: String? = null
             val players: ArrayList<Player>? = null
             val teamStats: TeamStats? = null
+            val imageUrl: String? = null
 
             class Player {
                 val id: Int = 0
-                val firstName: String? = null
-                val lastName: String? = null
+                private val firstName: String? = null
+                private val lastName: String? = null
                 val position: String? = null
                 val shirtNumber: Int = 0
 
@@ -65,9 +66,10 @@ class Match {
             val time: String? = null
             val teamId: String? = null
             val type: String? = null
-            val goalDetails: Goal? = null
-            val bookingDetails: Booking? = null
-            val substitutionDetails: Substitution? = null
+            private val goalDetails: Goal? = null
+            private val bookingDetails: Booking? = null
+            private val substitutionDetails: Substitution? = null
+            var teamImageUrl: String? = null
 
             fun getEventText(): String {
                 return when(type) {
@@ -81,6 +83,10 @@ class Match {
                     "Red Card" -> getRedCardText()
                     else -> "Unknown Even"
                 }
+            }
+
+            fun updateImageUrl(url: String?) {
+                teamImageUrl = url
             }
 
             private fun getRedCardText(): String {

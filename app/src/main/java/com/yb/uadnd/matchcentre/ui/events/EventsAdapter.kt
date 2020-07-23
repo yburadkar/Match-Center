@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Picasso
 import com.yb.uadnd.matchcentre.R
 import com.yb.uadnd.matchcentre.Utils
 import com.yb.uadnd.matchcentre.model.Match.Data.Event
@@ -30,7 +31,7 @@ class EventsAdapter(private val events: MutableList<Event> = mutableListOf()) : 
         fun bind(event: Event) {
             with(itemView) {
                 time.text = event.time
-                team_logo.setImageResource(Utils.getTeamLogo(event.teamId?.substring(1)))
+                Picasso.get().load(event.teamImageUrl).into(team_logo)
                 val typeStyle = Utils.getEventTypeStyle(event.type)
                 type.text = typeStyle.text
                 type.setBackgroundResource(typeStyle.colorRes)

@@ -17,6 +17,8 @@ class Commentary {
         var competitionId: Int = 0
         var competition: String? = null
         var commentaryEntries: List<CommentaryEntry>? = null
+        var homeTeamImageUrl: String? = null
+        var awayTeamImageUrl: String? = null
 
         class CommentaryEntry(
             var type: String? = null,

@@ -3,13 +3,6 @@ package com.yb.uadnd.matchcentre
 import timber.log.Timber
 
 object Utils {
-    fun getTeamLogo(teamId: String?): Int {
-        return when(teamId) {
-            "1" -> R.drawable.manunited
-            "13" -> R.drawable.leicestercity
-            else -> 0
-        }
-    }
 
     fun getEventTypeStyle(type: String?): TypeStyle {
         return when(type) {

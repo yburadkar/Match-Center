@@ -53,10 +53,7 @@ class MainActivityViewModel(
                 },
                 onSuccess = { commentary ->
                     commentary?.data?.let{
-                        val info = MatchInfo(it.id, newMatchId,
-                            it.homeTeamName, it.homeTeamId, it.homeScore,
-                            it.awayTeamName, it.awayTeamId, it.awayScore,
-                            it.competitionId, it.competition)
+                        val info = MatchInfo.from(data = it)
                         matchDb.matchInfoDao.insertMatchInfo(info)
                             .subscribe()
                         it.commentaryEntries?.let{ entries ->
@@ -81,13 +78,34 @@ class MainActivityViewModel(
                             Timber.i("Failed to fetch match")
                         },
                         onSuccess = {
-                            match.value = it
+                            match.value = mapMatch(it)
                         }
                 ).addTo(disposables)
         return match
     }
 
-    fun getComments(): LiveData<List<Comment>> = comments
+    private fun mapMatch(match: Match): Match {
+        match.data?.also { data ->
+            data.events?.forEach {
+                it.updateImageUrl(getEventTeamUrl(data, it))
+            }
+        }
+        return match
+    }
+
+    private fun getEventTeamUrl(data: Match.Data, event: Match.Data.Event): String? {
+        val homeTeamId = data.homeTeam?.id
+        val awayTeamId = data.awayTeam?.id
+        return when(event.teamId) {
+            homeTeamId -> data.homeTeam?.imageUrl
+            awayTeamId -> data.awayTeam?.imageUrl
+            else -> null
+        }
+    }
+
+    fun getComments(): LiveData<List<Comment>>{
+        return comments
+    }
 
     fun getMatch(): LiveData<Match> = match
 
