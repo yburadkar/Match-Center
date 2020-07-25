@@ -6,17 +6,22 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 
+import com.yb.uadnd.matchcentre.MyApp
 import com.yb.uadnd.matchcentre.R
 import com.yb.uadnd.matchcentre.viewmodel.MainActivityViewModel
+import com.yb.uadnd.matchcentre.viewmodel.MainActivityViewModelFactory
 import kotlinx.android.synthetic.main.fragment_line_up.*
 
 class LineUpFragment : Fragment() {
 
-    private lateinit var viewModel: MainActivityViewModel
+    private val viewModelFactory by lazy {
+        MainActivityViewModelFactory((requireActivity().application as MyApp).matchRepo, (requireActivity().application as MyApp).db)
+    }
+    private val viewModel: MainActivityViewModel by activityViewModels { viewModelFactory }
     private lateinit var homeAdapter: LineUpAdapter
     private lateinit var awayAdapter: LineUpAdapter
 
@@ -28,7 +33,6 @@ class LineUpFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initRecylerViews()
-        viewModel = ViewModelProviders.of(requireActivity()).get(MainActivityViewModel::class.java)
         viewModel.getMatch().observe(viewLifecycleOwner, Observer { match ->
             match.data?.let {
                 homeAdapter.updateList(it.homeTeam?.players ?: emptyList())

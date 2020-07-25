@@ -103,9 +103,7 @@ class MainActivityViewModel(
         }
     }
 
-    fun getComments(): LiveData<List<Comment>>{
-        return comments
-    }
+    fun getComments(): LiveData<List<Comment>> = comments
 
     fun getMatch(): LiveData<Match> = match
 

@@ -6,27 +6,26 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 
+import com.yb.uadnd.matchcentre.MyApp
 import com.yb.uadnd.matchcentre.R
 import com.yb.uadnd.matchcentre.viewmodel.MainActivityViewModel
+import com.yb.uadnd.matchcentre.viewmodel.MainActivityViewModelFactory
 import kotlinx.android.synthetic.main.fragment_events.*
 
 class EventsFragment : Fragment() {
 
-    private lateinit var viewModel: MainActivityViewModel
-    private lateinit var eventsAdapter: EventsAdapter
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        viewModel = ViewModelProviders.of(requireActivity()).get(MainActivityViewModel::class.java)
+    private val viewModelFactory by lazy {
+        MainActivityViewModelFactory((requireActivity().application as MyApp).matchRepo, (requireActivity().application as MyApp).db)
     }
+    private val viewModel: MainActivityViewModel by activityViewModels { viewModelFactory }
+    private lateinit var eventsAdapter: EventsAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_events, container, false)
     }
 

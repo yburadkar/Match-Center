@@ -1,10 +1,11 @@
 package com.yb.uadnd.matchcentre.ui.main
 
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import com.squareup.picasso.Picasso
+
 import com.yb.uadnd.matchcentre.MyApp
 import com.yb.uadnd.matchcentre.R
 import com.yb.uadnd.matchcentre.viewmodel.MainActivityViewModel
@@ -13,7 +14,10 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var viewModel: MainActivityViewModel
+    private val viewModelFactory by lazy {
+        MainActivityViewModelFactory((application as MyApp).matchRepo, (application as MyApp).db)
+    }
+    private val viewModel: MainActivityViewModel by viewModels{ viewModelFactory }
     private lateinit var pagerAdapter: MatchPagerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,9 +42,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun intiViewModel() {
-        val app = (application as MyApp)
-        val factory = MainActivityViewModelFactory(app.matchRepo, app.db)
-        viewModel = ViewModelProviders.of(this, factory).get(MainActivityViewModel::class.java)
         viewModel.loadMatch(viewModel.getNextMatchId())
     }
 

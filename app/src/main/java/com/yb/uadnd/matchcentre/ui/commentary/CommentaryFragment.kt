@@ -6,25 +6,28 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
+
 import com.yb.uadnd.matchcentre.MyApp
 import com.yb.uadnd.matchcentre.R
 import com.yb.uadnd.matchcentre.SimpleIdlingResource
 import com.yb.uadnd.matchcentre.viewmodel.MainActivityViewModel
+import com.yb.uadnd.matchcentre.viewmodel.MainActivityViewModelFactory
 import kotlinx.android.synthetic.main.fragment_commentary.*
 
 class CommentaryFragment : Fragment() {
 
-    private lateinit var viewModel: MainActivityViewModel
+    private val viewModelFactory by lazy {
+        MainActivityViewModelFactory((requireActivity().application as MyApp).matchRepo, (requireActivity().application as MyApp).db)
+    }
+    private val viewModel: MainActivityViewModel by activityViewModels { viewModelFactory }
     private lateinit var commentaryAdapter: CommentaryAdapter
     private lateinit var idlingResource: SimpleIdlingResource
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = activity?.run { ViewModelProviders.of(this)
-                .get(MainActivityViewModel::class.java) } ?: throw Exception("Invalid Activity")
         idlingResource = MyApp.getIdlingResource()
     }
 

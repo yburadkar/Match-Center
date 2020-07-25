@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:textSize="14sp"
             tools:text="50%"
-            android:textColor="@android:color/white"
+            android:textColor="@color/white"
             android:gravity="center"
             android:background="@color/blue"/>
 
@@ -42,7 +42,7 @@
             android:layout_height="wrap_content"
             android:textSize="14sp"
             tools:text="50%"
-            android:textColor="@android:color/white"
+            android:textColor="@color/white"
             android:gravity="center"
             android:background="@color/indigo"/>
 
