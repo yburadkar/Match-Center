@@ -21,12 +21,9 @@ class MainActivityViewModel(
     private val movieDb: MatchCentreDatabase
 ) : ViewModel() {
 
-    private var _match = MutableLiveData<Match>()
-    private var match: LiveData<Match> = _match
-    private var _comments = MutableLiveData<List<Comment>>()
-    private var comments: LiveData<List<Comment>> = _comments
-    private var _matchInfo = MutableLiveData<MatchInfo>()
-    private var matchInfo: LiveData<MatchInfo> = _matchInfo
+    private lateinit var match: LiveData<Match>
+    private lateinit var comments: LiveData<List<Comment>>
+    private lateinit var matchInfo: LiveData<MatchInfo>
     private var disposables = CompositeDisposable()
 
     fun setMatch(matchId: Int) {
@@ -100,17 +97,11 @@ class MainActivityViewModel(
         }
     }
 
-    fun getComments(): LiveData<List<Comment>>{
-        return comments
-    }
+    fun getComments(): LiveData<List<Comment>> = comments
 
-    fun getMatch(): LiveData<Match> {
-        return match
-    }
+    fun getMatch(): LiveData<Match> = match
 
-    fun getMatchInfo(): LiveData<MatchInfo>{
-        return matchInfo
-    }
+    fun getMatchInfo(): LiveData<MatchInfo> = matchInfo
 
     override fun onCleared() {
         super.onCleared()
