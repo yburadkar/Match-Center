@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity() {
 
     private val viewModelFactory by lazy {
-        MainActivityViewModelFactory((application as MyApp).matchRepo, (application as MyApp).db)
+        MainActivityViewModelFactory((application as MyApp).matchRepo)
     }
     private val viewModel: MainActivityViewModel by viewModels{ viewModelFactory }
     private lateinit var pagerAdapter: MatchPagerAdapter

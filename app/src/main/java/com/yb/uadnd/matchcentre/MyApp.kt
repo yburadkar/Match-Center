@@ -3,6 +3,8 @@ package com.yb.uadnd.matchcentre
 import android.app.Application
 import com.yb.uadnd.matchcentre.model.MatchService
 import com.yb.uadnd.matchcentre.model.database.MatchCentreDatabase
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
@@ -24,7 +26,7 @@ class MyApp: Application() {
     }
 
     val matchRepo: AppRepository by lazy {
-        AppRepository.getInstance(matchService, db, idlingRes)
+        AppRepository.getInstance(matchService, db, Schedulers.io(), AndroidSchedulers.mainThread(), idlingRes)
     }
 
     override fun onCreate() {
