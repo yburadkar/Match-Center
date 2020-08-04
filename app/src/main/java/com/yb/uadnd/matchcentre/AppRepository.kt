@@ -2,14 +2,12 @@ package com.yb.uadnd.matchcentre
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.yb.uadnd.matchcentre.model.Commentary
 import com.yb.uadnd.matchcentre.model.Match
 import com.yb.uadnd.matchcentre.model.MatchService
 import com.yb.uadnd.matchcentre.model.database.Comment
 import com.yb.uadnd.matchcentre.model.database.MatchCentreDatabase
 import com.yb.uadnd.matchcentre.model.database.MatchInfo
 import io.reactivex.Scheduler
-import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
@@ -36,7 +34,8 @@ class AppRepository(
     }
 
     private fun clearCacheAndFetchComments(newMatchId: Int) {
-        fetchMatchCommentary(newMatchId)
+        idlingResource.setIdleState(false)
+        matchService.getMatchCommentary(newMatchId.toString())
             .subscribeOn(io)
             .observeOn(io)
             .subscribeBy(
@@ -61,12 +60,6 @@ class AppRepository(
     private fun resetLastRefreshTime() {
         lastRefreshTime = 0
     }
-
-    private fun fetchMatchCommentary(matchId: Int): Single<Commentary> {
-        idlingResource.setIdleState(false)
-        return matchService.getMatchCommentary(matchId.toString())
-    }
-
 
     fun fetchMatch(matchId: String): LiveData<Match> {
         val match = MutableLiveData<Match>()

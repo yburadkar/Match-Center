@@ -27,9 +27,15 @@ class MainActivity : AppCompatActivity() {
         intiViewModel()
         initViewPager()
         observeViewModel()
-        competition.setOnClickListener {
+        rightButton.setOnClickListener {
             viewModel.getMatchInfo().removeObservers(this)
             viewModel.loadMatch(viewModel.getNextMatchId())
+            initViewPager()
+            observeViewModel()
+        }
+        leftButton.setOnClickListener {
+            viewModel.getMatchInfo().removeObservers(this)
+            viewModel.loadMatch(viewModel.getPreviousMatchId())
             initViewPager()
             observeViewModel()
         }

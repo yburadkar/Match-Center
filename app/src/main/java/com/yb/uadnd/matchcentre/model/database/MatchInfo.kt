@@ -6,7 +6,6 @@ import com.yb.uadnd.matchcentre.model.Commentary
 
 @Entity(tableName = "matchInfo")
 class MatchInfo (
-    var id: String? = null,
     @PrimaryKey(autoGenerate = false)
     var matchId: Int = 0,
     var homeTeamName: String? = null,
@@ -24,7 +23,7 @@ class MatchInfo (
     companion object {
         fun from(data: Commentary.Data): MatchInfo {
             with(data) {
-                return MatchInfo(null, feedMatchId, homeTeamName, homeTeamId, homeScore, awayTeamName, awayTeamId, awayScore, competitionId, competition, homeTeamImageUrl, awayTeamImageUrl)
+                return MatchInfo( feedMatchId, homeTeamName, homeTeamId, homeScore, awayTeamName, awayTeamId, awayScore, competitionId, competition, homeTeamImageUrl, awayTeamImageUrl)
             }
         }
     }

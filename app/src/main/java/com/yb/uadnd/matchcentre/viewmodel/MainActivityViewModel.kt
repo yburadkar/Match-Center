@@ -42,7 +42,13 @@ class MainActivityViewModel(
     fun getNextMatchId(): Int {
         matchIndex++
         if(matchIndex == matches.size) matchIndex = 0
-        return  matches[matchIndex]
+        return matches[matchIndex]
+    }
+
+    fun getPreviousMatchId(): Int {
+        if(matchIndex == 0) matchIndex = matches.size - 1
+        else matchIndex--
+        return matches[matchIndex]
     }
 
     override fun onCleared() {
