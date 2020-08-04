@@ -19,18 +19,11 @@ class MainActivityViewModel(
     private var disposables = CompositeDisposable()
     private val matches: List<Int> = listOf(987597, 987598, 987599)  //using hardcoded match Ids for sample app
     private var matchIndex = -1
-    private var prevMatchId = -1
 
-    fun loadMatch(newMatchId: Int) {
-        match = fetchMatch(newMatchId.toString())
-        if(prevMatchId == -1) prevMatchId = newMatchId
+    private fun loadMatch(newMatchId: Int) {
         comments = matchRepo.getMatchCommentary(newMatchId)
         matchInfo = matchRepo.getMatchInfo(newMatchId.toString())
-        prevMatchId = newMatchId
-    }
-
-    private fun fetchMatch(matchId: String): LiveData<Match> {
-        return matchRepo.fetchMatch(matchId)
+        match = matchRepo.fetchMatch(newMatchId.toString())
     }
 
     fun getComments(): LiveData<List<Comment>> = comments
@@ -39,13 +32,17 @@ class MainActivityViewModel(
 
     fun getMatchInfo(): LiveData<MatchInfo> = matchInfo
 
-    fun getNextMatchId(): Int {
+    fun loadNextMatch() = loadMatch(getNextMatchId())
+
+    fun loadPrevMatch() = loadMatch(getPreviousMatchId())
+
+    private fun getNextMatchId(): Int {
         matchIndex++
         if(matchIndex == matches.size) matchIndex = 0
         return matches[matchIndex]
     }
 
-    fun getPreviousMatchId(): Int {
+    private fun getPreviousMatchId(): Int {
         if(matchIndex == 0) matchIndex = matches.size - 1
         else matchIndex--
         return matches[matchIndex]
@@ -61,8 +58,6 @@ class MainActivityViewModelFactory(
     private val matchRepo: AppRepository
 ) : ViewModelProvider.NewInstanceFactory() {
 
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return MainActivityViewModel(matchRepo) as T
-    }
+    override fun <T : ViewModel?> create(modelClass: Class<T>): T = MainActivityViewModel(matchRepo) as T
 
 }

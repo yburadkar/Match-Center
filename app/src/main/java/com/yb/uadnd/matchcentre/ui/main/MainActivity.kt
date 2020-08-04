@@ -18,37 +18,34 @@ class MainActivity : AppCompatActivity() {
         MainActivityViewModelFactory((application as MyApp).matchRepo)
     }
     private val viewModel: MainActivityViewModel by viewModels{ viewModelFactory }
-    private lateinit var pagerAdapter: MatchPagerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        intiViewModel()
+        viewModel.loadNextMatch()
         initViewPager()
         observeViewModel()
+
         rightButton.setOnClickListener {
             viewModel.getMatchInfo().removeObservers(this)
-            viewModel.loadMatch(viewModel.getNextMatchId())
+            viewModel.loadNextMatch()
             initViewPager()
             observeViewModel()
         }
+
         leftButton.setOnClickListener {
             viewModel.getMatchInfo().removeObservers(this)
-            viewModel.loadMatch(viewModel.getPreviousMatchId())
+            viewModel.loadPrevMatch()
             initViewPager()
             observeViewModel()
         }
     }
 
     private fun initViewPager() {
-        pagerAdapter = MatchPagerAdapter(supportFragmentManager)
+        val pagerAdapter = MatchPagerAdapter(supportFragmentManager)
         viewPager.adapter = pagerAdapter
         matchTabLayout.setupWithViewPager(viewPager)
-    }
-
-    private fun intiViewModel() {
-        viewModel.loadMatch(viewModel.getNextMatchId())
     }
 
     private fun observeViewModel() {

@@ -20,28 +20,35 @@ class AppRepository(
     private val ui: Scheduler,
     private val idlingResource: SimpleIdlingResource
 ) {
-    private val refreshIntervalSeconds = 300000  // 5 mins
-    private var lastRefreshTime: Long = 0
+    private val refreshIntervalSeconds = 3600  // 1 hour
     private val disposables = CompositeDisposable()
 
     fun getMatchCommentary(newMatchId: Int): LiveData<List<Comment>> {
-        val timeNow = System.currentTimeMillis()
-        resetLastRefreshTime()
-        if(timeNow - lastRefreshTime >= refreshIntervalSeconds) {
-            clearCacheAndFetchComments(newMatchId)
-        }
+        var lastRefresh: Long = 0
+        db.matchInfoDao.getLastRefreshTime(newMatchId)
+            .subscribeOn(io)
+            .observeOn(ui)
+            .subscribeBy(
+                onError = { Timber.e(it)},
+                onSuccess = {
+                    if (it.isNotEmpty()) lastRefresh = it.first()
+                    if(System.currentTimeMillis()/1000 - lastRefresh > refreshIntervalSeconds)
+                        refreshCommentary(newMatchId)
+                }
+            ).addTo(disposables)
+
         return db.commentDao.getAllMatchComments(newMatchId)
     }
 
-    private fun clearCacheAndFetchComments(newMatchId: Int) {
+    private fun refreshCommentary(newMatchId: Int) {
         idlingResource.setIdleState(false)
+        Timber.d("Fetching comments for match $newMatchId")
         matchService.getMatchCommentary(newMatchId.toString())
             .subscribeOn(io)
             .observeOn(io)
             .subscribeBy(
                 onSuccess = { commentary ->
                     db.commentDao.deleteAllMatchComments(newMatchId)
-                    lastRefreshTime = System.currentTimeMillis()
                     commentary?.data?.let{
                         val info = MatchInfo.from(data = it)
                         db.matchInfoDao.insertMatchInfo(info)
@@ -57,22 +64,18 @@ class AppRepository(
             ).addTo(disposables)
     }
 
-    private fun resetLastRefreshTime() {
-        lastRefreshTime = 0
-    }
-
     fun fetchMatch(matchId: String): LiveData<Match> {
         val match = MutableLiveData<Match>()
         matchService.getMatch(matchId)
             .subscribeOn(io)
             .observeOn(ui)
             .subscribeBy(Timber::e) {
-                match.value = mapMatch(it)
+                match.value = updateMatchEvents(it)
             }.addTo(disposables)
         return match
     }
 
-    private fun mapMatch(match: Match): Match {
+    private fun updateMatchEvents(match: Match): Match {
         match.data?.also { data ->
             data.events?.forEach {
                 it.updateImageUrl(getEventTeamUrl(data, it))

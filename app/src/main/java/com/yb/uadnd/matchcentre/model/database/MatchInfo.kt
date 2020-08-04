@@ -17,7 +17,8 @@ class MatchInfo (
     var competitionId: Int = 0,
     var competition: String? = null,
     var homeTeamImageUrl: String? = null,
-    var awayTeamImageUrl: String? = null
+    var awayTeamImageUrl: String? = null,
+    var lastRefreshed: Long = System.currentTimeMillis()/1000
 ) {
 
     companion object {
