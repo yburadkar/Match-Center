@@ -7,13 +7,13 @@ import androidx.lifecycle.Observer
 import com.squareup.picasso.Picasso
 
 import com.yb.uadnd.matchcentre.MyApp
-import com.yb.uadnd.matchcentre.R
+import com.yb.uadnd.matchcentre.databinding.ActivityMainBinding
 import com.yb.uadnd.matchcentre.viewmodel.MainActivityViewModel
 import com.yb.uadnd.matchcentre.viewmodel.MainActivityViewModelFactory
-import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var binding: ActivityMainBinding
     private val viewModelFactory by lazy {
         MainActivityViewModelFactory((application as MyApp).matchRepo)
     }
@@ -21,20 +21,21 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         viewModel.loadNextMatch()
         initViewPager()
         observeViewModel()
 
-        rightButton.setOnClickListener {
+        binding.rightButton.setOnClickListener {
             viewModel.getMatchInfo().removeObservers(this)
             viewModel.loadNextMatch()
             initViewPager()
             observeViewModel()
         }
 
-        leftButton.setOnClickListener {
+        binding.leftButton.setOnClickListener {
             viewModel.getMatchInfo().removeObservers(this)
             viewModel.loadPrevMatch()
             initViewPager()
@@ -44,20 +45,20 @@ class MainActivity : AppCompatActivity() {
 
     private fun initViewPager() {
         val pagerAdapter = MatchPagerAdapter(supportFragmentManager)
-        viewPager.adapter = pagerAdapter
-        matchTabLayout.setupWithViewPager(viewPager)
+        binding.viewPager.adapter = pagerAdapter
+        binding.matchTabLayout.setupWithViewPager(binding.viewPager)
     }
 
     private fun observeViewModel() {
         viewModel.getMatchInfo().observe(this, Observer {
             it?.run {
                 val scoreText = "$homeScore - $awayScore"
-                score.text = scoreText
-                home_team.text = homeTeamName
-                away_team.text = awayTeamName
-                this@MainActivity.competition.text = this.competition
-                Picasso.get().load(homeTeamImageUrl).into(home_logo)
-                Picasso.get().load(awayTeamImageUrl).into(away_logo)
+                binding.score.text = scoreText
+                binding.homeTeam.text = homeTeamName
+                binding.awayTeam.text = awayTeamName
+                binding.competition.text = this.competition
+                Picasso.get().load(homeTeamImageUrl).into(binding.homeLogo)
+                Picasso.get().load(awayTeamImageUrl).into(binding.awayLogo)
             }
         })
     }

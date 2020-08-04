@@ -1,20 +1,18 @@
 package com.yb.uadnd.matchcentre.ui.events
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
-import com.yb.uadnd.matchcentre.R
 import com.yb.uadnd.matchcentre.Utils
+import com.yb.uadnd.matchcentre.databinding.EventListItemBinding
 import com.yb.uadnd.matchcentre.model.Match.Data.Event
-import kotlinx.android.synthetic.main.event_list_item.view.*
 
 class EventsAdapter(private val events: MutableList<Event> = mutableListOf()) : RecyclerView.Adapter<EventsAdapter.EventViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.event_list_item, parent, false)
-        return EventViewHolder(view)
+        val binding = EventListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return EventViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: EventViewHolder, position: Int) = holder.bind(events[position])
@@ -27,15 +25,15 @@ class EventsAdapter(private val events: MutableList<Event> = mutableListOf()) : 
         notifyDataSetChanged()
     }
 
-    class EventViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class EventViewHolder(private val binding: EventListItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(event: Event) {
-            with(itemView) {
+            with(binding) {
                 time.text = event.time
-                Picasso.get().load(event.teamImageUrl).into(team_logo)
+                Picasso.get().load(event.teamImageUrl).into(teamLogo)
                 val typeStyle = Utils.getEventTypeStyle(event.type)
                 type.text = typeStyle.text
                 type.setBackgroundResource(typeStyle.colorRes)
-                event_notes.text = event.getEventText()
+                eventNotes.text = event.getEventText()
             }
         }
     }

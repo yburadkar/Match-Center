@@ -1,21 +1,19 @@
 package com.yb.uadnd.matchcentre.ui.commentary
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.yb.uadnd.matchcentre.R
 import com.yb.uadnd.matchcentre.Utils
+import com.yb.uadnd.matchcentre.databinding.CommentaryListItemBinding
 import com.yb.uadnd.matchcentre.model.database.Comment
-import kotlinx.android.synthetic.main.commentary_list_item.view.*
 
 class CommentaryAdapter(private val commentary: MutableList<Comment> = mutableListOf()):
         RecyclerView.Adapter<CommentaryAdapter.CommentaryViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CommentaryViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        val view = layoutInflater.inflate(R.layout.commentary_list_item, parent, false)
-        return CommentaryViewHolder(view)
+        val binding = CommentaryListItemBinding.inflate(layoutInflater, parent, false)
+        return CommentaryViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: CommentaryViewHolder, position: Int) = holder.bind(commentary[position])
@@ -28,9 +26,9 @@ class CommentaryAdapter(private val commentary: MutableList<Comment> = mutableLi
         notifyDataSetChanged()
     }
 
-    class CommentaryViewHolder( itemView: View) : RecyclerView.ViewHolder(itemView){
+    class CommentaryViewHolder( private val binding: CommentaryListItemBinding) : RecyclerView.ViewHolder(binding.root){
         fun bind(entry: Comment) {
-            with(itemView) {
+            with(binding) {
                 time.text = entry.time
                 var commentType: String? = entry.type
                 if(entry.type == "start") commentType = (entry.type + entry.period)

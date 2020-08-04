@@ -10,14 +10,15 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.yb.uadnd.matchcentre.MyApp
-import com.yb.uadnd.matchcentre.R
 import com.yb.uadnd.matchcentre.SimpleIdlingResource
+import com.yb.uadnd.matchcentre.databinding.FragmentCommentaryBinding
 import com.yb.uadnd.matchcentre.viewmodel.MainActivityViewModel
 import com.yb.uadnd.matchcentre.viewmodel.MainActivityViewModelFactory
-import kotlinx.android.synthetic.main.fragment_commentary.*
 
 class CommentaryFragment : Fragment() {
 
+    private var _binding: FragmentCommentaryBinding? = null
+    private val binding get() = _binding!!
     private val viewModelFactory by lazy {
         MainActivityViewModelFactory((requireActivity().application as MyApp).matchRepo)
     }
@@ -32,15 +33,16 @@ class CommentaryFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_commentary, container, false)
+        _binding = FragmentCommentaryBinding.inflate(layoutInflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         initRecyclerView()
-        watchCommentaryFromDb()
+        observeViewModel()
     }
 
-    private fun watchCommentaryFromDb() {
+    private fun observeViewModel() {
         viewModel.getComments().observe(viewLifecycleOwner, Observer {
             commentaryAdapter.updateList(it)
             if(it.isNotEmpty()) idlingResource.setIdleState(true)
@@ -48,9 +50,16 @@ class CommentaryFragment : Fragment() {
     }
 
     private fun initRecyclerView() {
-        commRecyclerView.layoutManager = LinearLayoutManager(context)
         commentaryAdapter = CommentaryAdapter()
-        commRecyclerView.adapter = commentaryAdapter
-        commRecyclerView.hasFixedSize()
+        with(binding.commRecyclerView) {
+            layoutManager = LinearLayoutManager(context)
+            adapter = commentaryAdapter
+            setHasFixedSize(true)
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

@@ -1,18 +1,16 @@
 package com.yb.uadnd.matchcentre.ui.lineups
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.yb.uadnd.matchcentre.R
+import com.yb.uadnd.matchcentre.databinding.LineUpListItemBinding
 import com.yb.uadnd.matchcentre.model.Match.Data.Team.Player
-import kotlinx.android.synthetic.main.line_up_list_item.view.*
 
 class LineUpAdapter(private val players: MutableList<Player> = mutableListOf()): RecyclerView.Adapter<LineUpAdapter.PlayerViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlayerViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.line_up_list_item, parent, false)
-        return PlayerViewHolder(view)
+        val binding = LineUpListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return PlayerViewHolder(binding)
     }
 
     override fun getItemCount(): Int = players.size
@@ -25,10 +23,10 @@ class LineUpAdapter(private val players: MutableList<Player> = mutableListOf()):
         notifyDataSetChanged()
     }
 
-    class PlayerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class PlayerViewHolder(private val binding: LineUpListItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(player: Player) {
-            with(itemView) {
-                shirt_number.text = player.shirtNumber.toString()
+            with(binding) {
+                shirtNumber.text = player.shirtNumber.toString()
                 name.text = player.getPlayerName()
                 position.text = player.position
             }
