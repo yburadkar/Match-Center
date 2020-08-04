@@ -23,11 +23,12 @@ class AppRepository(
     private val idlingResource: SimpleIdlingResource
 ) {
     private val refreshIntervalSeconds = 300000  // 5 mins
-    private var lastRefreshTime = System.currentTimeMillis() - refreshIntervalSeconds
+    private var lastRefreshTime: Long = 0
     private val disposables = CompositeDisposable()
 
     fun getMatchCommentary(newMatchId: Int): LiveData<List<Comment>> {
         val timeNow = System.currentTimeMillis()
+        resetLastRefreshTime()
         if(timeNow - lastRefreshTime >= refreshIntervalSeconds) {
             clearCacheAndFetchComments(newMatchId)
         }
@@ -35,15 +36,12 @@ class AppRepository(
     }
 
     private fun clearCacheAndFetchComments(newMatchId: Int) {
-        val matchIdText = newMatchId.toString()
-
-        deleteOldMatchComments(newMatchId.toString())
-            .toObservable()
-            .switchMapSingle { fetchMatchCommentary(matchIdText) }
+        fetchMatchCommentary(newMatchId)
             .subscribeOn(io)
             .observeOn(io)
             .subscribeBy(
-                onNext = { commentary ->
+                onSuccess = { commentary ->
+                    db.commentDao.deleteAllMatchComments(newMatchId)
                     lastRefreshTime = System.currentTimeMillis()
                     commentary?.data?.let{
                         val info = MatchInfo.from(data = it)
@@ -52,7 +50,6 @@ class AppRepository(
                         it.commentaryEntries?.let{ entries ->
                             entries.forEach { entry ->
                                 db.commentDao.insertComment(Comment(newMatchId, entry))
-                                    .subscribe()
                             }
                         }
                     }
@@ -61,9 +58,13 @@ class AppRepository(
             ).addTo(disposables)
     }
 
-    private fun fetchMatchCommentary(matchId: String): Single<Commentary> {
+    private fun resetLastRefreshTime() {
+        lastRefreshTime = 0
+    }
+
+    private fun fetchMatchCommentary(matchId: Int): Single<Commentary> {
         idlingResource.setIdleState(false)
-        return matchService.getMatchCommentary(matchId)
+        return matchService.getMatchCommentary(matchId.toString())
     }
 
 
@@ -95,10 +96,6 @@ class AppRepository(
             awayTeamId -> data.awayTeam?.imageUrl
             else -> null
         }
-    }
-
-    private fun deleteOldMatchComments(matchId: String): Single<Unit> {
-        return db.commentDao.deleteAllMatchComments(matchId.toInt())
     }
 
     fun getMatchInfo(matchId: String): LiveData<MatchInfo>{

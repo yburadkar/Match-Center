@@ -1,6 +1,5 @@
 package com.yb.uadnd.matchcentre.ui.events
 
-
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -19,7 +18,7 @@ import kotlinx.android.synthetic.main.fragment_events.*
 class EventsFragment : Fragment() {
 
     private val viewModelFactory by lazy {
-        MainActivityViewModelFactory((requireActivity().application as MyApp).matchRepo, (requireActivity().application as MyApp).db)
+        MainActivityViewModelFactory((requireActivity().application as MyApp).matchRepo)
     }
     private val viewModel: MainActivityViewModel by activityViewModels { viewModelFactory }
     private lateinit var eventsAdapter: EventsAdapter

@@ -31,6 +31,7 @@ object Utils {
             "end delay" -> TypeStyle("RESUME", R.color.grey)
             "start delay" -> TypeStyle("PAUSED", R.color.grey)
             "miss" -> TypeStyle("MISS", R.color.lime)
+            "post" -> TypeStyle("POST", R.color.lime)
             "corner" -> TypeStyle("CORNER", R.color.orange)
             "goal" -> TypeStyle("GOAL", R.color.green)
             "attempt blocked" -> TypeStyle("BLOCK", R.color.blue)
@@ -42,6 +43,7 @@ object Utils {
             "yellow card" -> TypeStyle("YELLOW", R.color.yellow)
             "red card" -> TypeStyle("RED", R.color.red)
             "lineup" -> TypeStyle("LINEUP", R.color.dark_green)
+            "player retired" -> TypeStyle("RET", R.color.red)
             else -> {
                 Timber.i( "Unknown type: $type")
                 TypeStyle("", R.color.red)

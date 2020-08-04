@@ -7,7 +7,7 @@ class Commentary {
     class Data {
 
         var id: String? = null
-        var matchId: Int = 0
+        var feedMatchId: Int = 0
         var homeTeamName: String? = null
         var homeTeamId: String? = null
         var homeScore: Int = 0

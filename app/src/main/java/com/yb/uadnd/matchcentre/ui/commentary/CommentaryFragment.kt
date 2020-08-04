@@ -1,6 +1,5 @@
 package com.yb.uadnd.matchcentre.ui.commentary
 
-
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -20,7 +19,7 @@ import kotlinx.android.synthetic.main.fragment_commentary.*
 class CommentaryFragment : Fragment() {
 
     private val viewModelFactory by lazy {
-        MainActivityViewModelFactory((requireActivity().application as MyApp).matchRepo, (requireActivity().application as MyApp).db)
+        MainActivityViewModelFactory((requireActivity().application as MyApp).matchRepo)
     }
     private val viewModel: MainActivityViewModel by activityViewModels { viewModelFactory }
     private lateinit var commentaryAdapter: CommentaryAdapter

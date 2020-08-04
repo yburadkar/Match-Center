@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.fragment_stats.*
 class StatsFragment : Fragment() {
 
     private val viewModelFactory by lazy {
-        MainActivityViewModelFactory((requireActivity().application as MyApp).matchRepo, (requireActivity().application as MyApp).db)
+        MainActivityViewModelFactory((requireActivity().application as MyApp).matchRepo)
     }
     private val viewModel: MainActivityViewModel by activityViewModels { viewModelFactory }
     private var statsAdapter = StatsAdapter()

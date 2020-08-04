@@ -19,13 +19,14 @@ class MainActivityViewModel(
     private var disposables = CompositeDisposable()
     private val matches: List<Int> = listOf(987597, 987598, 987599)  //using hardcoded match Ids for sample app
     private var matchIndex = -1
-    private var matchId = 0
+    private var prevMatchId = -1
 
     fun loadMatch(newMatchId: Int) {
-        val matchIdText = newMatchId.toString()
-        match = fetchMatch(matchIdText)
+        match = fetchMatch(newMatchId.toString())
+        if(prevMatchId == -1) prevMatchId = newMatchId
         comments = matchRepo.getMatchCommentary(newMatchId)
-        matchInfo = matchRepo.getMatchInfo(matchIdText)
+        matchInfo = matchRepo.getMatchInfo(newMatchId.toString())
+        prevMatchId = newMatchId
     }
 
     private fun fetchMatch(matchId: String): LiveData<Match> {

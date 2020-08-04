@@ -24,7 +24,7 @@ class MatchInfo (
     companion object {
         fun from(data: Commentary.Data): MatchInfo {
             with(data) {
-                return MatchInfo(null, matchId, homeTeamName, homeTeamId, homeScore, awayTeamName, awayTeamId, awayScore, competitionId, competition, homeTeamImageUrl, awayTeamImageUrl)
+                return MatchInfo(null, feedMatchId, homeTeamName, homeTeamId, homeScore, awayTeamName, awayTeamId, awayScore, competitionId, competition, homeTeamImageUrl, awayTeamImageUrl)
             }
         }
     }
