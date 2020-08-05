@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.yb.uadnd.matchcentre.Utils
 import com.yb.uadnd.matchcentre.databinding.CommentaryListItemBinding
-import com.yb.uadnd.matchcentre.model.database.Comment
+import com.yb.uadnd.matchcentre.data.local.Comment
 
 class CommentaryAdapter(private val commentary: MutableList<Comment> = mutableListOf()):
         RecyclerView.Adapter<CommentaryAdapter.CommentaryViewHolder>() {

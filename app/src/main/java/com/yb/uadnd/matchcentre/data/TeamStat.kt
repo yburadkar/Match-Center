@@ -1,4 +1,4 @@
-package com.yb.uadnd.matchcentre.model
+package com.yb.uadnd.matchcentre.data
 
 class TeamStat(var statName: String, var homeText: String, var awayText: String, var isPercent: Boolean) {
 

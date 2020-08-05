@@ -1,4 +1,4 @@
-package com.yb.uadnd.matchcentre.model
+package com.yb.uadnd.matchcentre.data
 
 import io.reactivex.Single
 import retrofit2.http.GET

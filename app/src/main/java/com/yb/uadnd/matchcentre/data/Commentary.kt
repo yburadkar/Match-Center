@@ -1,4 +1,4 @@
-package com.yb.uadnd.matchcentre.model
+package com.yb.uadnd.matchcentre.data
 
 class Commentary {
 

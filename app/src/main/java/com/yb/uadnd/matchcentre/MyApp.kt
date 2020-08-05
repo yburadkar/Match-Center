@@ -1,8 +1,8 @@
 package com.yb.uadnd.matchcentre
 
 import android.app.Application
-import com.yb.uadnd.matchcentre.model.MatchService
-import com.yb.uadnd.matchcentre.model.database.MatchCentreDatabase
+import com.yb.uadnd.matchcentre.data.MatchService
+import com.yb.uadnd.matchcentre.data.local.MatchCentreDatabase
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import retrofit2.Retrofit

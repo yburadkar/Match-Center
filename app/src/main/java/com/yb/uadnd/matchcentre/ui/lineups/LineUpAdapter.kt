@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.yb.uadnd.matchcentre.databinding.LineUpListItemBinding
-import com.yb.uadnd.matchcentre.model.Match.Data.Team.Player
+import com.yb.uadnd.matchcentre.data.Match.Data.Team.Player
 
 class LineUpAdapter(private val players: MutableList<Player> = mutableListOf()): RecyclerView.Adapter<LineUpAdapter.PlayerViewHolder>() {
 

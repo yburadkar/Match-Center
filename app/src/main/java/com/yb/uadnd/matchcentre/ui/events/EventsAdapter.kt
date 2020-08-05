@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import com.yb.uadnd.matchcentre.Utils
 import com.yb.uadnd.matchcentre.databinding.EventListItemBinding
-import com.yb.uadnd.matchcentre.model.Match.Data.Event
+import com.yb.uadnd.matchcentre.data.Match.Data.Event
 
 class EventsAdapter(private val events: MutableList<Event> = mutableListOf()) : RecyclerView.Adapter<EventsAdapter.EventViewHolder>() {
 

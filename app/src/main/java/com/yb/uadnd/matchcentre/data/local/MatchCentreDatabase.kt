@@ -1,4 +1,4 @@
-package com.yb.uadnd.matchcentre.model.database
+package com.yb.uadnd.matchcentre.data.local
 
 import android.content.Context
 import androidx.room.Database

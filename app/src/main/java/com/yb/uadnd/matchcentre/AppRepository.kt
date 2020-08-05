@@ -2,11 +2,11 @@ package com.yb.uadnd.matchcentre
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.yb.uadnd.matchcentre.model.Match
-import com.yb.uadnd.matchcentre.model.MatchService
-import com.yb.uadnd.matchcentre.model.database.Comment
-import com.yb.uadnd.matchcentre.model.database.MatchCentreDatabase
-import com.yb.uadnd.matchcentre.model.database.MatchInfo
+import com.yb.uadnd.matchcentre.data.Match
+import com.yb.uadnd.matchcentre.data.MatchService
+import com.yb.uadnd.matchcentre.data.local.Comment
+import com.yb.uadnd.matchcentre.data.local.MatchCentreDatabase
+import com.yb.uadnd.matchcentre.data.local.MatchInfo
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo

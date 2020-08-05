@@ -1,9 +1,9 @@
-package com.yb.uadnd.matchcentre.model.database
+package com.yb.uadnd.matchcentre.data.local
 
 import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
-import com.yb.uadnd.matchcentre.model.Commentary.Data.CommentaryEntry
+import com.yb.uadnd.matchcentre.data.Commentary.Data.CommentaryEntry
 
 @Entity(tableName = "comment")
 class Comment(

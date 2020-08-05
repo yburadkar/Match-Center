@@ -4,9 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.yb.uadnd.matchcentre.AppRepository
-import com.yb.uadnd.matchcentre.model.Match
-import com.yb.uadnd.matchcentre.model.database.Comment
-import com.yb.uadnd.matchcentre.model.database.MatchInfo
+import com.yb.uadnd.matchcentre.data.Match
+import com.yb.uadnd.matchcentre.data.local.Comment
+import com.yb.uadnd.matchcentre.data.local.MatchInfo
 import io.reactivex.disposables.CompositeDisposable
 
 class MainActivityViewModel(

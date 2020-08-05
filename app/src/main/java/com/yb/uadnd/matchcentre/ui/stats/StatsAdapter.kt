@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.yb.uadnd.matchcentre.databinding.StatsListItemBinding
-import com.yb.uadnd.matchcentre.model.TeamStat
+import com.yb.uadnd.matchcentre.data.TeamStat
 
 class StatsAdapter(private val stats: MutableList<TeamStat> = mutableListOf()): RecyclerView.Adapter<StatsAdapter.StatViewHolder>() {
 
