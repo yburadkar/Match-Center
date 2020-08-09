@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.squareup.picasso.Picasso
 
-import com.yb.uadnd.matchcentre.MyApp
+import com.yb.uadnd.matchcentre.App
 import com.yb.uadnd.matchcentre.databinding.ActivityMainBinding
 import com.yb.uadnd.matchcentre.viewmodel.MainActivityViewModel
 import com.yb.uadnd.matchcentre.viewmodel.MainActivityViewModelFactory
@@ -15,7 +15,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private val viewModelFactory by lazy {
-        MainActivityViewModelFactory((application as MyApp).matchRepo)
+        MainActivityViewModelFactory((application as App).matchRepo)
     }
     private val viewModel: MainActivityViewModel by viewModels{ viewModelFactory }
 

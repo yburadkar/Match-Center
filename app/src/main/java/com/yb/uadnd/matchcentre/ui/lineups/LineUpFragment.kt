@@ -9,7 +9,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 
-import com.yb.uadnd.matchcentre.MyApp
+import com.yb.uadnd.matchcentre.App
 import com.yb.uadnd.matchcentre.databinding.FragmentLineUpBinding
 import com.yb.uadnd.matchcentre.viewmodel.MainActivityViewModel
 import com.yb.uadnd.matchcentre.viewmodel.MainActivityViewModelFactory
@@ -19,7 +19,7 @@ class LineUpFragment : Fragment() {
     private var _binding: FragmentLineUpBinding? = null
     private val  binding get() = _binding!!
     private val viewModelFactory by lazy {
-        MainActivityViewModelFactory((requireActivity().application as MyApp).matchRepo)
+        MainActivityViewModelFactory((requireActivity().application as App).matchRepo)
     }
     private val viewModel: MainActivityViewModel by activityViewModels { viewModelFactory }
     private lateinit var homeAdapter: LineUpAdapter

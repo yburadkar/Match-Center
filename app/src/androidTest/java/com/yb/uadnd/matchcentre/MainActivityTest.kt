@@ -33,7 +33,7 @@ class MainActivityTest {
 
     @Before
     fun setUpTest() {
-        mResource = MyApp.getIdlingResource()
+        mResource = App.getIdlingResource()
         IdlingRegistry.getInstance().register(mResource!!)
     }
 

@@ -9,7 +9,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 
-import com.yb.uadnd.matchcentre.MyApp
+import com.yb.uadnd.matchcentre.App
 import com.yb.uadnd.matchcentre.SimpleIdlingResource
 import com.yb.uadnd.matchcentre.databinding.FragmentCommentaryBinding
 import com.yb.uadnd.matchcentre.viewmodel.MainActivityViewModel
@@ -20,7 +20,7 @@ class CommentaryFragment : Fragment() {
     private var _binding: FragmentCommentaryBinding? = null
     private val binding get() = _binding!!
     private val viewModelFactory by lazy {
-        MainActivityViewModelFactory((requireActivity().application as MyApp).matchRepo)
+        MainActivityViewModelFactory((requireActivity().application as App).matchRepo)
     }
     private val viewModel: MainActivityViewModel by activityViewModels { viewModelFactory }
     private lateinit var commentaryAdapter: CommentaryAdapter
@@ -28,7 +28,7 @@ class CommentaryFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        idlingResource = MyApp.getIdlingResource()
+        idlingResource = App.getIdlingResource()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
