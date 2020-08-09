@@ -25,7 +25,7 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class)
 class MainActivityTest {
 
-    private var mResource: SimpleIdlingResource? = null
+    private val mResource = SimpleIdlingResource
 
     @Rule @JvmField
     var activityTestRule = ActivityTestRule(
@@ -33,13 +33,12 @@ class MainActivityTest {
 
     @Before
     fun setUpTest() {
-        mResource = App.getIdlingResource()
-        IdlingRegistry.getInstance().register(mResource!!)
+        IdlingRegistry.getInstance().register(mResource)
     }
 
     @After
     fun cleanUpTest() {
-        IdlingRegistry.getInstance().unregister(mResource!!)
+        IdlingRegistry.getInstance().unregister(mResource)
     }
 
     @Test

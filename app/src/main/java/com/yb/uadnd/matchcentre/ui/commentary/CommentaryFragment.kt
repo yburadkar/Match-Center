@@ -24,7 +24,7 @@ class CommentaryFragment : Fragment() {
     @Inject lateinit var viewModelFactory: MainActivityViewModelFactory
     private val viewModel: MainActivityViewModel by activityViewModels { viewModelFactory }
     private lateinit var commentaryAdapter: CommentaryAdapter
-    private lateinit var idlingResource: SimpleIdlingResource
+    private val idlingResource = SimpleIdlingResource
 
     override fun onAttach(context: Context) {
         inject()
@@ -33,11 +33,6 @@ class CommentaryFragment : Fragment() {
 
     private fun inject() {
         (requireActivity().application as App).appComponent.inject(this)
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        idlingResource = App.getIdlingResource()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

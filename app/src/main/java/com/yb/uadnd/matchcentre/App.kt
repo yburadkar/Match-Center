@@ -25,15 +25,6 @@ class App: Application() {
             Timber.plant(Timber.DebugTree())
     }
 
-    companion object{
-
-        private const val BASE_URL = "https://feeds.incrowdsports.com/provider/opta/football/v1/matches/"
-        private var idlingRes = SimpleIdlingResource
-
-        fun getIdlingResource(): SimpleIdlingResource = idlingRes
-
-    }
-
 }
 
 
