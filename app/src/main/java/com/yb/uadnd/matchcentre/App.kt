@@ -1,36 +1,14 @@
 package com.yb.uadnd.matchcentre
 
 import android.app.Application
-import com.yb.uadnd.matchcentre.data.MatchService
-import com.yb.uadnd.matchcentre.data.local.MatchCentreDatabase
+import com.yb.uadnd.matchcentre.di.AppComponent
+import com.yb.uadnd.matchcentre.di.AppModule
 import com.yb.uadnd.matchcentre.di.DaggerAppComponent
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
-import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
-import retrofit2.converter.gson.GsonConverterFactory
 import timber.log.Timber
 
 class App: Application() {
 
-    lateinit var appComponent: DaggerAppComponent
-
-    val db: MatchCentreDatabase by lazy {
-        MatchCentreDatabase.getInstance(applicationContext)
-    }
-
-    private val matchService: MatchService by lazy {
-        Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-            .create(MatchService::class.java)
-    }
-
-    val matchRepo: AppRepository by lazy {
-        AppRepository.getInstance(matchService, db, Schedulers.io(), AndroidSchedulers.mainThread(), idlingRes)
-    }
+    lateinit var appComponent: AppComponent
 
     override fun onCreate() {
         super.onCreate()
@@ -39,7 +17,7 @@ class App: Application() {
     }
 
     private fun initDi() {
-        appComponent = DaggerAppComponent.create() as DaggerAppComponent
+        appComponent = DaggerAppComponent.builder().appModule(AppModule(this)).build()
     }
 
     private fun initTimber() {

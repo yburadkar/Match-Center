@@ -10,16 +10,16 @@ import com.yb.uadnd.matchcentre.App
 import com.yb.uadnd.matchcentre.databinding.ActivityMainBinding
 import com.yb.uadnd.matchcentre.viewmodel.MainActivityViewModel
 import com.yb.uadnd.matchcentre.viewmodel.MainActivityViewModelFactory
+import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private val viewModelFactory by lazy {
-        MainActivityViewModelFactory((application as App).matchRepo)
-    }
+    @Inject lateinit var viewModelFactory: MainActivityViewModelFactory
     private val viewModel: MainActivityViewModel by viewModels{ viewModelFactory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        inject()
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -41,6 +41,10 @@ class MainActivity : AppCompatActivity() {
             initViewPager()
             observeViewModel()
         }
+    }
+
+    private fun inject() {
+        (application as App).appComponent.inject(this)
     }
 
     private fun initViewPager() {

@@ -12,8 +12,9 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
 import timber.log.Timber
+import javax.inject.Inject
 
-class AppRepository(
+class AppRepository @Inject constructor(
     private var matchService: MatchService,
     private val db: MatchCentreDatabase,
     private val io: Scheduler,

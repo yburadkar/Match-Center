@@ -1,5 +1,6 @@
 package com.yb.uadnd.matchcentre.ui.lineups
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -13,17 +14,26 @@ import com.yb.uadnd.matchcentre.App
 import com.yb.uadnd.matchcentre.databinding.FragmentLineUpBinding
 import com.yb.uadnd.matchcentre.viewmodel.MainActivityViewModel
 import com.yb.uadnd.matchcentre.viewmodel.MainActivityViewModelFactory
+import javax.inject.Inject
 
 class LineUpFragment : Fragment() {
 
     private var _binding: FragmentLineUpBinding? = null
     private val  binding get() = _binding!!
-    private val viewModelFactory by lazy {
-        MainActivityViewModelFactory((requireActivity().application as App).matchRepo)
-    }
+    @Inject lateinit var viewModelFactory: MainActivityViewModelFactory
     private val viewModel: MainActivityViewModel by activityViewModels { viewModelFactory }
     private lateinit var homeAdapter: LineUpAdapter
     private lateinit var awayAdapter: LineUpAdapter
+
+
+    override fun onAttach(context: Context) {
+        inject()
+        super.onAttach(context)
+    }
+
+    private fun inject() {
+        (requireActivity().application as App).appComponent.inject(this)
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {

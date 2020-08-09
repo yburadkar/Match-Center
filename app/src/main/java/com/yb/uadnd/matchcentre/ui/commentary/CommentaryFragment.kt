@@ -1,5 +1,6 @@
 package com.yb.uadnd.matchcentre.ui.commentary
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,17 +15,25 @@ import com.yb.uadnd.matchcentre.SimpleIdlingResource
 import com.yb.uadnd.matchcentre.databinding.FragmentCommentaryBinding
 import com.yb.uadnd.matchcentre.viewmodel.MainActivityViewModel
 import com.yb.uadnd.matchcentre.viewmodel.MainActivityViewModelFactory
+import javax.inject.Inject
 
 class CommentaryFragment : Fragment() {
 
     private var _binding: FragmentCommentaryBinding? = null
     private val binding get() = _binding!!
-    private val viewModelFactory by lazy {
-        MainActivityViewModelFactory((requireActivity().application as App).matchRepo)
-    }
+    @Inject lateinit var viewModelFactory: MainActivityViewModelFactory
     private val viewModel: MainActivityViewModel by activityViewModels { viewModelFactory }
     private lateinit var commentaryAdapter: CommentaryAdapter
     private lateinit var idlingResource: SimpleIdlingResource
+
+    override fun onAttach(context: Context) {
+        inject()
+        super.onAttach(context)
+    }
+
+    private fun inject() {
+        (requireActivity().application as App).appComponent.inject(this)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
