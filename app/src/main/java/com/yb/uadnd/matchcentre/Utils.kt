@@ -38,7 +38,7 @@ object Utils {
             "attempt saved" -> TypeStyle("SAVE", R.color.indigo)
             "offside" -> TypeStyle("OFFSIDE", R.color.black)
             "substitution" -> TypeStyle("SUB", R.color.purple)
-            "free kick lost" -> TypeStyle("FREEKICK", R.color.pink)
+            "free kick lost" -> TypeStyle("FREEKICK", R.color.brown)
             "free kick won" -> TypeStyle("FREEKICK", R.color.brown)
             "yellow card" -> TypeStyle("YELLOW", R.color.yellow)
             "red card" -> TypeStyle("RED", R.color.red)

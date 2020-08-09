@@ -24,7 +24,6 @@ class CommentaryFragment : Fragment() {
     @Inject lateinit var viewModelFactory: MainActivityViewModelFactory
     private val viewModel: MainActivityViewModel by activityViewModels { viewModelFactory }
     private lateinit var commentaryAdapter: CommentaryAdapter
-    private val idlingResource = SimpleIdlingResource
 
     override fun onAttach(context: Context) {
         inject()
@@ -49,7 +48,6 @@ class CommentaryFragment : Fragment() {
     private fun observeViewModel() {
         viewModel.getComments().observe(viewLifecycleOwner, Observer {
             commentaryAdapter.updateList(it)
-            if(it.isNotEmpty()) idlingResource.setIdleState(true)
         })
     }
 

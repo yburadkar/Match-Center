@@ -49,6 +49,7 @@ class AppRepository @Inject constructor(
             .observeOn(io)
             .subscribeBy(
                 onSuccess = { commentary ->
+                    idlingResource.setIdleState(true)
                     db.commentDao.deleteAllMatchComments(newMatchId)
                     commentary?.data?.let{
                         val info = MatchInfo.from(data = it)
@@ -61,18 +62,29 @@ class AppRepository @Inject constructor(
                         }
                     }
                 },
-                onError = { Timber.e(it) }
+                onError = {
+                    idlingResource.setIdleState(true)
+                    Timber.e(it)
+                }
             ).addTo(disposables)
     }
 
     fun fetchMatch(matchId: String): LiveData<Match> {
+        idlingResource.setIdleState(false)
         val match = MutableLiveData<Match>()
         matchService.getMatch(matchId)
             .subscribeOn(io)
             .observeOn(ui)
-            .subscribeBy(Timber::e) {
-                match.value = updateMatchEvents(it)
-            }.addTo(disposables)
+            .subscribeBy(
+                onSuccess = {
+                    match.value = updateMatchEvents(it)
+                    idlingResource.setIdleState(true)
+                },
+                onError = {
+                    idlingResource.setIdleState(true)
+                    Timber.e(it)
+                }
+            ).addTo(disposables)
         return match
     }
 
