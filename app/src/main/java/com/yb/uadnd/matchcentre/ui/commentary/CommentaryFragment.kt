@@ -11,7 +11,6 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.yb.uadnd.matchcentre.App
-import com.yb.uadnd.matchcentre.SimpleIdlingResource
 import com.yb.uadnd.matchcentre.databinding.FragmentCommentaryBinding
 import com.yb.uadnd.matchcentre.viewmodel.MainActivityViewModel
 import com.yb.uadnd.matchcentre.viewmodel.MainActivityViewModelFactory
@@ -30,12 +29,9 @@ class CommentaryFragment : Fragment() {
         super.onAttach(context)
     }
 
-    private fun inject() {
-        (requireActivity().application as App).appComponent.inject(this)
-    }
+    private fun inject() = (requireActivity().application as App).appComponent.inject(this)
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentCommentaryBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
@@ -47,7 +43,7 @@ class CommentaryFragment : Fragment() {
 
     private fun observeViewModel() {
         viewModel.getComments().observe(viewLifecycleOwner, Observer {
-            commentaryAdapter.updateList(it)
+            commentaryAdapter.submitList(it)
         })
     }
 

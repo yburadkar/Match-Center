@@ -33,8 +33,7 @@ class StatsFragment : Fragment() {
         (requireActivity().application as App).appComponent.inject(this)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentStatsBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
@@ -48,7 +47,7 @@ class StatsFragment : Fragment() {
     private fun observeViewModel() {
         viewModel.getMatch().observe(viewLifecycleOwner, Observer { match ->
             match.data?.let {
-                statsAdapter.updateList(it.getTeamStats())
+                statsAdapter.submitList(it.getTeamStats())
                 with(binding) {
                     homeTeam.text = it.homeTeam?.name
                     awayTeam.text = it.awayTeam?.name

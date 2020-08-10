@@ -29,12 +29,9 @@ class EventsFragment : Fragment() {
         super.onAttach(context)
     }
 
-    private fun inject() {
-        (requireActivity().application as App).appComponent.inject(this)
-    }
+    private fun inject() = (requireActivity().application as App).appComponent.inject(this)
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentEventsBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
@@ -48,7 +45,7 @@ class EventsFragment : Fragment() {
     private fun observeViewModel() {
         viewModel.getMatch().observe(viewLifecycleOwner, Observer { match ->
             match.data?.events?.let {
-                eventsAdapter.updateEventList(it)
+                eventsAdapter.submitList(it)
             }
         })
     }

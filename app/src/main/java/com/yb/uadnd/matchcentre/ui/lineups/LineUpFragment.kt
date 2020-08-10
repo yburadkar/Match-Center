@@ -31,12 +31,9 @@ class LineUpFragment : Fragment() {
         super.onAttach(context)
     }
 
-    private fun inject() {
-        (requireActivity().application as App).appComponent.inject(this)
-    }
+    private fun inject() = (requireActivity().application as App).appComponent.inject(this)
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentLineUpBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
@@ -50,8 +47,8 @@ class LineUpFragment : Fragment() {
     private fun observeViewModel() {
         viewModel.getMatch().observe(viewLifecycleOwner, Observer { match ->
             match.data?.let {
-                homeAdapter.updateList(it.homeTeam?.players ?: emptyList())
-                awayAdapter.updateList(it.awayTeam?.players ?: emptyList())
+                homeAdapter.submitList(it.homeTeam?.players ?: emptyList())
+                awayAdapter.submitList(it.awayTeam?.players ?: emptyList())
                 with(binding) {
                     homeTeam.text = it.homeTeam?.name
                     awayTeam.text = it.awayTeam?.name

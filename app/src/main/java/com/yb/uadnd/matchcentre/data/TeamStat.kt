@@ -1,6 +1,6 @@
 package com.yb.uadnd.matchcentre.data
 
-class TeamStat(var statName: String, var homeText: String, var awayText: String, var isPercent: Boolean) {
+data class TeamStat(var statName: String, var homeText: String, var awayText: String, var isPercent: Boolean) {
 
     val homePercent: Float
     val awayPercent: Float

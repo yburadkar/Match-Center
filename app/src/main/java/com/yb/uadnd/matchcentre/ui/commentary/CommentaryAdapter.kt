@@ -2,13 +2,14 @@ package com.yb.uadnd.matchcentre.ui.commentary
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.yb.uadnd.matchcentre.Utils
 import com.yb.uadnd.matchcentre.databinding.CommentaryListItemBinding
 import com.yb.uadnd.matchcentre.data.local.Comment
 
-class CommentaryAdapter(private val commentary: MutableList<Comment> = mutableListOf()):
-        RecyclerView.Adapter<CommentaryAdapter.CommentaryViewHolder>() {
+class CommentaryAdapter : ListAdapter<Comment, CommentaryAdapter.CommentaryViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CommentaryViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -16,15 +17,7 @@ class CommentaryAdapter(private val commentary: MutableList<Comment> = mutableLi
         return CommentaryViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: CommentaryViewHolder, position: Int) = holder.bind(commentary[position])
-
-    override fun getItemCount(): Int = commentary.size
-
-    fun updateList(commentList: List<Comment>) {
-        commentary.clear()
-        commentary.addAll(commentList)
-        notifyDataSetChanged()
-    }
+    override fun onBindViewHolder(holder: CommentaryViewHolder, position: Int) = holder.bind(getItem(position))
 
     class CommentaryViewHolder( private val binding: CommentaryListItemBinding) : RecyclerView.ViewHolder(binding.root){
         fun bind(entry: Comment) {
@@ -39,4 +32,17 @@ class CommentaryAdapter(private val commentary: MutableList<Comment> = mutableLi
             }
         }
     }
+
+    companion object{
+
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Comment>() {
+
+            override fun areItemsTheSame(oldItem: Comment, newItem: Comment): Boolean = oldItem === newItem
+
+            override fun areContentsTheSame(oldItem: Comment, newItem: Comment): Boolean = oldItem == newItem
+
+        }
+
+    }
+
 }

@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 import com.yb.uadnd.matchcentre.data.Commentary.Data.CommentaryEntry
 
 @Entity(tableName = "comment")
-class Comment(
+data class Comment(
     @PrimaryKey(autoGenerate = true) var id: Int = 0,
     var matchId: Int = 0,
     var type: String? = null,
