@@ -10,13 +10,13 @@ A sample football match center app that displays score, commentary, events, line
 Based on MVVM architecture and repository pattern.
 
 
-#### App Specs
-* Minimum SDK 21
+#### Tech Stack
 * [Kotlin](https://kotlinlang.org/)
 * MVVM Architecture
-* Android Architecture Components (LiveData, Lifecycle, ViewModel, Room Persistence Library)
+* Android Architecture Components (LiveData, ViewModel, Room Persistence Library)
 * [RxJava2](https://github.com/ReactiveX/RxJava) for implementing Observable pattern.
 * [Dagger 2](https://google.github.io/dagger/) for dependency injection.
 * [Retrofit 2](https://square.github.io/retrofit/) for API integration.
 * [Gson](https://github.com/google/gson) for serialisation.
 * [Picasso](http://square.github.io/picasso/) for image loading.
+* Minimum SDK 21
