@@ -1,8 +1,8 @@
 package com.yb.uadnd.matchcentre.data
 
-class Match {
+class Match(
     val data: MatchData? = null
-}
+)
 
 class MatchData {
     val id: String? = null
@@ -15,25 +15,67 @@ class MatchData {
         val homeStats = homeTeam?.teamStats
         val awayStats = awayTeam?.teamStats
         if (homeStats != null && awayStats != null) {
-            stats.add(TeamStat("Possession", "${homeStats.possession}%", "${awayStats.possession}%", true))
-            stats.add(TeamStat("Shots", homeStats.shotsOnGoal.toString(), awayStats.shotsOnGoal.toString(), false))
-            stats.add(TeamStat("Shot on Target", homeStats.shotsOnTarget.toString(), awayStats.shotsOnTarget.toString(), false))
-            stats.add(TeamStat("Corners", homeStats.cornersWon.toString(), awayStats.cornersWon.toString(), false))
-            stats.add(TeamStat("Saves", homeStats.saves.toString(), awayStats.saves.toString(), false))
-            stats.add(TeamStat("Substitutions", homeStats.substitutionsMade.toString(), awayStats.substitutionsMade.toString(), false))
+            stats.add(
+                TeamStat(
+                    statName = "Possession",
+                    homeText = "${homeStats.possession}%",
+                    awayText = "${awayStats.possession}%",
+                    isPercent = true
+                )
+            )
+            stats.add(
+                TeamStat(
+                    statName = "Shots",
+                    homeText = homeStats.shotsOnGoal.toString(),
+                    awayText = awayStats.shotsOnGoal.toString(),
+                    isPercent = false
+                )
+            )
+            stats.add(
+                TeamStat(
+                    statName = "Shot on Target",
+                    homeText = homeStats.shotsOnTarget.toString(),
+                    awayText = awayStats.shotsOnTarget.toString(),
+                    isPercent = false
+                )
+            )
+            stats.add(
+                TeamStat(
+                    statName = "Corners",
+                    homeText = homeStats.cornersWon.toString(),
+                    awayText = awayStats.cornersWon.toString(),
+                    isPercent = false
+                )
+            )
+            stats.add(
+                TeamStat(
+                    statName = "Saves",
+                    homeText = homeStats.saves.toString(),
+                    awayText = awayStats.saves.toString(),
+                    isPercent = false
+                )
+            )
+            stats.add(
+                TeamStat(
+                    statName = "Substitutions",
+                    homeText = homeStats.substitutionsMade.toString(),
+                    awayText = awayStats.substitutionsMade.toString(),
+                    isPercent = false
+                )
+            )
         }
         return stats
     }
 
 }
 
-class Team {
-    val id: String? = null
-    val name: String? = null
-    val players: List<TeamPlayer>? = null
-    val teamStats: TeamStats? = null
+class Team(
+    val id: String? = null,
+    val name: String? = null,
+    val players: List<TeamPlayer>? = null,
+    val teamStats: TeamStats? = null,
     val imageUrl: String? = null
-}
+)
 
 data class TeamPlayer(
     val id: Int = 0,
@@ -45,14 +87,14 @@ data class TeamPlayer(
     fun getPlayerName(): String = "$firstName $lastName"
 }
 
-class TeamStats {
-    val cornersWon: Int = 0
-    val possession: Float = 0.0F
-    val saves: Int = 0
-    val shotsOnGoal: Int = 0
-    val shotsOnTarget: Int = 0
+class TeamStats(
+    val cornersWon: Int = 0,
+    val possession: Float = 0.0F,
+    val saves: Int = 0,
+    val shotsOnGoal: Int = 0,
+    val shotsOnTarget: Int = 0,
     val substitutionsMade: Int = 0
-}
+)
 
 data class Event(
     val time: String? = null,
