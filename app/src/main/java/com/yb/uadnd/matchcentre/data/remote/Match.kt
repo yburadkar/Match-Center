@@ -1,4 +1,6 @@
-package com.yb.uadnd.matchcentre.data
+package com.yb.uadnd.matchcentre.data.remote
+
+import com.yb.uadnd.matchcentre.data.TeamStat
 
 class Match(
     val data: MatchData? = null

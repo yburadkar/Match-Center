@@ -3,7 +3,7 @@ package com.yb.uadnd.matchcentre.data.local
 import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
-import com.yb.uadnd.matchcentre.data.CommentaryEntry
+import com.yb.uadnd.matchcentre.data.remote.CommentaryEntry
 
 @Entity(tableName = "comment")
 data class Comment(

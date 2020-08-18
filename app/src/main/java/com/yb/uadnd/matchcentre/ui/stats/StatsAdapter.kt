@@ -41,6 +41,7 @@ class StatsAdapter : ListAdapter<TeamStat, StatsAdapter.StatViewHolder>(DIFF_CAL
         private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<TeamStat>() {
 
             override fun areItemsTheSame(oldItem: TeamStat, newItem: TeamStat): Boolean = oldItem === newItem
+
             override fun areContentsTheSame(oldItem: TeamStat, newItem: TeamStat): Boolean = oldItem == newItem
 
         }

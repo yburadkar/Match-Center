@@ -1,4 +1,4 @@
-package com.yb.uadnd.matchcentre.data
+package com.yb.uadnd.matchcentre.data.remote
 
 class Commentary {
     var data: CommentaryData? = null

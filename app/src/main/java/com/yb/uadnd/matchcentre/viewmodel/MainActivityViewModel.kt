@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.yb.uadnd.matchcentre.AppRepository
-import com.yb.uadnd.matchcentre.data.Match
+import com.yb.uadnd.matchcentre.data.remote.Match
 import com.yb.uadnd.matchcentre.data.local.Comment
 import com.yb.uadnd.matchcentre.data.local.MatchInfo
 import io.reactivex.disposables.CompositeDisposable
@@ -17,7 +17,7 @@ class MainActivityViewModel(
     private lateinit var comments: LiveData<List<Comment>>
     private lateinit var matchInfo: LiveData<MatchInfo>
     private var disposables = CompositeDisposable()
-    private val matches: List<Int> = listOf(987597, 987598, 987599)  //using hardcoded match Ids for sample app
+    private val matches: List<Int> by lazy { matchRepo.getMatchList() }  //using hardcoded match Ids for sample app
     private var matchIndex = -1
 
     private fun loadMatch(newMatchId: Int) {
@@ -58,6 +58,7 @@ class MainActivityViewModelFactory(
     private val matchRepo: AppRepository
 ) : ViewModelProvider.NewInstanceFactory() {
 
+    @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T = MainActivityViewModel(matchRepo) as T
 
 }

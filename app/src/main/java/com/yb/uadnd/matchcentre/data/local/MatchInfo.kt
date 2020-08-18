@@ -2,7 +2,7 @@ package com.yb.uadnd.matchcentre.data.local
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.yb.uadnd.matchcentre.data.CommentaryData
+import com.yb.uadnd.matchcentre.data.remote.CommentaryData
 
 @Entity(tableName = "matchInfo")
 class MatchInfo(

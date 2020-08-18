@@ -3,8 +3,9 @@ package com.yb.uadnd.matchcentre.di
 import android.app.Application
 import com.yb.uadnd.matchcentre.AppRepository
 import com.yb.uadnd.matchcentre.SimpleIdlingResource
-import com.yb.uadnd.matchcentre.data.MatchService
+import com.yb.uadnd.matchcentre.data.remote.MatchService
 import com.yb.uadnd.matchcentre.data.local.MatchCentreDatabase
+import com.yb.uadnd.matchcentre.data.remote.MatchesDataSource
 import com.yb.uadnd.matchcentre.viewmodel.MainActivityViewModelFactory
 import dagger.Module
 import dagger.Provides
@@ -49,7 +50,7 @@ class AppModule(private val appContext: Application) {
     @Singleton
     @Provides
     fun provideMatchRepo(): AppRepository {
-        return AppRepository(provideMatchService(), provideMatchDb(), ioScheduler(), uiScheduler(), SimpleIdlingResource)
+        return AppRepository(provideMatchService(), provideMatchDb(), MatchesDataSource, ioScheduler(), uiScheduler(), SimpleIdlingResource)
     }
 
     @Singleton

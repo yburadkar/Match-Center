@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.yb.uadnd.matchcentre.data.TeamPlayer
+import com.yb.uadnd.matchcentre.data.remote.TeamPlayer
 import com.yb.uadnd.matchcentre.databinding.LineUpListItemBinding
 
 class LineUpAdapter : ListAdapter<TeamPlayer, LineUpAdapter.PlayerViewHolder>(DIFF_CALLBACK) {
@@ -31,6 +31,7 @@ class LineUpAdapter : ListAdapter<TeamPlayer, LineUpAdapter.PlayerViewHolder>(DI
         private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<TeamPlayer>() {
 
             override fun areItemsTheSame(oldItem: TeamPlayer, newItem: TeamPlayer): Boolean = oldItem.id == newItem.id
+
             override fun areContentsTheSame(oldItem: TeamPlayer, newItem: TeamPlayer): Boolean = oldItem == newItem
 
         }

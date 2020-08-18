@@ -2,13 +2,14 @@ package com.yb.uadnd.matchcentre
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.yb.uadnd.matchcentre.data.Event
-import com.yb.uadnd.matchcentre.data.Match
-import com.yb.uadnd.matchcentre.data.MatchData
-import com.yb.uadnd.matchcentre.data.MatchService
+import com.yb.uadnd.matchcentre.data.remote.Event
+import com.yb.uadnd.matchcentre.data.remote.Match
+import com.yb.uadnd.matchcentre.data.remote.MatchData
+import com.yb.uadnd.matchcentre.data.remote.MatchService
 import com.yb.uadnd.matchcentre.data.local.Comment
 import com.yb.uadnd.matchcentre.data.local.MatchCentreDatabase
 import com.yb.uadnd.matchcentre.data.local.MatchInfo
+import com.yb.uadnd.matchcentre.data.remote.MatchesDataSource
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
@@ -19,6 +20,7 @@ import javax.inject.Inject
 class AppRepository @Inject constructor(
     private var matchService: MatchService,
     private val db: MatchCentreDatabase,
+    private val mSource: MatchesDataSource,
     private val io: Scheduler,
     private val ui: Scheduler,
     private val idlingResource: SimpleIdlingResource
@@ -110,5 +112,7 @@ class AppRepository @Inject constructor(
     }
 
     fun getMatchInfo(matchId: String): LiveData<MatchInfo> = db.matchInfoDao.getMatchInfo(matchId.toInt())
+
+    fun getMatchList(): List<Int> = mSource.getMatchList()
 
 }
