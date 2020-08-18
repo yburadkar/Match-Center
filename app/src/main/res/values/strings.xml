@@ -4,4 +4,6 @@
     <string name="team_logo_content_desc">team logo</string>
     <string name="home_logo_content_desc">home team logo</string>
     <string name="away_logo_content_desc">away team logo</string>
+    <string name="left_button_content_desc">Left Button</string>
+    <string name="right_button_content_description">Right button</string>
 </resources>

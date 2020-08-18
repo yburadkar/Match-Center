@@ -109,24 +109,6 @@ class AppRepository @Inject constructor(
         }
     }
 
-    fun getMatchInfo(matchId: String): LiveData<MatchInfo>{
-        return db.matchInfoDao.getMatchInfo(matchId.toInt())
-    }
+    fun getMatchInfo(matchId: String): LiveData<MatchInfo> = db.matchInfoDao.getMatchInfo(matchId.toInt())
 
-    companion object {
-        private var instance: AppRepository? = null
-
-        fun getInstance(
-            service: MatchService,
-            roomDatabase: MatchCentreDatabase,
-            io: Scheduler,
-            ui: Scheduler,
-            res: SimpleIdlingResource
-        ): AppRepository {
-            if(instance == null) {
-                instance = AppRepository(service, roomDatabase, io, ui, res)
-            }
-            return instance as AppRepository
-        }
-    }
 }
