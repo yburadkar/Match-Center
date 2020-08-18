@@ -2,7 +2,9 @@ package com.yb.uadnd.matchcentre
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.yb.uadnd.matchcentre.data.Event
 import com.yb.uadnd.matchcentre.data.Match
+import com.yb.uadnd.matchcentre.data.MatchData
 import com.yb.uadnd.matchcentre.data.MatchService
 import com.yb.uadnd.matchcentre.data.local.Comment
 import com.yb.uadnd.matchcentre.data.local.MatchCentreDatabase
@@ -97,7 +99,7 @@ class AppRepository @Inject constructor(
         return match
     }
 
-    private fun getEventTeamUrl(data: Match.Data, event: Match.Data.Event): String? {
+    private fun getEventTeamUrl(data: MatchData, event: Event): String? {
         val homeTeamId = data.homeTeam?.id
         val awayTeamId = data.awayTeam?.id
         return when(event.teamId) {

@@ -6,9 +6,9 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.yb.uadnd.matchcentre.databinding.LineUpListItemBinding
-import com.yb.uadnd.matchcentre.data.Match.Data.Team.Player
+import com.yb.uadnd.matchcentre.data.TeamPlayer
 
-class LineUpAdapter: ListAdapter<Player, LineUpAdapter.PlayerViewHolder>(DIFF_CALLBACK) {
+class LineUpAdapter: ListAdapter<TeamPlayer, LineUpAdapter.PlayerViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlayerViewHolder {
         val binding = LineUpListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -18,7 +18,7 @@ class LineUpAdapter: ListAdapter<Player, LineUpAdapter.PlayerViewHolder>(DIFF_CA
     override fun onBindViewHolder(holder: PlayerViewHolder, position: Int) = holder.bind(getItem(position))
 
     class PlayerViewHolder(private val binding: LineUpListItemBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(player: Player) {
+        fun bind(player: TeamPlayer) {
             with(binding) {
                 shirtNumber.text = player.shirtNumber.toString()
                 name.text = player.getPlayerName()
@@ -28,10 +28,10 @@ class LineUpAdapter: ListAdapter<Player, LineUpAdapter.PlayerViewHolder>(DIFF_CA
     }
 
     companion object {
-        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Player>() {
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<TeamPlayer>() {
 
-            override fun areItemsTheSame(oldItem: Player, newItem: Player): Boolean = oldItem.id == newItem.id
-            override fun areContentsTheSame(oldItem: Player, newItem: Player): Boolean = oldItem == newItem
+            override fun areItemsTheSame(oldItem: TeamPlayer, newItem: TeamPlayer): Boolean = oldItem.id == newItem.id
+            override fun areContentsTheSame(oldItem: TeamPlayer, newItem: TeamPlayer): Boolean = oldItem == newItem
 
         }
     }

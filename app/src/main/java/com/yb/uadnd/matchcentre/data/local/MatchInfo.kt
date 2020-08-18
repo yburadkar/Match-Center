@@ -2,7 +2,7 @@ package com.yb.uadnd.matchcentre.data.local
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.yb.uadnd.matchcentre.data.Commentary
+import com.yb.uadnd.matchcentre.data.CommentaryData
 
 @Entity(tableName = "matchInfo")
 class MatchInfo (
@@ -22,7 +22,7 @@ class MatchInfo (
 ) {
 
     companion object {
-        fun from(data: Commentary.Data): MatchInfo {
+        fun from(data: CommentaryData): MatchInfo {
             with(data) {
                 return MatchInfo( feedMatchId, homeTeamName, homeTeamId, homeScore, awayTeamName, awayTeamId, awayScore, competitionId, competition, homeTeamImageUrl, awayTeamImageUrl)
             }
