@@ -4,49 +4,55 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="4dp">
+        android:padding="4dp"
+        >
 
         <TextView
-            android:layout_width="60dp"
-            android:layout_height="wrap_content"
             android:id="@+id/time"
-            tools:text="40'"
-            android:textSize="16sp"
-            android:gravity="center"
-            android:layout_gravity="center"/>
-
-        <TextView
             android:layout_width="60dp"
             android:layout_height="wrap_content"
-            android:id="@+id/type"
-            tools:text="GOAL"
-            android:padding="2dp"
-            android:layout_marginStart="8dp"
-            android:textSize="12sp"
-            android:textColor="@color/white"
-            android:gravity="center_horizontal"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textSize="16sp"
+            tools:text="40'"
+            />
 
         <TextView
+            android:id="@+id/type"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="8dp"
+            android:gravity="center_horizontal"
+            android:padding="2dp"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            tools:text="GOAL"
+            />
+
+        <TextView
+            android:id="@+id/comment"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:id="@+id/comment"
+            android:layout_gravity="center"
             android:layout_marginStart="8dp"
+            android:layout_weight="1"
             android:textSize="12sp"
             tools:text="Goal!  Manchester United 2, Leicester City 0. Luke Shaw (Manchester United) left footed shot from a difficult angle on the left to the bottom right corner. Assisted by Juan Mata."
-            android:layout_gravity="center"/>
+            />
 
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/grey"/>
+        android:background="@color/grey"
+        />
 
 </LinearLayout>

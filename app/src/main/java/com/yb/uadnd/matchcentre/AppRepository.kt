@@ -32,10 +32,10 @@ class AppRepository @Inject constructor(
             .subscribeOn(io)
             .observeOn(ui)
             .subscribeBy(
-                onError = { Timber.e(it)},
+                onError = { Timber.e(it) },
                 onSuccess = {
                     if (it.isNotEmpty()) lastRefresh = it.first()
-                    if(System.currentTimeMillis()/1000 - lastRefresh > refreshIntervalSeconds)
+                    if (System.currentTimeMillis() / 1000 - lastRefresh > refreshIntervalSeconds)
                         refreshCommentary(newMatchId)
                 }
             ).addTo(disposables)
@@ -53,11 +53,11 @@ class AppRepository @Inject constructor(
                 onSuccess = { commentary ->
                     idlingResource.setIdleState(true)
                     db.commentDao.deleteAllMatchComments(newMatchId)
-                    commentary?.data?.let{
+                    commentary?.data?.let {
                         val info = MatchInfo.from(data = it)
                         db.matchInfoDao.insertMatchInfo(info)
                             .subscribe()
-                        it.commentaryEntries?.let{ entries ->
+                        it.commentaryEntries?.let { entries ->
                             entries.forEach { entry ->
                                 db.commentDao.insertComment(Comment(newMatchId, entry))
                             }
@@ -102,7 +102,7 @@ class AppRepository @Inject constructor(
     private fun getEventTeamUrl(data: MatchData, event: Event): String? {
         val homeTeamId = data.homeTeam?.id
         val awayTeamId = data.awayTeam?.id
-        return when(event.teamId) {
+        return when (event.teamId) {
             homeTeamId -> data.homeTeam?.imageUrl
             awayTeamId -> data.awayTeam?.imageUrl
             else -> null

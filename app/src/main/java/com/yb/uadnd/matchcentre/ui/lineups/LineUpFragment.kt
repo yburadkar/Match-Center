@@ -2,14 +2,13 @@ package com.yb.uadnd.matchcentre.ui.lineups
 
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-
 import com.yb.uadnd.matchcentre.App
 import com.yb.uadnd.matchcentre.databinding.FragmentLineUpBinding
 import com.yb.uadnd.matchcentre.viewmodel.MainActivityViewModel
@@ -19,7 +18,7 @@ import javax.inject.Inject
 class LineUpFragment : Fragment() {
 
     private var _binding: FragmentLineUpBinding? = null
-    private val  binding get() = _binding!!
+    private val binding get() = _binding!!
     @Inject lateinit var viewModelFactory: MainActivityViewModelFactory
     private val viewModel: MainActivityViewModel by activityViewModels { viewModelFactory }
     private lateinit var homeAdapter: LineUpAdapter
@@ -60,7 +59,7 @@ class LineUpFragment : Fragment() {
     private fun initRecylerViews() {
         homeAdapter = LineUpAdapter()
         awayAdapter = LineUpAdapter()
-        with(binding){
+        with(binding) {
             homeList.layoutManager = LinearLayoutManager(context)
             homeList.adapter = homeAdapter
             homeList.setHasFixedSize(true)

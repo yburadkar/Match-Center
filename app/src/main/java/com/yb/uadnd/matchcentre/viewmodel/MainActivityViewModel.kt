@@ -38,12 +38,12 @@ class MainActivityViewModel(
 
     private fun getNextMatchId(): Int {
         matchIndex++
-        if(matchIndex == matches.size) matchIndex = 0
+        if (matchIndex == matches.size) matchIndex = 0
         return matches[matchIndex]
     }
 
     private fun getPreviousMatchId(): Int {
-        if(matchIndex == 0) matchIndex = matches.size - 1
+        if (matchIndex == 0) matchIndex = matches.size - 1
         else matchIndex--
         return matches[matchIndex]
     }

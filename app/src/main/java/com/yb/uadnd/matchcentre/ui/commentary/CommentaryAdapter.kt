@@ -6,8 +6,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.yb.uadnd.matchcentre.Utils
-import com.yb.uadnd.matchcentre.databinding.CommentaryListItemBinding
 import com.yb.uadnd.matchcentre.data.local.Comment
+import com.yb.uadnd.matchcentre.databinding.CommentaryListItemBinding
 
 class CommentaryAdapter : ListAdapter<Comment, CommentaryAdapter.CommentaryViewHolder>(DIFF_CALLBACK) {
 
@@ -19,12 +19,12 @@ class CommentaryAdapter : ListAdapter<Comment, CommentaryAdapter.CommentaryViewH
 
     override fun onBindViewHolder(holder: CommentaryViewHolder, position: Int) = holder.bind(getItem(position))
 
-    class CommentaryViewHolder( private val binding: CommentaryListItemBinding) : RecyclerView.ViewHolder(binding.root){
+    class CommentaryViewHolder(private val binding: CommentaryListItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(entry: Comment) {
             with(binding) {
                 time.text = entry.time
                 var commentType: String? = entry.type
-                if(entry.type == "start") commentType = (entry.type + entry.period)
+                if (entry.type == "start") commentType = (entry.type + entry.period)
                 val style: Utils.TypeStyle = Utils.getCommentaryTypeStyle(commentType)
                 type.text = style.text
                 type.setBackgroundResource(style.colorRes)
@@ -33,7 +33,7 @@ class CommentaryAdapter : ListAdapter<Comment, CommentaryAdapter.CommentaryViewH
         }
     }
 
-    companion object{
+    companion object {
 
         private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Comment>() {
 

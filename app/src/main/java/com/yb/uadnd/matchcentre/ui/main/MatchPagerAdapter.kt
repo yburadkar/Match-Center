@@ -10,7 +10,7 @@ import com.yb.uadnd.matchcentre.ui.stats.StatsFragment
 
 class MatchPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
-    override fun getItem(position: Int): Fragment = when(position) {
+    override fun getItem(position: Int): Fragment = when (position) {
         0 -> CommentaryFragment()
         1 -> EventsFragment()
         2 -> LineUpFragment()
@@ -20,7 +20,7 @@ class MatchPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm, BEHAVIOR
 
     override fun getCount() = 4
 
-    override fun getPageTitle(position: Int): CharSequence = when(position) {
+    override fun getPageTitle(position: Int): CharSequence = when (position) {
         0 -> "Commentary"
         1 -> "Events"
         2 -> "Line Ups"

@@ -5,10 +5,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.yb.uadnd.matchcentre.databinding.LineUpListItemBinding
 import com.yb.uadnd.matchcentre.data.TeamPlayer
+import com.yb.uadnd.matchcentre.databinding.LineUpListItemBinding
 
-class LineUpAdapter: ListAdapter<TeamPlayer, LineUpAdapter.PlayerViewHolder>(DIFF_CALLBACK) {
+class LineUpAdapter : ListAdapter<TeamPlayer, LineUpAdapter.PlayerViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlayerViewHolder {
         val binding = LineUpListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)

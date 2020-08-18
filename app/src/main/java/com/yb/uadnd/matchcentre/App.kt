@@ -6,7 +6,7 @@ import com.yb.uadnd.matchcentre.di.AppModule
 import com.yb.uadnd.matchcentre.di.DaggerAppComponent
 import timber.log.Timber
 
-class App: Application() {
+class App : Application() {
 
     lateinit var appComponent: AppComponent
 
@@ -21,7 +21,7 @@ class App: Application() {
     }
 
     private fun initTimber() {
-        if(BuildConfig.DEBUG)
+        if (BuildConfig.DEBUG)
             Timber.plant(Timber.DebugTree())
     }
 

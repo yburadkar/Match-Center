@@ -14,19 +14,13 @@ class MatchData {
         val stats = mutableListOf<TeamStat>()
         val homeStats = homeTeam?.teamStats
         val awayStats = awayTeam?.teamStats
-        if(homeStats != null && awayStats != null) {
-            stats.add(TeamStat("Possession", "${homeStats.possession}%",
-                "${awayStats.possession}%", true))
-            stats.add(TeamStat("Shots", homeStats.shotsOnGoal.toString(),
-                awayStats.shotsOnGoal.toString(),false))
-            stats.add(TeamStat("Shot on Target", homeStats.shotsOnTarget.toString(),
-                awayStats.shotsOnTarget.toString(), false))
-            stats.add(TeamStat("Corners", homeStats.cornersWon.toString(),
-                awayStats.cornersWon.toString(), false))
-            stats.add(TeamStat("Saves", homeStats.saves.toString(),
-                awayStats.saves.toString(), false))
-            stats.add(TeamStat("Substitutions", homeStats.substitutionsMade.toString(),
-                awayStats.substitutionsMade.toString(), false))
+        if (homeStats != null && awayStats != null) {
+            stats.add(TeamStat("Possession", "${homeStats.possession}%", "${awayStats.possession}%", true))
+            stats.add(TeamStat("Shots", homeStats.shotsOnGoal.toString(), awayStats.shotsOnGoal.toString(), false))
+            stats.add(TeamStat("Shot on Target", homeStats.shotsOnTarget.toString(), awayStats.shotsOnTarget.toString(), false))
+            stats.add(TeamStat("Corners", homeStats.cornersWon.toString(), awayStats.cornersWon.toString(), false))
+            stats.add(TeamStat("Saves", homeStats.saves.toString(), awayStats.saves.toString(), false))
+            stats.add(TeamStat("Substitutions", homeStats.substitutionsMade.toString(), awayStats.substitutionsMade.toString(), false))
         }
         return stats
     }
@@ -41,13 +35,13 @@ class Team {
     val imageUrl: String? = null
 }
 
-data class TeamPlayer (
+data class TeamPlayer(
     val id: Int = 0,
     private val firstName: String? = null,
     private val lastName: String? = null,
     val position: String? = null,
     val shirtNumber: Int = 0
-){
+) {
     fun getPlayerName(): String = "$firstName $lastName"
 }
 
@@ -60,7 +54,7 @@ class TeamStats {
     val substitutionsMade: Int = 0
 }
 
-data class Event (
+data class Event(
     val time: String? = null,
     val teamId: String? = null,
     val type: String? = null,
@@ -71,7 +65,7 @@ data class Event (
 ) {
 
     fun getEventText(): String {
-        return when(type) {
+        return when (type) {
             "Kick Off" -> "Kick Off"
             "Half Time" -> "Half Time"
             "Second Half Start" -> "2nd Half started"
@@ -105,31 +99,31 @@ data class Event (
         val player = goalDetails?.player
         var goalText = "${player?.firstName} ${player?.lastName} scores."
         val type = goalDetails?.type
-        if(!type.equals("Goal"))
+        if (!type.equals("Goal"))
             goalText = "$goalText Type: $type"
         return goalText
     }
 
 }
 
-data class Goal (
+data class Goal(
     val player: Player? = null,
     val type: String? = null
 )
 
-data class Player (
+data class Player(
     val firstName: String? = null,
     val lastName: String? = null
 ) {
     fun getPlayerName(): String = "$firstName $lastName"
 }
 
-data class Booking (
+data class Booking(
     val player: Player? = null,
     val type: String? = null
 )
 
-data class Substitution (
+data class Substitution(
     val playerSubOff: Player? = null,
     val playerSubOn: Player? = null,
     val reason: String? = null

@@ -12,6 +12,7 @@ abstract class MatchCentreDatabase : RoomDatabase() {
 
     companion object {
         private const val DATABASE_NAME = "MatchCentre.db"
+
         @Volatile
         private var INSTANCE: MatchCentreDatabase? = null
         fun getInstance(context: Context): MatchCentreDatabase {
@@ -19,10 +20,10 @@ abstract class MatchCentreDatabase : RoomDatabase() {
                 var instance = INSTANCE
                 if (instance == null) {
                     instance = Room.databaseBuilder(
-                            context.applicationContext,
-                            MatchCentreDatabase::class.java,
-                            DATABASE_NAME
-                        )
+                        context.applicationContext,
+                        MatchCentreDatabase::class.java,
+                        DATABASE_NAME
+                    )
                         .fallbackToDestructiveMigration()
                         .build()
                 }

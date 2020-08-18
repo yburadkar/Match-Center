@@ -5,7 +5,7 @@ import timber.log.Timber
 object Utils {
 
     fun getEventTypeStyle(type: String?): TypeStyle {
-        return when(type) {
+        return when (type) {
             "Kick Off" -> TypeStyle("START 1", R.color.grey)
             "Half Time" -> TypeStyle("END 1", R.color.grey)
             "Second Half Start" -> TypeStyle("START 2", R.color.grey)
@@ -22,7 +22,7 @@ object Utils {
     }
 
     fun getCommentaryTypeStyle(type: String?): TypeStyle {
-        return when(type) {
+        return when (type) {
             "end 14" -> TypeStyle("FINISH", R.color.grey)
             "end 2" -> TypeStyle("END 2", R.color.grey)
             "end 1" -> TypeStyle("END 1", R.color.grey)
@@ -45,7 +45,7 @@ object Utils {
             "lineup" -> TypeStyle("LINEUP", R.color.dark_green)
             "player retired" -> TypeStyle("RET", R.color.red)
             else -> {
-                Timber.i( "Unknown type: $type")
+                Timber.i("Unknown type: $type")
                 TypeStyle("", R.color.red)
             }
         }

@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 import com.yb.uadnd.matchcentre.data.CommentaryData
 
 @Entity(tableName = "matchInfo")
-class MatchInfo (
+class MatchInfo(
     @PrimaryKey(autoGenerate = false)
     var matchId: Int = 0,
     var homeTeamName: String? = null,
@@ -18,13 +18,13 @@ class MatchInfo (
     var competition: String? = null,
     var homeTeamImageUrl: String? = null,
     var awayTeamImageUrl: String? = null,
-    var lastRefreshed: Long = System.currentTimeMillis()/1000
+    var lastRefreshed: Long = System.currentTimeMillis() / 1000
 ) {
 
     companion object {
         fun from(data: CommentaryData): MatchInfo {
             with(data) {
-                return MatchInfo( feedMatchId, homeTeamName, homeTeamId, homeScore, awayTeamName, awayTeamId, awayScore, competitionId, competition, homeTeamImageUrl, awayTeamImageUrl)
+                return MatchInfo(feedMatchId, homeTeamName, homeTeamId, homeScore, awayTeamName, awayTeamId, awayScore, competitionId, competition, homeTeamImageUrl, awayTeamImageUrl)
             }
         }
     }

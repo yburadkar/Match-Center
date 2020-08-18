@@ -6,11 +6,11 @@ data class TeamStat(var statName: String, var homeText: String, var awayText: St
     val awayPercent: Float
 
     init {
-        if(isPercent){
+        if (isPercent) {
             val len = homeText.length
-            homePercent = homeText.substring(0, len-1 ).toFloat()
-            awayPercent = awayText.substring(0, len-1 ).toFloat()
-        }else{
+            homePercent = homeText.substring(0, len - 1).toFloat()
+            awayPercent = awayText.substring(0, len - 1).toFloat()
+        } else {
             homePercent = homeText.toFloat()
             awayPercent = awayText.toFloat()
         }

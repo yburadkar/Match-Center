@@ -6,10 +6,10 @@ import android.widget.LinearLayout
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.yb.uadnd.matchcentre.databinding.StatsListItemBinding
 import com.yb.uadnd.matchcentre.data.TeamStat
+import com.yb.uadnd.matchcentre.databinding.StatsListItemBinding
 
-class StatsAdapter: ListAdapter<TeamStat, StatsAdapter.StatViewHolder>(DIFF_CALLBACK) {
+class StatsAdapter : ListAdapter<TeamStat, StatsAdapter.StatViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StatViewHolder {
         val binding = StatsListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
