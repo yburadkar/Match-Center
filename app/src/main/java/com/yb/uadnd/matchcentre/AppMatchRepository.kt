@@ -2,6 +2,7 @@ package com.yb.uadnd.matchcentre
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.yb.uadnd.matchcentre.data.MatchRepository
 import com.yb.uadnd.matchcentre.data.remote.Event
 import com.yb.uadnd.matchcentre.data.remote.Match
 import com.yb.uadnd.matchcentre.data.remote.MatchData
@@ -17,18 +18,19 @@ import io.reactivex.rxkotlin.subscribeBy
 import timber.log.Timber
 import javax.inject.Inject
 
-class AppRepository @Inject constructor(
+class AppMatchRepository @Inject constructor(
     private var matchService: MatchService,
     private val db: MatchCentreDatabase,
     private val mSource: MatchesDataSource,
     private val io: Scheduler,
     private val ui: Scheduler,
     private val idlingResource: SimpleIdlingResource
-) {
+) : MatchRepository {
+
     private val refreshIntervalSeconds = 3600  // 1 hour
     private val disposables = CompositeDisposable()
 
-    fun getMatchCommentary(newMatchId: Int): LiveData<List<Comment>> {
+    override fun getMatchCommentary(newMatchId: Int): LiveData<List<Comment>> {
         var lastRefresh: Long = 0
         db.matchInfoDao.getLastRefreshTime(newMatchId)
             .subscribeOn(io)
@@ -73,7 +75,7 @@ class AppRepository @Inject constructor(
             ).addTo(disposables)
     }
 
-    fun fetchMatch(matchId: String): LiveData<Match> {
+    override fun fetchMatch(matchId: String): LiveData<Match> {
         idlingResource.setIdleState(false)
         val match = MutableLiveData<Match>()
         matchService.getMatch(matchId)
@@ -111,8 +113,8 @@ class AppRepository @Inject constructor(
         }
     }
 
-    fun getMatchInfo(matchId: String): LiveData<MatchInfo> = db.matchInfoDao.getMatchInfo(matchId.toInt())
+    override fun getMatchInfo(matchId: String): LiveData<MatchInfo> = db.matchInfoDao.getMatchInfo(matchId.toInt())
 
-    fun getMatchList(): List<Int> = mSource.getMatchList()
+    override fun getMatchList(): List<Int> = mSource.getMatchList()
 
 }

@@ -1,7 +1,7 @@
 package com.yb.uadnd.matchcentre.di
 
 import android.app.Application
-import com.yb.uadnd.matchcentre.AppRepository
+import com.yb.uadnd.matchcentre.AppMatchRepository
 import com.yb.uadnd.matchcentre.SimpleIdlingResource
 import com.yb.uadnd.matchcentre.data.remote.MatchService
 import com.yb.uadnd.matchcentre.data.local.MatchCentreDatabase
@@ -49,8 +49,8 @@ class AppModule(private val appContext: Application) {
 
     @Singleton
     @Provides
-    fun provideMatchRepo(): AppRepository {
-        return AppRepository(provideMatchService(), provideMatchDb(), MatchesDataSource, ioScheduler(), uiScheduler(), SimpleIdlingResource)
+    fun provideMatchRepo(): AppMatchRepository {
+        return AppMatchRepository(provideMatchService(), provideMatchDb(), MatchesDataSource, ioScheduler(), uiScheduler(), SimpleIdlingResource)
     }
 
     @Singleton

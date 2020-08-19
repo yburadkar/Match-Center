@@ -3,14 +3,14 @@ package com.yb.uadnd.matchcentre.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.yb.uadnd.matchcentre.AppRepository
+import com.yb.uadnd.matchcentre.data.MatchRepository
 import com.yb.uadnd.matchcentre.data.remote.Match
 import com.yb.uadnd.matchcentre.data.local.Comment
 import com.yb.uadnd.matchcentre.data.local.MatchInfo
 import io.reactivex.disposables.CompositeDisposable
 
 class MainActivityViewModel(
-    private val matchRepo: AppRepository
+    private val matchRepo: MatchRepository
 ) : ViewModel() {
 
     private lateinit var match: LiveData<Match>
@@ -55,7 +55,7 @@ class MainActivityViewModel(
 }
 
 class MainActivityViewModelFactory(
-    private val matchRepo: AppRepository
+    private val matchRepo: MatchRepository
 ) : ViewModelProvider.NewInstanceFactory() {
 
     @Suppress("UNCHECKED_CAST")
