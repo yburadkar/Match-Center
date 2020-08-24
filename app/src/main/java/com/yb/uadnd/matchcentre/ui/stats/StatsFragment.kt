@@ -12,7 +12,6 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.yb.uadnd.matchcentre.App
-import com.yb.uadnd.matchcentre.Status.LOADING
 import com.yb.uadnd.matchcentre.databinding.FragmentStatsBinding
 import com.yb.uadnd.matchcentre.ui.main.MainActivityViewModel
 import com.yb.uadnd.matchcentre.ui.main.MainActivityViewModelFactory
@@ -48,7 +47,7 @@ class StatsFragment : Fragment() {
 
     private fun observeViewModel() {
         viewModel.getMatch().observe(viewLifecycleOwner, Observer { matchRes ->
-            binding.swipeRefresh.isRefreshing = (matchRes.status == LOADING)
+            binding.swipeRefresh.isRefreshing = matchRes.isLoading
             val match = matchRes.data
             match?.data?.let {
                 statsAdapter.submitList(it.getTeamStats())

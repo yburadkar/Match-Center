@@ -10,7 +10,6 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.yb.uadnd.matchcentre.App
-import com.yb.uadnd.matchcentre.Status
 import com.yb.uadnd.matchcentre.databinding.FragmentEventsBinding
 import com.yb.uadnd.matchcentre.ui.main.MainActivityViewModel
 import com.yb.uadnd.matchcentre.ui.main.MainActivityViewModelFactory
@@ -48,7 +47,7 @@ class EventsFragment : Fragment() {
 
     private fun observeViewModel() {
         viewModel.getMatch().observe(viewLifecycleOwner, Observer { matchRes ->
-            binding.swipeRefresh.isRefreshing = (matchRes.status == Status.LOADING)
+            binding.swipeRefresh.isRefreshing = matchRes.isLoading
             val match = matchRes.data
             match?.data?.events?.let {
                 eventsAdapter.submitList(it)

@@ -6,14 +6,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.yb.uadnd.matchcentre.Resource
 import com.yb.uadnd.matchcentre.SimpleIdlingResource
-import com.yb.uadnd.matchcentre.Status.ERROR
-import com.yb.uadnd.matchcentre.Status.LOADING
-import com.yb.uadnd.matchcentre.Status.SUCCESS
 import com.yb.uadnd.matchcentre.data.MatchRepository
-import com.yb.uadnd.matchcentre.data.remote.Match
 import com.yb.uadnd.matchcentre.data.local.Comment
 import com.yb.uadnd.matchcentre.data.local.MatchInfo
 import com.yb.uadnd.matchcentre.data.remote.Event
+import com.yb.uadnd.matchcentre.data.remote.Match
 import com.yb.uadnd.matchcentre.data.remote.MatchData
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
@@ -61,16 +58,16 @@ class MainActivityViewModel(
             .observeOn(ui)
             .doOnSubscribe {
                 idlingRes.setIdleState(false)
-                match.value = Resource(LOADING, match.value?.data)
+                match.value = Resource.loading(data = match.value?.data)
             }
             .subscribeBy(
                 onError = {
                     Timber.e(it)
-                    match.value = Resource(ERROR, null)
+                    match.value = Resource.error(data = null, error = it)
                     idlingRes.setIdleState(true)
                 },
                 onSuccess = {
-                    match.value = Resource(SUCCESS, updateMatchEvents(it))
+                    match.value = Resource.success(updateMatchEvents(it))
                     idlingRes.setIdleState(true)
                 }
 
