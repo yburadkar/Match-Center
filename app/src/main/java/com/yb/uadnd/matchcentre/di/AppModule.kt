@@ -3,6 +3,7 @@ package com.yb.uadnd.matchcentre.di
 import android.app.Application
 import com.yb.uadnd.matchcentre.data.repo.AppMatchRepository
 import com.yb.uadnd.matchcentre.SimpleIdlingResource
+import com.yb.uadnd.matchcentre.data.MatchRepository
 import com.yb.uadnd.matchcentre.data.remote.MatchService
 import com.yb.uadnd.matchcentre.data.local.MatchCentreDatabase
 import com.yb.uadnd.matchcentre.data.remote.CommentaryService
@@ -59,15 +60,13 @@ class AppModule(private val appContext: Application) {
 
     @Singleton
     @Provides
-    fun provideMatchRepo(): AppMatchRepository {
-        return AppMatchRepository(provideMatchService(), provideCommentaryService(), provideMatchDb(), MatchesDataSource, ioScheduler(), uiScheduler(), SimpleIdlingResource)
+    fun provideMatchRepo(): MatchRepository {
+        return AppMatchRepository(provideMatchService(), provideCommentaryService(), provideMatchDb(), MatchesDataSource, ioScheduler(), uiScheduler(), provideIdlingRes())
     }
 
     @Singleton
     @Provides
-    fun provideMainViewModelFactory(): MainActivityViewModelFactory {
-        return MainActivityViewModelFactory(provideMatchRepo())
-    }
+    fun provideIdlingRes() = SimpleIdlingResource
 
     companion object {
         private const val BASE_URL = "https://feeds.incrowdsports.com/provider/opta/football/v1/matches/"
