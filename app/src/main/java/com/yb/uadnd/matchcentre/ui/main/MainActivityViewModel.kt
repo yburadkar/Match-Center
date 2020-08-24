@@ -4,7 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.yb.uadnd.matchcentre.Resource
 import com.yb.uadnd.matchcentre.SimpleIdlingResource
+import com.yb.uadnd.matchcentre.Status.ERROR
+import com.yb.uadnd.matchcentre.Status.LOADING
+import com.yb.uadnd.matchcentre.Status.SUCCESS
 import com.yb.uadnd.matchcentre.data.MatchRepository
 import com.yb.uadnd.matchcentre.data.remote.Match
 import com.yb.uadnd.matchcentre.data.local.Comment
@@ -26,7 +30,7 @@ class MainActivityViewModel(
     private val idlingRes: SimpleIdlingResource
 ) : ViewModel() {
 
-    private val match = MutableLiveData<Match>()
+    private val match = MutableLiveData<Resource<Match>>()
     private lateinit var comments: LiveData<List<Comment>>
     private lateinit var matchInfo: LiveData<MatchInfo>
     private var disposables = CompositeDisposable()
@@ -43,7 +47,7 @@ class MainActivityViewModel(
 
     fun getComments(): LiveData<List<Comment>> = comments
 
-    fun getMatch(): LiveData<Match> = match
+    fun getMatch(): LiveData<Resource<Match>> = match
 
     fun getMatchInfo(): LiveData<MatchInfo> = matchInfo
 
@@ -55,14 +59,18 @@ class MainActivityViewModel(
         matchRepo.fetchMatch(matchId = matchId.toString())
             .subscribeOn(io)
             .observeOn(ui)
-            .doOnSubscribe { idlingRes.setIdleState(false) }
+            .doOnSubscribe {
+                idlingRes.setIdleState(false)
+                match.value = Resource(LOADING, match.value?.data)
+            }
             .subscribeBy(
                 onError = {
                     Timber.e(it)
+                    match.value = Resource(ERROR, null)
                     idlingRes.setIdleState(true)
                 },
                 onSuccess = {
-                    match.value = updateMatchEvents(it)
+                    match.value = Resource(SUCCESS, updateMatchEvents(it))
                     idlingRes.setIdleState(true)
                 }
 
@@ -108,6 +116,7 @@ class MainActivityViewModel(
         super.onCleared()
         disposables.clear()
     }
+
 }
 
 class MainActivityViewModelFactory @Inject constructor(
