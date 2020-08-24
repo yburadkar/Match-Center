@@ -60,12 +60,12 @@ class LineUpFragment : Fragment() {
         homeAdapter = LineUpAdapter()
         awayAdapter = LineUpAdapter()
         with(binding) {
-            homeList.layoutManager = LinearLayoutManager(context)
-            homeList.adapter = homeAdapter
-            homeList.setHasFixedSize(true)
-            awayList.layoutManager = LinearLayoutManager(context)
-            awayList.adapter = awayAdapter
-            awayList.setHasFixedSize(true)
+            homeLineUp.layoutManager = LinearLayoutManager(context)
+            homeLineUp.adapter = homeAdapter
+            homeLineUp.setHasFixedSize(true)
+            awayLineUp.layoutManager = LinearLayoutManager(context)
+            awayLineUp.adapter = awayAdapter
+            awayLineUp.setHasFixedSize(true)
         }
     }
 
