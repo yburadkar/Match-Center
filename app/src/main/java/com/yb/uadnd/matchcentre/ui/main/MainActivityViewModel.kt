@@ -1,4 +1,4 @@
-package com.yb.uadnd.matchcentre.viewmodel
+package com.yb.uadnd.matchcentre.ui.main
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel

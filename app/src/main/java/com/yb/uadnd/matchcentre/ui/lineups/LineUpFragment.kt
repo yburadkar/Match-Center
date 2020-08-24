@@ -11,8 +11,8 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.yb.uadnd.matchcentre.App
 import com.yb.uadnd.matchcentre.databinding.FragmentLineUpBinding
-import com.yb.uadnd.matchcentre.viewmodel.MainActivityViewModel
-import com.yb.uadnd.matchcentre.viewmodel.MainActivityViewModelFactory
+import com.yb.uadnd.matchcentre.ui.main.MainActivityViewModel
+import com.yb.uadnd.matchcentre.ui.main.MainActivityViewModelFactory
 import javax.inject.Inject
 
 class LineUpFragment : Fragment() {

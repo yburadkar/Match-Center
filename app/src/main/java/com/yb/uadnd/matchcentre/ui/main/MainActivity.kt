@@ -8,8 +8,6 @@ import com.squareup.picasso.Picasso
 
 import com.yb.uadnd.matchcentre.App
 import com.yb.uadnd.matchcentre.databinding.ActivityMainBinding
-import com.yb.uadnd.matchcentre.viewmodel.MainActivityViewModel
-import com.yb.uadnd.matchcentre.viewmodel.MainActivityViewModelFactory
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {

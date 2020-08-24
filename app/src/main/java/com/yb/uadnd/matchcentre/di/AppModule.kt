@@ -1,12 +1,13 @@
 package com.yb.uadnd.matchcentre.di
 
 import android.app.Application
-import com.yb.uadnd.matchcentre.AppMatchRepository
+import com.yb.uadnd.matchcentre.data.repo.AppMatchRepository
 import com.yb.uadnd.matchcentre.SimpleIdlingResource
 import com.yb.uadnd.matchcentre.data.remote.MatchService
 import com.yb.uadnd.matchcentre.data.local.MatchCentreDatabase
+import com.yb.uadnd.matchcentre.data.remote.CommentaryService
 import com.yb.uadnd.matchcentre.data.remote.MatchesDataSource
-import com.yb.uadnd.matchcentre.viewmodel.MainActivityViewModelFactory
+import com.yb.uadnd.matchcentre.ui.main.MainActivityViewModelFactory
 import dagger.Module
 import dagger.Provides
 import io.reactivex.Scheduler
@@ -22,13 +23,22 @@ import javax.inject.Singleton
 class AppModule(private val appContext: Application) {
 
     @Provides
-    fun provideMatchService(): MatchService {
+    fun provideRetrofit(): Retrofit {
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-            .create(MatchService::class.java)
+    }
+
+    @Provides
+    fun provideMatchService(): MatchService {
+        return provideRetrofit().create(MatchService::class.java)
+    }
+
+    @Provides
+    fun provideCommentaryService(): CommentaryService {
+        return provideRetrofit().create(CommentaryService::class.java)
     }
 
     @Singleton
@@ -50,7 +60,7 @@ class AppModule(private val appContext: Application) {
     @Singleton
     @Provides
     fun provideMatchRepo(): AppMatchRepository {
-        return AppMatchRepository(provideMatchService(), provideMatchDb(), MatchesDataSource, ioScheduler(), uiScheduler(), SimpleIdlingResource)
+        return AppMatchRepository(provideMatchService(), provideCommentaryService(), provideMatchDb(), MatchesDataSource, ioScheduler(), uiScheduler(), SimpleIdlingResource)
     }
 
     @Singleton

@@ -1,7 +1,8 @@
-package com.yb.uadnd.matchcentre
+package com.yb.uadnd.matchcentre.data.repo
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.yb.uadnd.matchcentre.SimpleIdlingResource
 import com.yb.uadnd.matchcentre.data.MatchRepository
 import com.yb.uadnd.matchcentre.data.remote.Event
 import com.yb.uadnd.matchcentre.data.remote.Match
@@ -10,6 +11,7 @@ import com.yb.uadnd.matchcentre.data.remote.MatchService
 import com.yb.uadnd.matchcentre.data.local.Comment
 import com.yb.uadnd.matchcentre.data.local.MatchCentreDatabase
 import com.yb.uadnd.matchcentre.data.local.MatchInfo
+import com.yb.uadnd.matchcentre.data.remote.CommentaryService
 import com.yb.uadnd.matchcentre.data.remote.MatchesDataSource
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
@@ -19,7 +21,8 @@ import timber.log.Timber
 import javax.inject.Inject
 
 class AppMatchRepository @Inject constructor(
-    private var matchService: MatchService,
+    private val matchService: MatchService,
+    private val commentaryService: CommentaryService,
     private val db: MatchCentreDatabase,
     private val mSource: MatchesDataSource,
     private val io: Scheduler,
@@ -47,10 +50,33 @@ class AppMatchRepository @Inject constructor(
         return db.commentDao.getAllMatchComments(newMatchId)
     }
 
+    override fun fetchMatch(matchId: String): LiveData<Match> {
+        idlingResource.setIdleState(false)
+        val match = MutableLiveData<Match>()
+        matchService.getMatch(matchId)
+            .subscribeOn(io)
+            .observeOn(ui)
+            .subscribeBy(
+                onSuccess = {
+                    match.value = updateMatchEvents(it)
+                    idlingResource.setIdleState(true)
+                },
+                onError = {
+                    idlingResource.setIdleState(true)
+                    Timber.e(it)
+                }
+            ).addTo(disposables)
+        return match
+    }
+
+    override fun getMatchInfo(matchId: String): LiveData<MatchInfo> = db.matchInfoDao.getMatchInfo(matchId.toInt())
+
+    override fun getMatchList(): List<Int> = mSource.getMatchList()
+
     private fun refreshCommentary(newMatchId: Int) {
         idlingResource.setIdleState(false)
         Timber.d("Fetching comments for match $newMatchId")
-        matchService.getMatchCommentary(newMatchId.toString())
+        commentaryService.getMatchCommentary(newMatchId.toString())
             .subscribeOn(io)
             .observeOn(io)
             .subscribeBy(
@@ -75,25 +101,6 @@ class AppMatchRepository @Inject constructor(
             ).addTo(disposables)
     }
 
-    override fun fetchMatch(matchId: String): LiveData<Match> {
-        idlingResource.setIdleState(false)
-        val match = MutableLiveData<Match>()
-        matchService.getMatch(matchId)
-            .subscribeOn(io)
-            .observeOn(ui)
-            .subscribeBy(
-                onSuccess = {
-                    match.value = updateMatchEvents(it)
-                    idlingResource.setIdleState(true)
-                },
-                onError = {
-                    idlingResource.setIdleState(true)
-                    Timber.e(it)
-                }
-            ).addTo(disposables)
-        return match
-    }
-
     private fun updateMatchEvents(match: Match): Match {
         match.data?.also { data ->
             data.events?.forEach {
@@ -112,9 +119,5 @@ class AppMatchRepository @Inject constructor(
             else -> null
         }
     }
-
-    override fun getMatchInfo(matchId: String): LiveData<MatchInfo> = db.matchInfoDao.getMatchInfo(matchId.toInt())
-
-    override fun getMatchList(): List<Int> = mSource.getMatchList()
 
 }
