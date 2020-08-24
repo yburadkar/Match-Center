@@ -75,7 +75,7 @@
         />
 
     <TextView
-        android:id="@+id/home_team"
+        android:id="@+id/homeTeam"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
@@ -115,7 +115,7 @@
         />
 
     <TextView
-        android:id="@+id/away_team"
+        android:id="@+id/awayTeam"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"

@@ -18,7 +18,7 @@
         />
 
     <TextView
-        android:id="@+id/home_team"
+        android:id="@+id/homeTeam"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -32,7 +32,7 @@
         />
 
     <TextView
-        android:id="@+id/away_team"
+        android:id="@+id/awayTeam"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -53,7 +53,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/vertical_centre_guideline"
-        app:layout_constraintTop_toBottomOf="@id/home_team"
+        app:layout_constraintTop_toBottomOf="@id/homeTeam"
         />
 
     <androidx.recyclerview.widget.RecyclerView
@@ -64,7 +64,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="@id/vertical_centre_guideline"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/away_team"
+        app:layout_constraintTop_toBottomOf="@id/awayTeam"
         />
 
     <View

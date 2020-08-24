@@ -57,7 +57,7 @@ class StatsFragment : Fragment() {
     }
 
     private fun initRecyclerView() {
-        with(binding.statsList) {
+        with(binding.statsRv) {
             layoutManager = LinearLayoutManager(context)
             adapter = statsAdapter
             setHasFixedSize(true)

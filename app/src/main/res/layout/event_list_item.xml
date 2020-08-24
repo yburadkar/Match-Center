@@ -1,69 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
     >
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/time"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="4dp"
-        >
-
-        <TextView
-            android:id="@+id/time"
-            android:layout_width="52dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:textSize="14sp"
-            tools:text="40'"
-            />
-
-        <ImageView
-            android:id="@+id/team_logo"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center"
-            android:layout_marginStart="4dp"
-            android:contentDescription="@string/team_logo_content_desc"
-            android:scaleType="fitXY"
-            tools:background="@color/green"
-            />
-
-        <TextView
-            android:id="@+id/type"
-            android:layout_width="60dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginStart="12dp"
-            android:gravity="center_horizontal"
-            android:padding="2dp"
-            android:textColor="@color/white"
-            android:textSize="12sp"
-            tools:text="GOAL"
-            />
-
-        <TextView
-            android:id="@+id/event_notes"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginStart="8dp"
-            android:layout_weight="1"
-            android:textSize="12sp"
-            tools:text="Goal!  Manchester United 2, Leicester City 0. Luke Shaw (Manchester United) left footed shot from a difficult angle on the left to the bottom right corner. Assisted by Juan Mata."
-            />
-
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/grey"
+        android:layout_gravity="center"
+        android:layout_marginStart="8dp"
+        android:ems="3"
+        android:gravity="center"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="40'"
         />
 
-</LinearLayout>
+    <ImageView
+        android:id="@+id/teamLogo"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="4dp"
+        android:contentDescription="@string/team_logo_content_desc"
+        android:padding="4dp"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/time"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:background="@color/green"
+        />
+
+    <TextView
+        android:id="@+id/type"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:gravity="center"
+        android:padding="2dp"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/teamLogo"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:background="@color/blue"
+        tools:text="GOAL"
+        />
+
+    <TextView
+        android:id="@+id/eventNotes"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/type"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Goal!  Manchester United 2, Leicester City 0. Luke Shaw (Manchester United) left footed shot from a difficult angle on the left to the bottom right corner. Assisted by Juan Mata."
+        />
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/viewBarrier"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:barrierDirection="bottom"
+        app:constraint_referenced_ids="eventNotes, teamLogo, time, type"
+        />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="@color/grey"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/viewBarrier"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
