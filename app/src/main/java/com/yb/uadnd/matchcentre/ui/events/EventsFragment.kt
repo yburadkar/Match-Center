@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import com.yb.uadnd.matchcentre.App
 import com.yb.uadnd.matchcentre.databinding.FragmentEventsBinding
 import com.yb.uadnd.matchcentre.ui.main.MainActivityViewModel
@@ -47,10 +48,13 @@ class EventsFragment : Fragment() {
 
     private fun observeViewModel() {
         viewModel.getMatch().observe(viewLifecycleOwner, Observer { matchRes ->
-            binding.swipeRefresh.isRefreshing = matchRes.isLoading
             val match = matchRes.data
             match?.data?.events?.let {
                 eventsAdapter.submitList(it)
+            }
+            binding.swipeRefresh.isRefreshing = matchRes.isLoading
+            if(matchRes.isError) {
+                Snackbar.make(requireView(), "Failed to load data", Snackbar.LENGTH_SHORT).show()
             }
         })
     }

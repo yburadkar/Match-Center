@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
 
 import com.yb.uadnd.matchcentre.App
 import com.yb.uadnd.matchcentre.databinding.FragmentStatsBinding
@@ -47,7 +48,6 @@ class StatsFragment : Fragment() {
 
     private fun observeViewModel() {
         viewModel.getMatch().observe(viewLifecycleOwner, Observer { matchRes ->
-            binding.swipeRefresh.isRefreshing = matchRes.isLoading
             val match = matchRes.data
             match?.data?.let {
                 statsAdapter.submitList(it.getTeamStats())
@@ -55,6 +55,10 @@ class StatsFragment : Fragment() {
                     homeTeam.text = it.homeTeam?.name
                     awayTeam.text = it.awayTeam?.name
                 }
+            }
+            binding.swipeRefresh.isRefreshing = matchRes.isLoading
+            if(matchRes.isError) {
+                Snackbar.make(requireView(), "Failed to load data", Snackbar.LENGTH_SHORT).show()
             }
         })
     }

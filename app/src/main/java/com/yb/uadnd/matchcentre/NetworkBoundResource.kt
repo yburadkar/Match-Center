@@ -139,3 +139,5 @@ fun <T> networkBoundResource(
         }
     }
 }
+
+class Optional<T>( private val value: T?)
