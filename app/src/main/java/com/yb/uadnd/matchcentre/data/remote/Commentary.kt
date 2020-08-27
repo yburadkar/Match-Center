@@ -5,24 +5,24 @@ class Commentary {
 }
 
 class CommentaryData {
-    var id: String? = null
-    var feedMatchId: Int = 0
-    var homeTeamName: String? = null
-    var homeTeamId: String? = null
-    var homeScore: Int = 0
-    var awayTeamName: String? = null
-    var awayTeamId: String? = null
-    var awayScore: Int = 0
-    var competitionId: Int = 0
-    var competition: String? = null
-    var commentaryEntries: List<CommentaryEntry>? = null
-    var homeTeamImageUrl: String? = null
-    var awayTeamImageUrl: String? = null
+    val id: String? = null
+    val feedMatchId: Int = 0
+    val homeTeamName: String? = null
+    val homeTeamId: String? = null
+    val homeScore: Int = 0
+    val awayTeamName: String? = null
+    val awayTeamId: String? = null
+    val awayScore: Int = 0
+    val competitionId: Int = 0
+    val competition: String? = null
+    val commentaryEntries: List<CommentaryEntry>? = null
+    val homeTeamImageUrl: String? = null
+    val awayTeamImageUrl: String? = null
 }
 
 class CommentaryEntry(
-    var type: String? = null,
-    var comment: String? = null,
-    var time: String? = null,
-    var period: String? = null
+    val type: String? = null,
+    val comment: String? = null,
+    val time: String? = null,
+    val period: String? = null
 )

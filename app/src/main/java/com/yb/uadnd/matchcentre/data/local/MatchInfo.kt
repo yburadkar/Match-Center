@@ -7,18 +7,18 @@ import com.yb.uadnd.matchcentre.data.remote.CommentaryData
 @Entity(tableName = "matchInfo")
 class MatchInfo(
     @PrimaryKey(autoGenerate = false)
-    var matchId: Int = 0,
-    var homeTeamName: String? = null,
-    var homeTeamId: String? = null,
-    var homeScore: Int = 0,
-    var awayTeamName: String? = null,
-    var awayTeamId: String? = null,
-    var awayScore: Int = 0,
-    var competitionId: Int = 0,
-    var competition: String? = null,
-    var homeTeamImageUrl: String? = null,
-    var awayTeamImageUrl: String? = null,
-    var lastRefreshed: Long = System.currentTimeMillis() / 1000
+    val matchId: Int = 0,
+    val homeTeamName: String? = null,
+    val homeTeamId: String? = null,
+    val homeScore: Int = 0,
+    val awayTeamName: String? = null,
+    val awayTeamId: String? = null,
+    val awayScore: Int = 0,
+    val competitionId: Int = 0,
+    val competition: String? = null,
+    val homeTeamImageUrl: String? = null,
+    val awayTeamImageUrl: String? = null,
+    val lastRefreshed: Long = System.currentTimeMillis() / 1000
 ) {
 
     companion object {

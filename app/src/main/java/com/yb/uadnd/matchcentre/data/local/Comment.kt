@@ -7,12 +7,12 @@ import com.yb.uadnd.matchcentre.data.remote.CommentaryEntry
 
 @Entity(tableName = "comment")
 data class Comment(
-    @PrimaryKey(autoGenerate = true) var id: Int = 0,
-    var matchId: Int = 0,
-    var type: String? = null,
-    var comment: String? = null,
-    var time: String? = null,
-    var period: String? = null
+    @PrimaryKey(autoGenerate = true) val id: Int = 0,
+    val matchId: Int = 0,
+    val type: String? = null,
+    val comment: String? = null,
+    val time: String? = null,
+    val period: String? = null
 ) {
 
     @Ignore
