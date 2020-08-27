@@ -6,10 +6,10 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.yb.uadnd.matchcentre.Utils
-import com.yb.uadnd.matchcentre.data.local.Comment
+import com.yb.uadnd.matchcentre.data.local.DbComment
 import com.yb.uadnd.matchcentre.databinding.CommentaryListItemBinding
 
-class CommentaryAdapter : ListAdapter<Comment, CommentaryAdapter.CommentaryViewHolder>(DIFF_CALLBACK) {
+class CommentaryAdapter : ListAdapter<DbComment, CommentaryAdapter.CommentaryViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CommentaryViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -20,7 +20,7 @@ class CommentaryAdapter : ListAdapter<Comment, CommentaryAdapter.CommentaryViewH
     override fun onBindViewHolder(holder: CommentaryViewHolder, position: Int) = holder.bind(getItem(position))
 
     class CommentaryViewHolder(private val binding: CommentaryListItemBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(entry: Comment) {
+        fun bind(entry: DbComment) {
             with(binding) {
                 time.text = entry.time
                 var commentType: String? = entry.type
@@ -35,11 +35,11 @@ class CommentaryAdapter : ListAdapter<Comment, CommentaryAdapter.CommentaryViewH
 
     companion object {
 
-        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Comment>() {
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<DbComment>() {
 
-            override fun areItemsTheSame(oldItem: Comment, newItem: Comment): Boolean = oldItem === newItem
+            override fun areItemsTheSame(oldItem: DbComment, newItem: DbComment): Boolean = oldItem === newItem
 
-            override fun areContentsTheSame(oldItem: Comment, newItem: Comment): Boolean = oldItem == newItem
+            override fun areContentsTheSame(oldItem: DbComment, newItem: DbComment): Boolean = oldItem == newItem
 
         }
 

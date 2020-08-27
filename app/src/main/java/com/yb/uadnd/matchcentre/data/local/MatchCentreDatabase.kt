@@ -5,7 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [MatchInfo::class, Comment::class], version = 1, exportSchema = false)
+@Database(entities = [DbCommMatchInfo::class, DbComment::class], version = 1, exportSchema = false)
 abstract class MatchCentreDatabase : RoomDatabase() {
     abstract val matchInfoDao: MatchInfoDao
     abstract val commentDao: CommentDao

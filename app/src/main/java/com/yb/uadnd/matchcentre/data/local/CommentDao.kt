@@ -9,10 +9,10 @@ import androidx.room.Query
 interface CommentDao {
 
     @Insert
-    fun insertComment(comment: Comment)
+    fun insertComment(comment: DbComment)
 
     @Query("SELECT * FROM comment WHERE matchId = :matchId")
-    fun getAllMatchComments(matchId: Int): LiveData<List<Comment>>
+    fun getAllMatchComments(matchId: Int): LiveData<List<DbComment>>
 
     @Query("DELETE FROM comment WHERE matchId = :matchId")
     fun deleteAllMatchComments(matchId: Int)

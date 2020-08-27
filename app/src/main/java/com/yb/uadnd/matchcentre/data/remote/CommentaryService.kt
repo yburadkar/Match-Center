@@ -7,6 +7,6 @@ import retrofit2.http.Path
 interface CommentaryService {
 
     @GET("{matchId}/commentary")
-    fun getMatchCommentary(@Path("matchId") id: String): Single<Commentary>
+    fun getMatchCommentary(@Path("matchId") id: String): Single<ApiCommentary>
 
 }

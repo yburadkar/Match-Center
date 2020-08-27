@@ -7,8 +7,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.yb.uadnd.matchcentre.Resource
 import com.yb.uadnd.matchcentre.SimpleIdlingResource
 import com.yb.uadnd.matchcentre.data.MatchRepository
-import com.yb.uadnd.matchcentre.data.local.Comment
-import com.yb.uadnd.matchcentre.data.local.MatchInfo
+import com.yb.uadnd.matchcentre.data.local.DbComment
+import com.yb.uadnd.matchcentre.data.local.DbCommMatchInfo
 import com.yb.uadnd.matchcentre.data.remote.Event
 import com.yb.uadnd.matchcentre.data.remote.Match
 import com.yb.uadnd.matchcentre.data.remote.MatchData
@@ -28,8 +28,8 @@ class MainActivityViewModel(
 ) : ViewModel() {
 
     private val match = MutableLiveData<Resource<Match>>()
-    private lateinit var comments: LiveData<List<Comment>>
-    private lateinit var matchInfo: LiveData<MatchInfo>
+    private lateinit var comments: LiveData<List<DbComment>>
+    private lateinit var matchInfo: LiveData<DbCommMatchInfo>
     private var disposables = CompositeDisposable()
     private val matches: List<Int> by lazy { matchRepo.getMatchList() }  //using hardcoded match Ids for sample app
     private var matchIndex = -1
@@ -42,11 +42,11 @@ class MainActivityViewModel(
         fetchMatch(newMatchId)
     }
 
-    fun getComments(): LiveData<List<Comment>> = comments
+    fun getComments(): LiveData<List<DbComment>> = comments
 
     fun getMatch(): LiveData<Resource<Match>> = match
 
-    fun getMatchInfo(): LiveData<MatchInfo> = matchInfo
+    fun getMatchInfo(): LiveData<DbCommMatchInfo> = matchInfo
 
     fun loadNextMatch() = loadMatch(getNextMatchId())
 

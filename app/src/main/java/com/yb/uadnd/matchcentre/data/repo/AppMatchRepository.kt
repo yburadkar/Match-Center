@@ -5,9 +5,9 @@ import com.yb.uadnd.matchcentre.SimpleIdlingResource
 import com.yb.uadnd.matchcentre.data.MatchRepository
 import com.yb.uadnd.matchcentre.data.remote.Match
 import com.yb.uadnd.matchcentre.data.remote.MatchService
-import com.yb.uadnd.matchcentre.data.local.Comment
+import com.yb.uadnd.matchcentre.data.local.DbComment
 import com.yb.uadnd.matchcentre.data.local.MatchCentreDatabase
-import com.yb.uadnd.matchcentre.data.local.MatchInfo
+import com.yb.uadnd.matchcentre.data.local.DbCommMatchInfo
 import com.yb.uadnd.matchcentre.data.remote.CommentaryService
 import com.yb.uadnd.matchcentre.data.remote.MatchesDataSource
 import io.reactivex.Scheduler
@@ -31,7 +31,7 @@ class AppMatchRepository @Inject constructor(
     private val refreshIntervalSeconds = 3600  // 1 hour
     private val disposables = CompositeDisposable()
 
-    override fun getMatchCommentary(newMatchId: Int): LiveData<List<Comment>> {
+    override fun getMatchCommentary(newMatchId: Int): LiveData<List<DbComment>> {
         var lastRefresh: Long = 0
         db.matchInfoDao.getLastRefreshTime(newMatchId)
             .subscribeOn(io)
@@ -48,9 +48,9 @@ class AppMatchRepository @Inject constructor(
         return db.commentDao.getAllMatchComments(newMatchId)
     }
 
-    override fun fetchMatch(matchId: String): Single<Match> = matchService.getMatch(matchId)
+    override fun getMatchInfo(matchId: String): LiveData<DbCommMatchInfo> = db.matchInfoDao.getMatchInfo(matchId.toInt())
 
-    override fun getMatchInfo(matchId: String): LiveData<MatchInfo> = db.matchInfoDao.getMatchInfo(matchId.toInt())
+    override fun fetchMatch(matchId: String): Single<Match> = matchService.getMatch(matchId)
 
     override fun getMatchList(): List<Int> = mSource.getMatchList()
 
@@ -65,12 +65,12 @@ class AppMatchRepository @Inject constructor(
                     idlingResource.setIdleState(true)
                     db.commentDao.deleteAllMatchComments(newMatchId)
                     commentary?.data?.let {
-                        val info = MatchInfo.from(data = it)
+                        val info = DbCommMatchInfo.from(data = it)
                         db.matchInfoDao.insertMatchInfo(info)
                             .subscribe()
                         it.commentaryEntries?.let { entries ->
                             entries.forEach { entry ->
-                                db.commentDao.insertComment(Comment(newMatchId, entry))
+                                db.commentDao.insertComment(DbComment(newMatchId, entry))
                             }
                         }
                     }
