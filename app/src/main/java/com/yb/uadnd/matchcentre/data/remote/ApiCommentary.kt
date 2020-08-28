@@ -27,4 +27,4 @@ class ApiCommentaryEntry(
     override val comment: String? = null,
     override val time: String? = null,
     override val period: String? = null
-): Comment
+) : Comment

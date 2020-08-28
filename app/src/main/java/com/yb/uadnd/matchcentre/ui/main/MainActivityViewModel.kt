@@ -6,12 +6,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.yb.uadnd.matchcentre.Resource
 import com.yb.uadnd.matchcentre.SimpleIdlingResource
-import com.yb.uadnd.matchcentre.data.MatchRepository
+import com.yb.uadnd.matchcentre.domain.MatchRepository
 import com.yb.uadnd.matchcentre.data.local.DbComment
-import com.yb.uadnd.matchcentre.data.local.DbCommMatchInfo
-import com.yb.uadnd.matchcentre.data.remote.Event
-import com.yb.uadnd.matchcentre.data.remote.Match
-import com.yb.uadnd.matchcentre.data.remote.MatchData
+import com.yb.uadnd.matchcentre.data.local.DbCommentaryMatchInfo
+import com.yb.uadnd.matchcentre.data.remote.ApiEvent
+import com.yb.uadnd.matchcentre.data.remote.ApiMatch
+import com.yb.uadnd.matchcentre.data.remote.ApiMatchData
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
@@ -27,9 +27,9 @@ class MainActivityViewModel(
     private val idlingRes: SimpleIdlingResource
 ) : ViewModel() {
 
-    private val match = MutableLiveData<Resource<Match>>()
+    private val match = MutableLiveData<Resource<ApiMatch>>()
     private lateinit var comments: LiveData<List<DbComment>>
-    private lateinit var matchInfo: LiveData<DbCommMatchInfo>
+    private lateinit var matchInfo: LiveData<DbCommentaryMatchInfo>
     private var disposables = CompositeDisposable()
     private val matches: List<Int> by lazy { matchRepo.getMatchList() }  //using hardcoded match Ids for sample app
     private var matchIndex = -1
@@ -44,9 +44,9 @@ class MainActivityViewModel(
 
     fun getComments(): LiveData<List<DbComment>> = comments
 
-    fun getMatch(): LiveData<Resource<Match>> = match
+    fun getMatch(): LiveData<Resource<ApiMatch>> = match
 
-    fun getMatchInfo(): LiveData<DbCommMatchInfo> = matchInfo
+    fun getMatchInfo(): LiveData<DbCommentaryMatchInfo> = matchInfo
 
     fun loadNextMatch() = loadMatch(getNextMatchId())
 
@@ -74,7 +74,7 @@ class MainActivityViewModel(
             ).addTo(disposables)
     }
 
-    private fun updateMatchEvents(match: Match): Match {
+    private fun updateMatchEvents(match: ApiMatch): ApiMatch {
         match.data?.also { data ->
             data.events?.forEach {
                 it.updateImageUrl(getEventTeamUrl(data, it))
@@ -83,7 +83,7 @@ class MainActivityViewModel(
         return match
     }
 
-    private fun getEventTeamUrl(data: MatchData, event: Event): String? {
+    private fun getEventTeamUrl(data: ApiMatchData, event: ApiEvent): String? {
         val homeTeamId = data.homeTeam?.id
         val awayTeamId = data.awayTeam?.id
         return when (event.teamId) {

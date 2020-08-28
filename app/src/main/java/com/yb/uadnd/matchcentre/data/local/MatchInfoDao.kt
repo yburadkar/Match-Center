@@ -12,10 +12,10 @@ import io.reactivex.Single
 interface MatchInfoDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertMatchInfo(matchInfo: DbCommMatchInfo): Completable
+    fun insertMatchInfo(matchInfo: DbCommentaryMatchInfo): Completable
 
     @Query("SELECT * FROM matchInfo WHERE matchId = :id")
-    fun getMatchInfo(id: Int): LiveData<DbCommMatchInfo>
+    fun getMatchInfo(id: Int): LiveData<DbCommentaryMatchInfo>
 
     @Query("SELECT lastRefreshed FROM matchInfo WHERE matchId = :matchId")
     fun getLastRefreshTime(matchId: Int): Single<List<Long>>

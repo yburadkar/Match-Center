@@ -7,10 +7,10 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import com.yb.uadnd.matchcentre.Utils
-import com.yb.uadnd.matchcentre.data.remote.Event
+import com.yb.uadnd.matchcentre.data.remote.ApiEvent
 import com.yb.uadnd.matchcentre.databinding.EventListItemBinding
 
-class EventsAdapter : ListAdapter<Event, EventsAdapter.EventViewHolder>(DIFF_CALLBACK) {
+class EventsAdapter : ListAdapter<ApiEvent, EventsAdapter.EventViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventViewHolder {
         val binding = EventListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -20,7 +20,7 @@ class EventsAdapter : ListAdapter<Event, EventsAdapter.EventViewHolder>(DIFF_CAL
     override fun onBindViewHolder(holder: EventViewHolder, position: Int) = holder.bind(getItem(position))
 
     class EventViewHolder(private val binding: EventListItemBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(event: Event) {
+        fun bind(event: ApiEvent) {
             with(binding) {
                 time.text = event.time
                 Picasso.get().load(event.teamImageUrl).into(teamLogo)
@@ -33,11 +33,11 @@ class EventsAdapter : ListAdapter<Event, EventsAdapter.EventViewHolder>(DIFF_CAL
     }
 
     companion object {
-        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Event>() {
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<ApiEvent>() {
 
-            override fun areItemsTheSame(oldItem: Event, newItem: Event): Boolean = oldItem === newItem
+            override fun areItemsTheSame(oldItem: ApiEvent, newItem: ApiEvent): Boolean = oldItem === newItem
 
-            override fun areContentsTheSame(oldItem: Event, newItem: Event): Boolean = oldItem == newItem
+            override fun areContentsTheSame(oldItem: ApiEvent, newItem: ApiEvent): Boolean = oldItem == newItem
 
         }
     }

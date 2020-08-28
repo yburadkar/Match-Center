@@ -2,12 +2,12 @@ package com.yb.uadnd.matchcentre.data.repo
 
 import androidx.lifecycle.LiveData
 import com.yb.uadnd.matchcentre.SimpleIdlingResource
-import com.yb.uadnd.matchcentre.data.MatchRepository
-import com.yb.uadnd.matchcentre.data.remote.Match
+import com.yb.uadnd.matchcentre.domain.MatchRepository
+import com.yb.uadnd.matchcentre.data.remote.ApiMatch
 import com.yb.uadnd.matchcentre.data.remote.MatchService
 import com.yb.uadnd.matchcentre.data.local.DbComment
 import com.yb.uadnd.matchcentre.data.local.MatchCentreDatabase
-import com.yb.uadnd.matchcentre.data.local.DbCommMatchInfo
+import com.yb.uadnd.matchcentre.data.local.DbCommentaryMatchInfo
 import com.yb.uadnd.matchcentre.data.remote.CommentaryService
 import com.yb.uadnd.matchcentre.data.remote.MatchesDataSource
 import io.reactivex.Scheduler
@@ -48,9 +48,9 @@ class AppMatchRepository @Inject constructor(
         return db.commentDao.getAllMatchComments(newMatchId)
     }
 
-    override fun getMatchInfo(matchId: String): LiveData<DbCommMatchInfo> = db.matchInfoDao.getMatchInfo(matchId.toInt())
+    override fun getMatchInfo(matchId: String): LiveData<DbCommentaryMatchInfo> = db.matchInfoDao.getMatchInfo(matchId.toInt())
 
-    override fun fetchMatch(matchId: String): Single<Match> = matchService.getMatch(matchId)
+    override fun fetchMatch(matchId: String): Single<ApiMatch> = matchService.getMatch(matchId)
 
     override fun getMatchList(): List<Int> = mSource.getMatchList()
 
@@ -65,7 +65,7 @@ class AppMatchRepository @Inject constructor(
                     idlingResource.setIdleState(true)
                     db.commentDao.deleteAllMatchComments(newMatchId)
                     commentary?.data?.let {
-                        val info = DbCommMatchInfo.from(data = it)
+                        val info = DbCommentaryMatchInfo.from(data = it)
                         db.matchInfoDao.insertMatchInfo(info)
                             .subscribe()
                         it.commentaryEntries?.let { entries ->

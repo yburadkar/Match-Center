@@ -1,16 +1,27 @@
 package com.yb.uadnd.matchcentre.data.remote
 
 import com.yb.uadnd.matchcentre.data.TeamStat
+import com.yb.uadnd.matchcentre.domain.Booking
+import com.yb.uadnd.matchcentre.domain.Event
+import com.yb.uadnd.matchcentre.domain.Goal
+import com.yb.uadnd.matchcentre.domain.Match
+import com.yb.uadnd.matchcentre.domain.MatchData
+import com.yb.uadnd.matchcentre.domain.Player
+import com.yb.uadnd.matchcentre.domain.Substitution
+import com.yb.uadnd.matchcentre.domain.Team
+import com.yb.uadnd.matchcentre.domain.TeamPlayer
+import com.yb.uadnd.matchcentre.domain.TeamStats
 
-class Match(
-    val data: MatchData? = null
-)
+class ApiMatch(
+    override val data: ApiMatchData? = null
+) : Match
 
-class MatchData {
-    val id: String? = null
-    val homeTeam: Team? = null
-    val awayTeam: Team? = null
-    val events: List<Event>? = null
+class ApiMatchData(
+    override val id: String? = null,
+    override val homeTeam: ApiTeam? = null,
+    override val awayTeam: ApiTeam? = null,
+    override val events: List<ApiEvent>? = null
+) : MatchData {
 
     fun getTeamStats(): List<TeamStat> {
         val stats = mutableListOf<TeamStat>()
@@ -71,44 +82,44 @@ class MatchData {
 
 }
 
-class Team(
-    val id: String? = null,
-    val name: String? = null,
-    val players: List<TeamPlayer>? = null,
-    val teamStats: TeamStats? = null,
-    val imageUrl: String? = null
-)
+class ApiTeam(
+    override val id: String? = null,
+    override val name: String? = null,
+    override val players: List<ApiTeamPlayer>? = null,
+    override val teamStats: ApiTeamStats? = null,
+    override val imageUrl: String? = null
+) : Team
 
-data class TeamPlayer(
-    val id: Int = 0,
+data class ApiTeamPlayer(
+    override val id: Int = 0,
     private val firstName: String? = null,
     private val lastName: String? = null,
-    val position: String? = null,
-    val shirtNumber: Int = 0
-) {
-    fun getPlayerName(): String = "$firstName $lastName"
+    override val position: String? = null,
+    override val shirtNumber: Int = 0
+) : TeamPlayer {
+    override fun getPlayerName(): String = "$firstName $lastName"
 }
 
-class TeamStats(
-    val cornersWon: Int = 0,
-    val possession: Float = 0.0F,
-    val saves: Int = 0,
-    val shotsOnGoal: Int = 0,
-    val shotsOnTarget: Int = 0,
-    val substitutionsMade: Int = 0
-)
+class ApiTeamStats(
+    override val cornersWon: Int = 0,
+    override val possession: Float = 0.0F,
+    override val saves: Int = 0,
+    override val shotsOnGoal: Int = 0,
+    override val shotsOnTarget: Int = 0,
+    override val substitutionsMade: Int = 0
+) : TeamStats
 
-data class Event(
-    val time: String? = null,
-    val teamId: String? = null,
-    val type: String? = null,
-    private val goalDetails: Goal? = null,
-    private val bookingDetails: Booking? = null,
-    private val substitutionDetails: Substitution? = null,
-    var teamImageUrl: String? = null
-) {
+data class ApiEvent(
+    override val time: String? = null,
+    override val teamId: String? = null,
+    override val type: String? = null,
+    private val goalDetails: ApiGoal? = null,
+    private val bookingDetails: ApiBooking? = null,
+    private val substitutionDetails: ApiSubstitution? = null,
+    override var teamImageUrl: String? = null
+) : Event {
 
-    fun getEventText(): String {
+    override fun getEventText(): String {
         return when (type) {
             "Kick Off" -> "Kick Off"
             "Half Time" -> "Half Time"
@@ -122,7 +133,7 @@ data class Event(
         }
     }
 
-    fun updateImageUrl(url: String?) {
+    override fun updateImageUrl(url: String?) {
         teamImageUrl = url
     }
 
@@ -150,25 +161,25 @@ data class Event(
 
 }
 
-data class Goal(
-    val player: Player? = null,
-    val type: String? = null
-)
+data class ApiGoal(
+    override val player: ApiPlayer? = null,
+    override val type: String? = null
+) : Goal
 
-data class Player(
-    val firstName: String? = null,
-    val lastName: String? = null
-) {
-    fun getPlayerName(): String = "$firstName $lastName"
+data class ApiPlayer(
+    override val firstName: String? = null,
+    override val lastName: String? = null
+) : Player {
+    override fun getPlayerName(): String = "$firstName $lastName"
 }
 
-data class Booking(
-    val player: Player? = null,
-    val type: String? = null
-)
+data class ApiBooking(
+    override val player: ApiPlayer? = null,
+    override val type: String? = null
+) : Booking
 
-data class Substitution(
-    val playerSubOff: Player? = null,
-    val playerSubOn: Player? = null,
-    val reason: String? = null
-)
+data class ApiSubstitution(
+    override val playerSubOff: ApiPlayer? = null,
+    override val playerSubOn: ApiPlayer? = null,
+    override val reason: String? = null
+) : Substitution

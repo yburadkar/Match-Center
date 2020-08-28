@@ -7,6 +7,6 @@ import retrofit2.http.Path
 interface MatchService {
 
     @GET("{matchId}")
-    fun getMatch(@Path("matchId") id: String): Single<Match>
+    fun getMatch(@Path("matchId") id: String): Single<ApiMatch>
 
 }
