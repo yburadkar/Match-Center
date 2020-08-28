@@ -1,14 +1,11 @@
 package com.yb.uadnd.matchcentre.domain
 
 import androidx.lifecycle.LiveData
-import com.yb.uadnd.matchcentre.data.local.DbComment
-import com.yb.uadnd.matchcentre.data.local.DbCommentaryMatchInfo
-import com.yb.uadnd.matchcentre.data.remote.ApiMatch
 import io.reactivex.Single
 
 interface MatchRepository {
-    fun getMatchCommentary(newMatchId: Int): LiveData<List<DbComment>>
-    fun fetchMatch(matchId: String): Single<ApiMatch>
-    fun getMatchInfo(matchId: String): LiveData<DbCommentaryMatchInfo>
+    fun getMatchCommentary(newMatchId: Int): LiveData<List<Comment>>
+    fun fetchMatch(matchId: String): Single<Match>
+    fun getMatchInfo(matchId: String): LiveData<CommentaryMatchInfo>
     fun getMatchList(): List<Int>
 }

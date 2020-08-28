@@ -2,13 +2,13 @@ package com.yb.uadnd.matchcentre.data.remote
 
 import com.yb.uadnd.matchcentre.data.TeamStat
 import com.yb.uadnd.matchcentre.domain.Booking
-import com.yb.uadnd.matchcentre.domain.Event
 import com.yb.uadnd.matchcentre.domain.Goal
 import com.yb.uadnd.matchcentre.domain.Match
 import com.yb.uadnd.matchcentre.domain.MatchData
+import com.yb.uadnd.matchcentre.domain.MatchEvent
+import com.yb.uadnd.matchcentre.domain.MatchTeam
 import com.yb.uadnd.matchcentre.domain.Player
 import com.yb.uadnd.matchcentre.domain.Substitution
-import com.yb.uadnd.matchcentre.domain.Team
 import com.yb.uadnd.matchcentre.domain.TeamPlayer
 import com.yb.uadnd.matchcentre.domain.TeamStats
 
@@ -18,9 +18,9 @@ class ApiMatch(
 
 class ApiMatchData(
     override val id: String? = null,
-    override val homeTeam: ApiTeam? = null,
-    override val awayTeam: ApiTeam? = null,
-    override val events: List<ApiEvent>? = null
+    override val homeTeam: ApiMatchTeam? = null,
+    override val awayTeam: ApiMatchTeam? = null,
+    override val events: List<ApiMatchEvent>? = null
 ) : MatchData {
 
     fun getTeamStats(): List<TeamStat> {
@@ -82,13 +82,13 @@ class ApiMatchData(
 
 }
 
-class ApiTeam(
+class ApiMatchTeam(
     override val id: String? = null,
     override val name: String? = null,
     override val players: List<ApiTeamPlayer>? = null,
     override val teamStats: ApiTeamStats? = null,
     override val imageUrl: String? = null
-) : Team
+) : MatchTeam
 
 data class ApiTeamPlayer(
     override val id: Int = 0,
@@ -109,7 +109,7 @@ class ApiTeamStats(
     override val substitutionsMade: Int = 0
 ) : TeamStats
 
-data class ApiEvent(
+data class ApiMatchEvent(
     override val time: String? = null,
     override val teamId: String? = null,
     override val type: String? = null,
@@ -117,7 +117,7 @@ data class ApiEvent(
     private val bookingDetails: ApiBooking? = null,
     private val substitutionDetails: ApiSubstitution? = null,
     override var teamImageUrl: String? = null
-) : Event {
+) : MatchEvent {
 
     override fun getEventText(): String {
         return when (type) {

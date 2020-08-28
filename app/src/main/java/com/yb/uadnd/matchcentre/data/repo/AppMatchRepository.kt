@@ -2,14 +2,16 @@ package com.yb.uadnd.matchcentre.data.repo
 
 import androidx.lifecycle.LiveData
 import com.yb.uadnd.matchcentre.SimpleIdlingResource
-import com.yb.uadnd.matchcentre.domain.MatchRepository
-import com.yb.uadnd.matchcentre.data.remote.ApiMatch
-import com.yb.uadnd.matchcentre.data.remote.MatchService
 import com.yb.uadnd.matchcentre.data.local.DbComment
-import com.yb.uadnd.matchcentre.data.local.MatchCentreDatabase
 import com.yb.uadnd.matchcentre.data.local.DbCommentaryMatchInfo
+import com.yb.uadnd.matchcentre.data.local.MatchCentreDatabase
 import com.yb.uadnd.matchcentre.data.remote.CommentaryService
+import com.yb.uadnd.matchcentre.data.remote.MatchService
 import com.yb.uadnd.matchcentre.data.remote.MatchesDataSource
+import com.yb.uadnd.matchcentre.domain.Comment
+import com.yb.uadnd.matchcentre.domain.CommentaryMatchInfo
+import com.yb.uadnd.matchcentre.domain.Match
+import com.yb.uadnd.matchcentre.domain.MatchRepository
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
@@ -31,7 +33,7 @@ class AppMatchRepository @Inject constructor(
     private val refreshIntervalSeconds = 3600  // 1 hour
     private val disposables = CompositeDisposable()
 
-    override fun getMatchCommentary(newMatchId: Int): LiveData<List<DbComment>> {
+    override fun getMatchCommentary(newMatchId: Int): LiveData<List<Comment>> {
         var lastRefresh: Long = 0
         db.matchInfoDao.getLastRefreshTime(newMatchId)
             .subscribeOn(io)
@@ -45,12 +47,12 @@ class AppMatchRepository @Inject constructor(
                 }
             ).addTo(disposables)
 
-        return db.commentDao.getAllMatchComments(newMatchId)
+        return db.commentDao.getAllMatchComments(newMatchId) as LiveData<List<Comment>>
     }
 
-    override fun getMatchInfo(matchId: String): LiveData<DbCommentaryMatchInfo> = db.matchInfoDao.getMatchInfo(matchId.toInt())
+    override fun getMatchInfo(matchId: String): LiveData<CommentaryMatchInfo> = db.matchInfoDao.getMatchInfo(matchId.toInt()) as LiveData<CommentaryMatchInfo>
 
-    override fun fetchMatch(matchId: String): Single<ApiMatch> = matchService.getMatch(matchId)
+    override fun fetchMatch(matchId: String): Single<Match> = matchService.getMatch(matchId) as Single<Match>
 
     override fun getMatchList(): List<Int> = mSource.getMatchList()
 

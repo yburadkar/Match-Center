@@ -6,12 +6,12 @@ interface Match {
 
 interface MatchData {
     val id: String?
-    val homeTeam: Team?
-    val awayTeam: Team?
-    val events: List<Event>?
+    val homeTeam: MatchTeam?
+    val awayTeam: MatchTeam?
+    val events: List<MatchEvent>?
 }
 
-interface Team {
+interface MatchTeam {
     val id: String?
     val name: String?
     val players: List<TeamPlayer>?
@@ -35,7 +35,7 @@ interface TeamStats {
     val substitutionsMade: Int
 }
 
-interface Event {
+interface MatchEvent {
     val time: String?
     val teamId: String?
     val type: String?

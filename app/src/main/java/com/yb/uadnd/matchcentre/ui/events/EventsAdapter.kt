@@ -7,10 +7,10 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import com.yb.uadnd.matchcentre.Utils
-import com.yb.uadnd.matchcentre.data.remote.ApiEvent
+import com.yb.uadnd.matchcentre.data.remote.ApiMatchEvent
 import com.yb.uadnd.matchcentre.databinding.EventListItemBinding
 
-class EventsAdapter : ListAdapter<ApiEvent, EventsAdapter.EventViewHolder>(DIFF_CALLBACK) {
+class EventsAdapter : ListAdapter<ApiMatchEvent, EventsAdapter.EventViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventViewHolder {
         val binding = EventListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -20,7 +20,7 @@ class EventsAdapter : ListAdapter<ApiEvent, EventsAdapter.EventViewHolder>(DIFF_
     override fun onBindViewHolder(holder: EventViewHolder, position: Int) = holder.bind(getItem(position))
 
     class EventViewHolder(private val binding: EventListItemBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(event: ApiEvent) {
+        fun bind(event: ApiMatchEvent) {
             with(binding) {
                 time.text = event.time
                 Picasso.get().load(event.teamImageUrl).into(teamLogo)
@@ -33,11 +33,11 @@ class EventsAdapter : ListAdapter<ApiEvent, EventsAdapter.EventViewHolder>(DIFF_
     }
 
     companion object {
-        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<ApiEvent>() {
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<ApiMatchEvent>() {
 
-            override fun areItemsTheSame(oldItem: ApiEvent, newItem: ApiEvent): Boolean = oldItem === newItem
+            override fun areItemsTheSame(oldItem: ApiMatchEvent, newItem: ApiMatchEvent): Boolean = oldItem === newItem
 
-            override fun areContentsTheSame(oldItem: ApiEvent, newItem: ApiEvent): Boolean = oldItem == newItem
+            override fun areContentsTheSame(oldItem: ApiMatchEvent, newItem: ApiMatchEvent): Boolean = oldItem == newItem
 
         }
     }

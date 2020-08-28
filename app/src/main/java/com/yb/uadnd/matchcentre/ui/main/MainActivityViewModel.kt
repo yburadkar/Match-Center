@@ -6,12 +6,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.yb.uadnd.matchcentre.Resource
 import com.yb.uadnd.matchcentre.SimpleIdlingResource
-import com.yb.uadnd.matchcentre.domain.MatchRepository
 import com.yb.uadnd.matchcentre.data.local.DbComment
 import com.yb.uadnd.matchcentre.data.local.DbCommentaryMatchInfo
-import com.yb.uadnd.matchcentre.data.remote.ApiEvent
 import com.yb.uadnd.matchcentre.data.remote.ApiMatch
-import com.yb.uadnd.matchcentre.data.remote.ApiMatchData
+import com.yb.uadnd.matchcentre.domain.Match
+import com.yb.uadnd.matchcentre.domain.MatchData
+import com.yb.uadnd.matchcentre.domain.MatchEvent
+import com.yb.uadnd.matchcentre.domain.MatchRepository
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
@@ -37,8 +38,8 @@ class MainActivityViewModel(
 
     private fun loadMatch(newMatchId: Int) {
         currentMatchId = newMatchId
-        comments = matchRepo.getMatchCommentary(newMatchId)
-        matchInfo = matchRepo.getMatchInfo(newMatchId.toString())
+        comments = matchRepo.getMatchCommentary(newMatchId) as LiveData<List<DbComment>>
+        matchInfo = matchRepo.getMatchInfo(newMatchId.toString()) as LiveData<DbCommentaryMatchInfo>
         fetchMatch(newMatchId)
     }
 
@@ -74,16 +75,16 @@ class MainActivityViewModel(
             ).addTo(disposables)
     }
 
-    private fun updateMatchEvents(match: ApiMatch): ApiMatch {
+    private fun updateMatchEvents(match: Match): ApiMatch {
         match.data?.also { data ->
             data.events?.forEach {
                 it.updateImageUrl(getEventTeamUrl(data, it))
             }
         }
-        return match
+        return match as ApiMatch
     }
 
-    private fun getEventTeamUrl(data: ApiMatchData, event: ApiEvent): String? {
+    private fun getEventTeamUrl(data: MatchData, event: MatchEvent): String? {
         val homeTeamId = data.homeTeam?.id
         val awayTeamId = data.awayTeam?.id
         return when (event.teamId) {
