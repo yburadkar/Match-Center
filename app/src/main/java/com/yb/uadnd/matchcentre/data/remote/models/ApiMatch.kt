@@ -30,7 +30,7 @@ class ApiMatchTeam(
     override val imageUrl: String? = null
 ) : MatchTeam
 
-data class ApiTeamPlayer(
+class ApiTeamPlayer(
     override val id: Int = 0,
     override val firstName: String? = null,
     override val lastName: String? = null,
@@ -47,7 +47,7 @@ class ApiTeamStats(
     override val substitutionsMade: Int = 0
 ) : TeamStats
 
-data class ApiMatchEvent(
+class ApiMatchEvent(
     override val time: String? = null,
     override val teamId: String? = null,
     override val type: String? = null,
@@ -57,22 +57,22 @@ data class ApiMatchEvent(
     override var teamImageUrl: String? = null
 ) : MatchEvent
 
-data class ApiGoal(
+class ApiGoal(
     override val player: ApiPlayer? = null,
     override val type: String? = null
 ) : Goal
 
-data class ApiPlayer(
+class ApiPlayer(
     override val firstName: String? = null,
     override val lastName: String? = null
 ) : Player
 
-data class ApiBooking(
+class ApiBooking(
     override val player: ApiPlayer? = null,
     override val type: String? = null
 ) : Booking
 
-data class ApiSubstitution(
+class ApiSubstitution(
     override val playerSubOff: ApiPlayer? = null,
     override val playerSubOn: ApiPlayer? = null,
     override val reason: String? = null

@@ -6,9 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.yb.uadnd.matchcentre.Resource
 import com.yb.uadnd.matchcentre.SimpleIdlingResource
-import com.yb.uadnd.matchcentre.data.local.models.DbComment
-import com.yb.uadnd.matchcentre.data.local.models.DbCommentaryMatchInfo
-import com.yb.uadnd.matchcentre.data.remote.models.ApiMatch
+import com.yb.uadnd.matchcentre.domain.Comment
+import com.yb.uadnd.matchcentre.domain.CommentaryMatchInfo
 import com.yb.uadnd.matchcentre.domain.Match
 import com.yb.uadnd.matchcentre.domain.MatchData
 import com.yb.uadnd.matchcentre.domain.MatchEvent
@@ -28,9 +27,9 @@ class MainActivityViewModel(
     private val idlingRes: SimpleIdlingResource
 ) : ViewModel() {
 
-    private val match = MutableLiveData<Resource<ApiMatch>>()
-    private lateinit var comments: LiveData<List<DbComment>>
-    private lateinit var matchInfo: LiveData<DbCommentaryMatchInfo>
+    private val match = MutableLiveData<Resource<Match>>()
+    private lateinit var comments: LiveData<List<Comment>>
+    private lateinit var matchInfo: LiveData<CommentaryMatchInfo>
     private var disposables = CompositeDisposable()
     private val matches: List<Int> by lazy { matchRepo.getMatchList() }  //using hardcoded match Ids for sample app
     private var matchIndex = -1
@@ -38,16 +37,16 @@ class MainActivityViewModel(
 
     private fun loadMatch(newMatchId: Int) {
         currentMatchId = newMatchId
-        comments = matchRepo.getMatchCommentary(newMatchId) as LiveData<List<DbComment>>
-        matchInfo = matchRepo.getMatchInfo(newMatchId.toString()) as LiveData<DbCommentaryMatchInfo>
+        comments = matchRepo.getMatchCommentary(newMatchId)
+        matchInfo = matchRepo.getMatchInfo(newMatchId.toString())
         fetchMatch(newMatchId)
     }
 
-    fun getComments(): LiveData<List<DbComment>> = comments
+    fun getComments(): LiveData<List<Comment>> = comments
 
-    fun getMatch(): LiveData<Resource<ApiMatch>> = match
+    fun getMatch(): LiveData<Resource<Match>> = match
 
-    fun getMatchInfo(): LiveData<DbCommentaryMatchInfo> = matchInfo
+    fun getMatchInfo(): LiveData<CommentaryMatchInfo> = matchInfo
 
     fun loadNextMatch() = loadMatch(getNextMatchId())
 
@@ -75,13 +74,13 @@ class MainActivityViewModel(
             ).addTo(disposables)
     }
 
-    private fun updateMatchEvents(match: Match): ApiMatch {
+    private fun updateMatchEvents(match: Match): Match {
         match.data?.also { data ->
             data.events?.forEach {
                 it.updateImageUrl(getEventTeamUrl(data, it))
             }
         }
-        return match as ApiMatch
+        return match
     }
 
     private fun getEventTeamUrl(data: MatchData, event: MatchEvent): String? {

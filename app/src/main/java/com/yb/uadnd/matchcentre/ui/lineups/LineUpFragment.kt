@@ -13,6 +13,7 @@ import com.yb.uadnd.matchcentre.App
 import com.yb.uadnd.matchcentre.databinding.FragmentLineUpBinding
 import com.yb.uadnd.matchcentre.ui.main.MainActivityViewModel
 import com.yb.uadnd.matchcentre.ui.main.MainActivityViewModelFactory
+import com.yb.uadnd.matchcentre.ui.models.UiTeamPlayer
 import javax.inject.Inject
 
 class LineUpFragment : Fragment() {
@@ -46,12 +47,12 @@ class LineUpFragment : Fragment() {
     private fun observeViewModel() {
         viewModel.getMatch().observe(viewLifecycleOwner, Observer { matchRes ->
             val match = matchRes.data
-            match?.data?.let {
-                homeAdapter.submitList(it.homeTeam?.players ?: emptyList())
-                awayAdapter.submitList(it.awayTeam?.players ?: emptyList())
+            match?.data?.let { matchData ->
+                homeAdapter.submitList(matchData.homeTeam?.players?.map { UiTeamPlayer.from(it) } ?: emptyList())
+                awayAdapter.submitList(matchData.awayTeam?.players?.map { UiTeamPlayer.from(it) } ?: emptyList())
                 with(binding) {
-                    homeTeam.text = it.homeTeam?.name
-                    awayTeam.text = it.awayTeam?.name
+                    homeTeam.text = matchData.homeTeam?.name
+                    awayTeam.text = matchData.awayTeam?.name
                 }
             }
         })

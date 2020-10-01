@@ -7,7 +7,7 @@ import com.yb.uadnd.matchcentre.data.remote.models.ApiCommentaryEntry
 import com.yb.uadnd.matchcentre.domain.Comment
 
 @Entity(tableName = "comment")
-data class DbComment(
+class DbComment(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
     val matchId: Int = 0,
     override val type: String? = null,

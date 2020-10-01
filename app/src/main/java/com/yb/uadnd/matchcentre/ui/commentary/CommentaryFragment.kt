@@ -7,13 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-
 import com.yb.uadnd.matchcentre.App
 import com.yb.uadnd.matchcentre.databinding.FragmentCommentaryBinding
 import com.yb.uadnd.matchcentre.ui.main.MainActivityViewModel
 import com.yb.uadnd.matchcentre.ui.main.MainActivityViewModelFactory
+import com.yb.uadnd.matchcentre.ui.models.UiComment
 import javax.inject.Inject
 
 class CommentaryFragment : Fragment() {
@@ -42,9 +41,9 @@ class CommentaryFragment : Fragment() {
     }
 
     private fun observeViewModel() {
-        viewModel.getComments().observe(viewLifecycleOwner, Observer {
-            commentaryAdapter.submitList(it)
-        })
+        viewModel.getComments().observe(viewLifecycleOwner) { comments ->
+            commentaryAdapter.submitList(comments.map { UiComment.from(it) })
+        }
     }
 
     private fun initRecyclerView() {

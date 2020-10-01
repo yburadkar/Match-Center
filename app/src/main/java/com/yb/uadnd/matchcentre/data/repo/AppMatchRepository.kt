@@ -53,7 +53,7 @@ class AppMatchRepository @Inject constructor(
 
     override fun getMatchInfo(matchId: String): LiveData<CommentaryMatchInfo> = db.matchInfoDao.getMatchInfo(matchId.toInt()) as LiveData<CommentaryMatchInfo>
 
-    override fun fetchMatch(matchId: String): Single<Match> = matchService.getMatch(matchId) as Single<Match>
+    override fun fetchMatch(matchId: String): Single<Match> = matchService.getMatch(matchId).map { it }
 
     override fun getMatchList(): List<Int> = mSource.getMatchList()
 

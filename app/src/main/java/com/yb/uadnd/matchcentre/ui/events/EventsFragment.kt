@@ -14,6 +14,7 @@ import com.yb.uadnd.matchcentre.App
 import com.yb.uadnd.matchcentre.databinding.FragmentEventsBinding
 import com.yb.uadnd.matchcentre.ui.main.MainActivityViewModel
 import com.yb.uadnd.matchcentre.ui.main.MainActivityViewModelFactory
+import com.yb.uadnd.matchcentre.ui.models.UiMatchEvent
 import javax.inject.Inject
 
 class EventsFragment : Fragment() {
@@ -45,15 +46,14 @@ class EventsFragment : Fragment() {
         }
     }
 
-
     private fun observeViewModel() {
         viewModel.getMatch().observe(viewLifecycleOwner, Observer { matchRes ->
             val match = matchRes.data
-            match?.data?.events?.let {
-                eventsAdapter.submitList(it)
+            match?.data?.events?.let { events ->
+                eventsAdapter.submitList(events.map { UiMatchEvent.from(it) })
             }
             binding.swipeRefresh.isRefreshing = matchRes.isLoading
-            if(matchRes.isError) {
+            if (matchRes.isError) {
                 Snackbar.make(requireView(), "Failed to load data", Snackbar.LENGTH_SHORT).show()
             }
         })

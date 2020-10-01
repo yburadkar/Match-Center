@@ -7,10 +7,10 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import com.yb.uadnd.matchcentre.Utils
-import com.yb.uadnd.matchcentre.data.remote.models.ApiMatchEvent
 import com.yb.uadnd.matchcentre.databinding.EventListItemBinding
+import com.yb.uadnd.matchcentre.ui.models.UiMatchEvent
 
-class EventsAdapter : ListAdapter<ApiMatchEvent, EventsAdapter.EventViewHolder>(DIFF_CALLBACK) {
+class EventsAdapter : ListAdapter<UiMatchEvent, EventsAdapter.EventViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventViewHolder {
         val binding = EventListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -20,7 +20,7 @@ class EventsAdapter : ListAdapter<ApiMatchEvent, EventsAdapter.EventViewHolder>(
     override fun onBindViewHolder(holder: EventViewHolder, position: Int) = holder.bind(getItem(position))
 
     class EventViewHolder(private val binding: EventListItemBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(event: ApiMatchEvent) {
+        fun bind(event: UiMatchEvent) {
             with(binding) {
                 time.text = event.time
                 Picasso.get().load(event.teamImageUrl).into(teamLogo)
@@ -33,11 +33,11 @@ class EventsAdapter : ListAdapter<ApiMatchEvent, EventsAdapter.EventViewHolder>(
     }
 
     companion object {
-        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<ApiMatchEvent>() {
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<UiMatchEvent>() {
 
-            override fun areItemsTheSame(oldItem: ApiMatchEvent, newItem: ApiMatchEvent): Boolean = oldItem === newItem
+            override fun areItemsTheSame(oldItem: UiMatchEvent, newItem: UiMatchEvent): Boolean = oldItem === newItem
 
-            override fun areContentsTheSame(oldItem: ApiMatchEvent, newItem: ApiMatchEvent): Boolean = oldItem == newItem
+            override fun areContentsTheSame(oldItem: UiMatchEvent, newItem: UiMatchEvent): Boolean = oldItem == newItem
 
         }
     }
