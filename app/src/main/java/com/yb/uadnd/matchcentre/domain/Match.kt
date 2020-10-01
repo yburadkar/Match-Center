@@ -21,9 +21,11 @@ interface MatchTeam {
 
 interface TeamPlayer {
     val id: Int
+    val firstName: String?
+    val lastName: String?
     val position: String?
     val shirtNumber: Int
-    fun getPlayerName(): String
+    fun getPlayerName(): String = "$firstName $lastName"
 }
 
 interface TeamStats {
@@ -39,9 +41,48 @@ interface MatchEvent {
     val time: String?
     val teamId: String?
     val type: String?
+    val goalDetails: Goal?
+    val bookingDetails: Booking?
+    val substitutionDetails: Substitution?
     var teamImageUrl: String?
-    fun getEventText(): String
-    fun updateImageUrl(url: String?)
+    fun getEventText(): String = when (type) {
+        "Kick Off" -> "Kick Off"
+        "Half Time" -> "Half Time"
+        "Second Half Start" -> "2nd Half started"
+        "Full Time" -> "Full Time"
+        "Goal" -> getGoalText()
+        "Substitution" -> getSubstitutionText()
+        "Yellow Card" -> getYellowCardText()
+        "Red Card" -> getRedCardText()
+        else -> "Unknown Even"
+    }
+
+    fun updateImageUrl(url: String?) {
+        teamImageUrl = url
+    }
+
+    private fun getRedCardText(): String = "Red Card"
+
+    private fun getYellowCardText(): String {
+        val player = bookingDetails?.player
+        return "${player?.firstName} ${player?.lastName}, ${bookingDetails?.type}"
+    }
+
+    private fun getSubstitutionText(): String {
+        val playerOn = substitutionDetails?.playerSubOn
+        val playerOff = substitutionDetails?.playerSubOff
+        return "${playerOff?.getPlayerName()} OFF, ${playerOn?.getPlayerName()} ON. Reason: ${substitutionDetails?.reason}"
+    }
+
+    private fun getGoalText(): String {
+        val player = goalDetails?.player
+        var goalText = "${player?.firstName} ${player?.lastName} scores."
+        val type = goalDetails?.type
+        if (!type.equals("Goal"))
+            goalText = "$goalText Type: $type"
+        return goalText
+    }
+
 }
 
 interface Goal {
@@ -52,7 +93,7 @@ interface Goal {
 interface Player {
     val firstName: String?
     val lastName: String?
-    fun getPlayerName(): String
+    fun getPlayerName(): String = "$firstName $lastName"
 }
 
 interface Booking {

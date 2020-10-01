@@ -6,7 +6,7 @@ import android.widget.LinearLayout
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.yb.uadnd.matchcentre.data.TeamStat
+import com.yb.uadnd.matchcentre.ui.models.TeamStat
 import com.yb.uadnd.matchcentre.databinding.StatsListItemBinding
 
 class StatsAdapter : ListAdapter<TeamStat, StatsAdapter.StatViewHolder>(DIFF_CALLBACK) {
