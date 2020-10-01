@@ -5,6 +5,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import com.yb.uadnd.matchcentre.data.local.models.DbCommentaryMatchInfo
 import io.reactivex.Completable
 import io.reactivex.Single
 

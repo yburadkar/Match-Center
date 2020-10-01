@@ -6,9 +6,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.yb.uadnd.matchcentre.Resource
 import com.yb.uadnd.matchcentre.SimpleIdlingResource
-import com.yb.uadnd.matchcentre.data.local.DbComment
-import com.yb.uadnd.matchcentre.data.local.DbCommentaryMatchInfo
-import com.yb.uadnd.matchcentre.data.remote.ApiMatch
+import com.yb.uadnd.matchcentre.data.local.models.DbComment
+import com.yb.uadnd.matchcentre.data.local.models.DbCommentaryMatchInfo
+import com.yb.uadnd.matchcentre.data.remote.models.ApiMatch
 import com.yb.uadnd.matchcentre.domain.Match
 import com.yb.uadnd.matchcentre.domain.MatchData
 import com.yb.uadnd.matchcentre.domain.MatchEvent

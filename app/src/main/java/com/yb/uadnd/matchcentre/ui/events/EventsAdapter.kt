@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import com.yb.uadnd.matchcentre.Utils
-import com.yb.uadnd.matchcentre.data.remote.ApiMatchEvent
+import com.yb.uadnd.matchcentre.data.remote.models.ApiMatchEvent
 import com.yb.uadnd.matchcentre.databinding.EventListItemBinding
 
 class EventsAdapter : ListAdapter<ApiMatchEvent, EventsAdapter.EventViewHolder>(DIFF_CALLBACK) {

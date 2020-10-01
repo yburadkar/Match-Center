@@ -1,8 +1,8 @@
-package com.yb.uadnd.matchcentre.data.local
+package com.yb.uadnd.matchcentre.data.local.models
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.yb.uadnd.matchcentre.data.remote.ApiCommentaryData
+import com.yb.uadnd.matchcentre.data.remote.models.ApiCommentaryData
 import com.yb.uadnd.matchcentre.domain.CommentaryMatchInfo
 
 @Entity(tableName = "matchInfo")

@@ -1,4 +1,4 @@
-package com.yb.uadnd.matchcentre.data.remote
+package com.yb.uadnd.matchcentre.data.remote.models
 
 import com.yb.uadnd.matchcentre.domain.Booking
 import com.yb.uadnd.matchcentre.domain.Goal
