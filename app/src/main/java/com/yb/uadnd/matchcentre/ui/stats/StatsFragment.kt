@@ -16,7 +16,7 @@ import com.yb.uadnd.matchcentre.App
 import com.yb.uadnd.matchcentre.databinding.FragmentStatsBinding
 import com.yb.uadnd.matchcentre.ui.main.MainActivityViewModel
 import com.yb.uadnd.matchcentre.ui.main.MainActivityViewModelFactory
-import com.yb.uadnd.matchcentre.ui.models.TeamStat
+import com.yb.uadnd.matchcentre.ui.models.UiTeamStat
 import javax.inject.Inject
 
 class StatsFragment : Fragment() {
@@ -51,7 +51,7 @@ class StatsFragment : Fragment() {
         viewModel.getMatch().observe(viewLifecycleOwner, Observer { matchRes ->
             val match = matchRes.data
             match?.data?.let {
-                statsAdapter.submitList(TeamStat.from(it))
+                statsAdapter.submitList(UiTeamStat.from(it))
                 with(binding) {
                     homeTeam.text = it.homeTeam?.name
                     awayTeam.text = it.awayTeam?.name
