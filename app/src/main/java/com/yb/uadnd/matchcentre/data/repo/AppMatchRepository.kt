@@ -19,14 +19,15 @@ import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
 import timber.log.Timber
 import javax.inject.Inject
+import javax.inject.Named
 
 class AppMatchRepository @Inject constructor(
     private val matchService: MatchService,
     private val commentaryService: CommentaryService,
     private val db: MatchCentreDatabase,
     private val mSource: MatchesDataSource,
-    private val io: Scheduler,
-    private val ui: Scheduler,
+    @Named("io") private val io: Scheduler,
+    @Named("ui") private val ui: Scheduler,
     private val idlingResource: SimpleIdlingResource
 ) : MatchRepository {
 
