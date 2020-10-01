@@ -2,7 +2,7 @@ package com.yb.uadnd.matchcentre.ui.models
 
 import com.yb.uadnd.matchcentre.domain.Comment
 
-data class UiComment (
+data class UiComment(
     val type: String? = null,
     val text: String? = null,
     val time: String? = null,

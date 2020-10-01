@@ -58,7 +58,7 @@ class StatsFragment : Fragment() {
                 }
             }
             binding.swipeRefresh.isRefreshing = matchRes.isLoading
-            if(matchRes.isError) {
+            if (matchRes.isError) {
                 Snackbar.make(requireView(), "Failed to load data", Snackbar.LENGTH_SHORT).show()
             }
         })

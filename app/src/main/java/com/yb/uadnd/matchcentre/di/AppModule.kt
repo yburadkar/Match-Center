@@ -1,13 +1,13 @@
 package com.yb.uadnd.matchcentre.di
 
 import android.app.Application
-import com.yb.uadnd.matchcentre.data.repo.AppMatchRepository
 import com.yb.uadnd.matchcentre.SimpleIdlingResource
-import com.yb.uadnd.matchcentre.domain.MatchRepository
-import com.yb.uadnd.matchcentre.data.remote.MatchService
 import com.yb.uadnd.matchcentre.data.local.MatchCentreDatabase
 import com.yb.uadnd.matchcentre.data.remote.CommentaryService
+import com.yb.uadnd.matchcentre.data.remote.MatchService
 import com.yb.uadnd.matchcentre.data.remote.MatchesDataSource
+import com.yb.uadnd.matchcentre.data.repo.AppMatchRepository
+import com.yb.uadnd.matchcentre.domain.MatchRepository
 import dagger.Module
 import dagger.Provides
 import io.reactivex.Scheduler
