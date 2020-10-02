@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.yb.uadnd.matchcentre.App
@@ -47,7 +46,7 @@ class EventsFragment : Fragment() {
     }
 
     private fun observeViewModel() {
-        viewModel.getMatch().observe(viewLifecycleOwner, Observer { matchRes ->
+        viewModel.getMatch().observe(viewLifecycleOwner) { matchRes ->
             val match = matchRes.data
             match?.data?.events?.let { events ->
                 eventsAdapter.submitList(events.map { UiMatchEvent.from(it) })
@@ -56,7 +55,7 @@ class EventsFragment : Fragment() {
             if (matchRes.isError) {
                 Snackbar.make(requireView(), "Failed to load data", Snackbar.LENGTH_SHORT).show()
             }
-        })
+        }
     }
 
     private fun initRecyclerView() {

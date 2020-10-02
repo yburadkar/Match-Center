@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.yb.uadnd.matchcentre.App
 import com.yb.uadnd.matchcentre.databinding.FragmentLineUpBinding
@@ -45,7 +44,7 @@ class LineUpFragment : Fragment() {
     }
 
     private fun observeViewModel() {
-        viewModel.getMatch().observe(viewLifecycleOwner, Observer { matchRes ->
+        viewModel.getMatch().observe(viewLifecycleOwner) { matchRes ->
             val match = matchRes.data
             match?.data?.let { matchData ->
                 homeAdapter.submitList(matchData.homeTeam?.players?.map { UiTeamPlayer.from(it) } ?: emptyList())
@@ -55,7 +54,7 @@ class LineUpFragment : Fragment() {
                     awayTeam.text = matchData.awayTeam?.name
                 }
             }
-        })
+        }
     }
 
     private fun initRecylerViews() {

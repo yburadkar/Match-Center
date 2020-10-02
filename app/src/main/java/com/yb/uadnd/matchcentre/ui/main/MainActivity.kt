@@ -3,9 +3,7 @@ package com.yb.uadnd.matchcentre.ui.main
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import com.squareup.picasso.Picasso
-
 import com.yb.uadnd.matchcentre.App
 import com.yb.uadnd.matchcentre.databinding.ActivityMainBinding
 import com.yb.uadnd.matchcentre.di.ViewModelFactory
@@ -54,7 +52,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun observeViewModel() {
-        viewModel.getMatchInfo().observe(this, Observer {
+        viewModel.getMatchInfo().observe(this) {
             it?.run {
                 val scoreText = "$homeScore - $awayScore"
                 binding.score.text = scoreText
@@ -64,7 +62,7 @@ class MainActivity : AppCompatActivity() {
                 Picasso.get().load(homeTeamImageUrl).into(binding.homeLogo)
                 Picasso.get().load(awayTeamImageUrl).into(binding.awayLogo)
             }
-        })
+        }
     }
 
 }
