@@ -22,6 +22,7 @@ import javax.inject.Singleton
 @Module
 class AppModule(private val appContext: Application) {
 
+    @Singleton
     @Provides
     fun provideRetrofit(): Retrofit {
         return Retrofit.Builder()
@@ -31,14 +32,16 @@ class AppModule(private val appContext: Application) {
             .build()
     }
 
+    @Singleton
     @Provides
-    fun provideMatchService(): MatchService {
-        return provideRetrofit().create(MatchService::class.java)
+    fun provideMatchService(retrofit: Retrofit): MatchService {
+        return retrofit.create(MatchService::class.java)
     }
 
+    @Singleton
     @Provides
-    fun provideCommentaryService(): CommentaryService {
-        return provideRetrofit().create(CommentaryService::class.java)
+    fun provideCommentaryService(retrofit: Retrofit): CommentaryService {
+        return retrofit.create(CommentaryService::class.java)
     }
 
     @Singleton
@@ -59,13 +62,14 @@ class AppModule(private val appContext: Application) {
 
     @Singleton
     @Provides
-    fun provideMatchRepo(): MatchRepository {
-        return AppMatchRepository(provideMatchService(), provideCommentaryService(), provideMatchDb(), MatchesDataSource, ioScheduler(), uiScheduler(), provideIdlingRes())
-    }
+    fun provideMatchRepo(matchRepo: AppMatchRepository): MatchRepository = matchRepo
+
+    @Provides
+    fun provideMatchesDataSource(): MatchesDataSource = MatchesDataSource
 
     @Singleton
     @Provides
-    fun provideIdlingRes() = SimpleIdlingResource
+    fun provideIdlingRes(): SimpleIdlingResource = SimpleIdlingResource
 
     companion object {
         private const val BASE_URL = "https://feeds.incrowdsports.com/provider/opta/football/v1/matches/"

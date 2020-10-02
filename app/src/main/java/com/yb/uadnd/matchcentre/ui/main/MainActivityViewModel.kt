@@ -3,7 +3,6 @@ package com.yb.uadnd.matchcentre.ui.main
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import com.yb.uadnd.matchcentre.Resource
 import com.yb.uadnd.matchcentre.SimpleIdlingResource
 import com.yb.uadnd.matchcentre.domain.Comment
@@ -20,10 +19,10 @@ import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Named
 
-class MainActivityViewModel(
+class MainActivityViewModel @Inject constructor(
     private val matchRepo: MatchRepository,
-    private val io: Scheduler,
-    private val ui: Scheduler,
+    @Named("io") private val io: Scheduler,
+    @Named("ui") private val ui: Scheduler,
     private val idlingRes: SimpleIdlingResource
 ) : ViewModel() {
 
@@ -34,6 +33,10 @@ class MainActivityViewModel(
     private val matches: List<Int> by lazy { matchRepo.getMatchList() }  //using hardcoded match Ids for sample app
     private var matchIndex = -1
     private var currentMatchId = 0
+
+    init {
+        loadNextMatch()
+    }
 
     private fun loadMatch(newMatchId: Int) {
         currentMatchId = newMatchId
@@ -113,17 +116,5 @@ class MainActivityViewModel(
         super.onCleared()
         disposables.clear()
     }
-
-}
-
-class MainActivityViewModelFactory @Inject constructor(
-    private val matchRepo: MatchRepository,
-    @Named("io") private val io: Scheduler,
-    @Named("ui") private val ui: Scheduler,
-    private val idlingRes: SimpleIdlingResource
-) : ViewModelProvider.NewInstanceFactory() {
-
-    @Suppress("UNCHECKED_CAST")
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T = MainActivityViewModel(matchRepo, io, ui, idlingRes) as T
 
 }

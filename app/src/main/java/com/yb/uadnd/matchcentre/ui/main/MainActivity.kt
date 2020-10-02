@@ -8,12 +8,13 @@ import com.squareup.picasso.Picasso
 
 import com.yb.uadnd.matchcentre.App
 import com.yb.uadnd.matchcentre.databinding.ActivityMainBinding
+import com.yb.uadnd.matchcentre.di.ViewModelFactory
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    @Inject lateinit var viewModelFactory: MainActivityViewModelFactory
+    @Inject lateinit var viewModelFactory: ViewModelFactory
     private val viewModel: MainActivityViewModel by viewModels { viewModelFactory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,11 +22,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        viewModel.loadNextMatch()
-        initViewPager()
+        setUpViews()
         observeViewModel()
+    }
 
+    private fun setUpViews() {
+        initViewPager()
         binding.rightButton.setOnClickListener {
             viewModel.getMatchInfo().removeObservers(this)
             viewModel.loadNextMatch()
