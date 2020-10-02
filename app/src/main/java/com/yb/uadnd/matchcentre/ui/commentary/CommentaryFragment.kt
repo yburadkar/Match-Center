@@ -41,7 +41,7 @@ class CommentaryFragment : Fragment() {
     }
 
     private fun observeViewModel() {
-        viewModel.getComments().observe(viewLifecycleOwner) { comments ->
+        viewModel.comments.observe(viewLifecycleOwner) { comments ->
             commentaryAdapter.submitList(comments.map { UiComment.from(it) })
         }
     }

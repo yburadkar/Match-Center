@@ -27,14 +27,14 @@ class MainActivity : AppCompatActivity() {
     private fun setUpViews() {
         initViewPager()
         binding.rightButton.setOnClickListener {
-            viewModel.getMatchInfo().removeObservers(this)
+            viewModel.matchInfo.removeObservers(this)
             viewModel.loadNextMatch()
             initViewPager()
             observeViewModel()
         }
 
         binding.leftButton.setOnClickListener {
-            viewModel.getMatchInfo().removeObservers(this)
+            viewModel.matchInfo.removeObservers(this)
             viewModel.loadPrevMatch()
             initViewPager()
             observeViewModel()
@@ -52,7 +52,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun observeViewModel() {
-        viewModel.getMatchInfo().observe(this) {
+        viewModel.matchInfo.observe(this) {
             it?.run {
                 val scoreText = "$homeScore - $awayScore"
                 binding.score.text = scoreText

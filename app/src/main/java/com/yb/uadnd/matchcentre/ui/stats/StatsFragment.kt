@@ -46,7 +46,7 @@ class StatsFragment : Fragment() {
     }
 
     private fun observeViewModel() {
-        viewModel.getMatch().observe(viewLifecycleOwner) { matchRes ->
+        viewModel.match.observe(viewLifecycleOwner) { matchRes ->
             val match = matchRes.data
             match?.data?.let {
                 statsAdapter.submitList(UiTeamStat.from(it))

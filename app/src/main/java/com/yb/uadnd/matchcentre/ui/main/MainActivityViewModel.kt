@@ -28,9 +28,15 @@ class MainActivityViewModel @Inject constructor(
     private val idlingRes: SimpleIdlingResource
 ) : ViewModel() {
 
-    private val match = MutableLiveData<Resource<Match>>()
-    private lateinit var comments: LiveData<List<Comment>>
-    private lateinit var matchInfo: LiveData<CommentaryMatchInfo>
+    private val _match = MutableLiveData<Resource<Match>>()
+    val match : LiveData<Resource<Match>> = _match
+
+    lateinit var comments: LiveData<List<Comment>>
+    private set
+
+    lateinit var matchInfo: LiveData<CommentaryMatchInfo>
+    private set
+
     private var disposables = CompositeDisposable()
     private val matches: List<Int> by lazy { matchRepo.getMatchList() }  //using hardcoded match Ids for sample app
     private var matchIndex = -1
@@ -47,12 +53,6 @@ class MainActivityViewModel @Inject constructor(
         fetchMatch(newMatchId)
     }
 
-    fun getComments(): LiveData<List<Comment>> = comments
-
-    fun getMatch(): LiveData<Resource<Match>> = match
-
-    fun getMatchInfo(): LiveData<CommentaryMatchInfo> = matchInfo
-
     fun loadNextMatch() = loadMatch(getNextMatchId())
 
     fun loadPrevMatch() = loadMatch(getPreviousMatchId())
@@ -63,16 +63,16 @@ class MainActivityViewModel @Inject constructor(
             .observeOn(ui)
             .doOnSubscribe {
                 idlingRes.setIdleState(false)
-                match.value = Resource.loading(data = match.value?.data)
+                _match.value = Resource.loading(data = _match.value?.data)
             }
             .subscribeBy(
                 onError = {
                     Timber.e(it)
-                    match.value = Resource.error(data = null, error = it)
+                    _match.value = Resource.error(data = null, error = it)
                     idlingRes.setIdleState(true)
                 },
                 onSuccess = {
-                    match.value = Resource.success(updateMatchEvents(it))
+                    _match.value = Resource.success(updateMatchEvents(it))
                     idlingRes.setIdleState(true)
                 }
 

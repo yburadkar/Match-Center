@@ -44,7 +44,7 @@ class LineUpFragment : Fragment() {
     }
 
     private fun observeViewModel() {
-        viewModel.getMatch().observe(viewLifecycleOwner) { matchRes ->
+        viewModel.match.observe(viewLifecycleOwner) { matchRes ->
             val match = matchRes.data
             match?.data?.let { matchData ->
                 homeAdapter.submitList(matchData.homeTeam?.players?.map { UiTeamPlayer.from(it) } ?: emptyList())

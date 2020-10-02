@@ -46,7 +46,7 @@ class EventsFragment : Fragment() {
     }
 
     private fun observeViewModel() {
-        viewModel.getMatch().observe(viewLifecycleOwner) { matchRes ->
+        viewModel.match.observe(viewLifecycleOwner) { matchRes ->
             val match = matchRes.data
             match?.data?.events?.let { events ->
                 eventsAdapter.submitList(events.map { UiMatchEvent.from(it) })
