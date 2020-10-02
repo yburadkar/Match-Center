@@ -2,7 +2,6 @@ package com.yb.uadnd.matchcentre.ui.main
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.yb.uadnd.matchcentre.Resource
 import com.yb.uadnd.matchcentre.SimpleIdlingResource
 import com.yb.uadnd.matchcentre.domain.Comment
@@ -12,8 +11,8 @@ import com.yb.uadnd.matchcentre.domain.MatchData
 import com.yb.uadnd.matchcentre.domain.MatchEvent
 import com.yb.uadnd.matchcentre.domain.MatchRepository
 import com.yb.uadnd.matchcentre.domain.repos.CommentaryRepository
+import com.yb.uadnd.matchcentre.helpers.DisposingViewModel
 import io.reactivex.Scheduler
-import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
 import timber.log.Timber
@@ -26,19 +25,18 @@ class MainActivityViewModel @Inject constructor(
     @Named("io") private val io: Scheduler,
     @Named("ui") private val ui: Scheduler,
     private val idlingRes: SimpleIdlingResource
-) : ViewModel() {
+) : DisposingViewModel() {
 
     private val _match = MutableLiveData<Resource<Match>>()
-    val match : LiveData<Resource<Match>> = _match
+    val match: LiveData<Resource<Match>> = _match
 
     lateinit var comments: LiveData<List<Comment>>
-    private set
+        private set
 
     lateinit var matchInfo: LiveData<CommentaryMatchInfo>
-    private set
+        private set
 
-    private var disposables = CompositeDisposable()
-    private val matches: List<Int> by lazy { matchRepo.getMatchList() }  //using hardcoded match Ids for sample app
+    private val matches: List<Int> by lazy { matchRepo.getMatchList() }
     private var matchIndex = -1
     private var currentMatchId = 0
 
@@ -53,9 +51,9 @@ class MainActivityViewModel @Inject constructor(
         fetchMatch(newMatchId)
     }
 
-    fun loadNextMatch() = loadMatch(getNextMatchId())
+    fun loadNextMatch() = loadMatch(nextMatchId())
 
-    fun loadPrevMatch() = loadMatch(getPreviousMatchId())
+    fun loadPrevMatch() = loadMatch(prevMatchId())
 
     private fun fetchMatch(matchId: Int) {
         matchRepo.fetchMatch(matchId = matchId.toString())
@@ -102,21 +100,16 @@ class MainActivityViewModel @Inject constructor(
         fetchMatch(currentMatchId)
     }
 
-    private fun getNextMatchId(): Int {
+    private fun nextMatchId(): Int {
         matchIndex++
         if (matchIndex == matches.size) matchIndex = 0
         return matches[matchIndex]
     }
 
-    private fun getPreviousMatchId(): Int {
+    private fun prevMatchId(): Int {
         if (matchIndex == 0) matchIndex = matches.size - 1
         else matchIndex--
         return matches[matchIndex]
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-        disposables.clear()
     }
 
 }
