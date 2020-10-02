@@ -11,6 +11,7 @@ import com.yb.uadnd.matchcentre.domain.Match
 import com.yb.uadnd.matchcentre.domain.MatchData
 import com.yb.uadnd.matchcentre.domain.MatchEvent
 import com.yb.uadnd.matchcentre.domain.MatchRepository
+import com.yb.uadnd.matchcentre.domain.repos.CommentaryRepository
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
@@ -21,6 +22,7 @@ import javax.inject.Named
 
 class MainActivityViewModel @Inject constructor(
     private val matchRepo: MatchRepository,
+    private val commRepo: CommentaryRepository,
     @Named("io") private val io: Scheduler,
     @Named("ui") private val ui: Scheduler,
     private val idlingRes: SimpleIdlingResource
@@ -40,8 +42,8 @@ class MainActivityViewModel @Inject constructor(
 
     private fun loadMatch(newMatchId: Int) {
         currentMatchId = newMatchId
-        comments = matchRepo.getMatchCommentary(newMatchId)
-        matchInfo = matchRepo.getMatchInfo(newMatchId.toString())
+        comments = commRepo.getMatchCommentary(newMatchId)
+        matchInfo = commRepo.getMatchInfo(newMatchId.toString())
         fetchMatch(newMatchId)
     }
 

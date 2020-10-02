@@ -6,8 +6,10 @@ import com.yb.uadnd.matchcentre.data.local.MatchCentreDatabase
 import com.yb.uadnd.matchcentre.data.remote.CommentaryService
 import com.yb.uadnd.matchcentre.data.remote.MatchService
 import com.yb.uadnd.matchcentre.data.remote.MatchesDataSource
+import com.yb.uadnd.matchcentre.data.repo.AppCommentaryRepository
 import com.yb.uadnd.matchcentre.data.repo.AppMatchRepository
 import com.yb.uadnd.matchcentre.domain.MatchRepository
+import com.yb.uadnd.matchcentre.domain.repos.CommentaryRepository
 import dagger.Module
 import dagger.Provides
 import io.reactivex.Scheduler
@@ -63,6 +65,10 @@ class AppModule(private val appContext: Application) {
     @Singleton
     @Provides
     fun provideMatchRepo(matchRepo: AppMatchRepository): MatchRepository = matchRepo
+
+    @Singleton
+    @Provides
+    fun provideCommentaryRepo(commRepo: AppCommentaryRepository): CommentaryRepository = commRepo
 
     @Provides
     fun provideMatchesDataSource(): MatchesDataSource = MatchesDataSource
