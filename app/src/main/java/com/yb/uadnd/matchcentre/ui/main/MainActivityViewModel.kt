@@ -36,7 +36,7 @@ class MainActivityViewModel @Inject constructor(
     lateinit var matchInfo: LiveData<CommentaryMatchInfo>
         private set
 
-    private val matches: List<Int> by lazy { matchRepo.getMatchList() }
+    private val matchIds: List<Int> by lazy { matchRepo.getMatchList() }
     private var matchIndex = -1
     private var currentMatchId = 0
 
@@ -54,6 +54,22 @@ class MainActivityViewModel @Inject constructor(
     fun loadNextMatch() = loadMatch(nextMatchId())
 
     fun loadPrevMatch() = loadMatch(prevMatchId())
+
+    fun reloadMatch() {
+        fetchMatch(currentMatchId)
+    }
+
+    private fun nextMatchId(): Int {
+        matchIndex++
+        if (matchIndex == matchIds.size) matchIndex = 0
+        return matchIds[matchIndex]
+    }
+
+    private fun prevMatchId(): Int {
+        if (matchIndex == 0) matchIndex = matchIds.size - 1
+        else matchIndex--
+        return matchIds[matchIndex]
+    }
 
     private fun fetchMatch(matchId: Int) {
         matchRepo.fetchMatch(matchId = matchId.toString())
@@ -94,22 +110,6 @@ class MainActivityViewModel @Inject constructor(
             awayTeamId -> data.awayTeam?.imageUrl
             else -> null
         }
-    }
-
-    fun reloadMatch() {
-        fetchMatch(currentMatchId)
-    }
-
-    private fun nextMatchId(): Int {
-        matchIndex++
-        if (matchIndex == matches.size) matchIndex = 0
-        return matches[matchIndex]
-    }
-
-    private fun prevMatchId(): Int {
-        if (matchIndex == 0) matchIndex = matches.size - 1
-        else matchIndex--
-        return matches[matchIndex]
     }
 
 }
