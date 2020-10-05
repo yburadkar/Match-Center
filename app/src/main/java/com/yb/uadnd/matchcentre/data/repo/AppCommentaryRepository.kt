@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import com.yb.uadnd.matchcentre.SimpleIdlingResource
 import com.yb.uadnd.matchcentre.data.local.MatchCentreDatabase
 import com.yb.uadnd.matchcentre.data.local.models.DbComment
-import com.yb.uadnd.matchcentre.data.local.models.DbCommentaryMatchInfo
+import com.yb.uadnd.matchcentre.data.local.models.DbMatchInfo
 import com.yb.uadnd.matchcentre.data.remote.CommentaryService
 import com.yb.uadnd.matchcentre.domain.Comment
 import com.yb.uadnd.matchcentre.domain.CommentaryMatchInfo
@@ -58,7 +58,7 @@ class AppCommentaryRepository @Inject constructor(
                     idlingResource.setIdleState(true)
                     db.commentDao.deleteAllMatchComments(newMatchId)
                     commentary?.data?.let {
-                        val info = DbCommentaryMatchInfo.from(data = it)
+                        val info = DbMatchInfo.from(data = it)
                         db.matchInfoDao.insertMatchInfo(info)
                             .subscribe()
                         it.commentaryEntries?.let { entries ->

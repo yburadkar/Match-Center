@@ -6,7 +6,7 @@ import com.yb.uadnd.matchcentre.data.remote.models.ApiCommentaryData
 import com.yb.uadnd.matchcentre.domain.CommentaryMatchInfo
 
 @Entity(tableName = "matchInfo")
-class DbCommentaryMatchInfo(
+class DbMatchInfo(
     @PrimaryKey(autoGenerate = false)
     override val matchId: Int = 0,
     override val homeTeamName: String? = null,
@@ -20,9 +20,9 @@ class DbCommentaryMatchInfo(
 ) : CommentaryMatchInfo {
 
     companion object {
-        fun from(data: ApiCommentaryData): DbCommentaryMatchInfo {
+        fun from(data: ApiCommentaryData): DbMatchInfo {
             with(data) {
-                return DbCommentaryMatchInfo(feedMatchId, homeTeamName, homeScore, awayTeamName, awayScore, competition, homeTeamImageUrl, awayTeamImageUrl)
+                return DbMatchInfo(feedMatchId, homeTeamName, homeScore, awayTeamName, awayScore, competition, homeTeamImageUrl, awayTeamImageUrl)
             }
         }
     }

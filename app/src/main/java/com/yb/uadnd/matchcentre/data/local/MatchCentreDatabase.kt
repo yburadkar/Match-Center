@@ -5,9 +5,9 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.yb.uadnd.matchcentre.data.local.models.DbComment
-import com.yb.uadnd.matchcentre.data.local.models.DbCommentaryMatchInfo
+import com.yb.uadnd.matchcentre.data.local.models.DbMatchInfo
 
-@Database(entities = [DbCommentaryMatchInfo::class, DbComment::class], version = 1, exportSchema = false)
+@Database(entities = [DbMatchInfo::class, DbComment::class], version = 1, exportSchema = false)
 abstract class MatchCentreDatabase : RoomDatabase() {
     abstract val matchInfoDao: MatchInfoDao
     abstract val commentDao: CommentDao

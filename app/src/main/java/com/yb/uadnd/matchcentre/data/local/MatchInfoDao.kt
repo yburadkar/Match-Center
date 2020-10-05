@@ -5,7 +5,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.yb.uadnd.matchcentre.data.local.models.DbCommentaryMatchInfo
+import com.yb.uadnd.matchcentre.data.local.models.DbMatchInfo
 import io.reactivex.Completable
 import io.reactivex.Single
 
@@ -13,10 +13,10 @@ import io.reactivex.Single
 interface MatchInfoDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertMatchInfo(matchInfo: DbCommentaryMatchInfo): Completable
+    fun insertMatchInfo(matchInfo: DbMatchInfo): Completable
 
     @Query("SELECT * FROM matchInfo WHERE matchId = :id")
-    fun getMatchInfo(id: Int): LiveData<DbCommentaryMatchInfo>
+    fun getMatchInfo(id: Int): LiveData<DbMatchInfo>
 
     @Query("SELECT lastRefreshed FROM matchInfo WHERE matchId = :matchId")
     fun getLastRefreshTime(matchId: Int): Single<List<Long>>
