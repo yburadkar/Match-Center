@@ -2,8 +2,8 @@ package com.yb.uadnd.matchcentre
 
 import android.app.Application
 import com.yb.uadnd.matchcentre.di.AppComponent
-import com.yb.uadnd.matchcentre.di.AppModule
 import com.yb.uadnd.matchcentre.di.DaggerAppComponent
+import com.yb.uadnd.matchcentre.di.DbModule
 import timber.log.Timber
 
 class App : Application() {
@@ -17,7 +17,7 @@ class App : Application() {
     }
 
     private fun initDi() {
-        appComponent = DaggerAppComponent.builder().appModule(AppModule(this)).build()
+        appComponent = DaggerAppComponent.builder().dbModule(DbModule(this)).build()
     }
 
     private fun initTimber() {

@@ -1,8 +1,6 @@
 package com.yb.uadnd.matchcentre.di
 
-import android.app.Application
 import com.yb.uadnd.matchcentre.SimpleIdlingResource
-import com.yb.uadnd.matchcentre.data.local.MatchCentreDatabase
 import com.yb.uadnd.matchcentre.data.remote.CommentaryService
 import com.yb.uadnd.matchcentre.data.remote.MatchService
 import com.yb.uadnd.matchcentre.data.remote.MatchesDataSource
@@ -22,29 +20,15 @@ import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
-class AppModule(private val appContext: Application) {
+class AppModule {
 
     @Singleton
     @Provides
-    fun provideRetrofit(): Retrofit {
-        return Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-    }
+    fun provideMatchRepo(matchRepo: AppMatchRepository): MatchRepository = matchRepo
 
     @Singleton
     @Provides
-    fun provideMatchService(retrofit: Retrofit): MatchService {
-        return retrofit.create(MatchService::class.java)
-    }
-
-    @Singleton
-    @Provides
-    fun provideCommentaryService(retrofit: Retrofit): CommentaryService {
-        return retrofit.create(CommentaryService::class.java)
-    }
+    fun provideCommentaryRepo(commRepo: AppCommentaryRepository): CommentaryRepository = commRepo
 
     @Singleton
     @Provides
@@ -56,20 +40,6 @@ class AppModule(private val appContext: Application) {
     @Named("ui")
     fun uiScheduler(): Scheduler = AndroidSchedulers.mainThread()
 
-    @Singleton
-    @Provides
-    fun provideMatchDb(): MatchCentreDatabase {
-        return MatchCentreDatabase.getInstance(appContext)
-    }
-
-    @Singleton
-    @Provides
-    fun provideMatchRepo(matchRepo: AppMatchRepository): MatchRepository = matchRepo
-
-    @Singleton
-    @Provides
-    fun provideCommentaryRepo(commRepo: AppCommentaryRepository): CommentaryRepository = commRepo
-
     @Provides
     fun provideMatchesDataSource(): MatchesDataSource = MatchesDataSource
 
@@ -77,7 +47,4 @@ class AppModule(private val appContext: Application) {
     @Provides
     fun provideIdlingRes(): SimpleIdlingResource = SimpleIdlingResource
 
-    companion object {
-        private const val BASE_URL = "https://feeds.incrowdsports.com/provider/opta/football/v1/matches/"
-    }
 }
