@@ -5,7 +5,10 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Transaction
+import com.yb.uadnd.matchcentre.data.local.models.DbComment
 import com.yb.uadnd.matchcentre.data.local.models.DbMatchInfo
+import com.yb.uadnd.matchcentre.data.local.models.DbMatchInfoComments
 import io.reactivex.Completable
 import io.reactivex.Single
 
@@ -20,5 +23,16 @@ interface MatchInfoDao {
 
     @Query("SELECT lastRefreshed FROM matchInfo WHERE matchId = :matchId")
     fun getLastRefreshTime(matchId: Int): Single<List<Long>>
+
+    @Query("DELETE FROM matchInfo WHERE matchId = :matchId")
+    fun deleteMatchInfo(matchId: Int): Completable
+
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertMatchInfoWithComments(matchInfo: DbMatchInfo, comments: List<DbComment>)
+
+    @Transaction
+    @Query("SELECT * FROM matchInfo WHERE matchId = :matchId")
+    fun getMatchInfoWithComments(matchId: Int): Single<DbMatchInfoComments>
 
 }
