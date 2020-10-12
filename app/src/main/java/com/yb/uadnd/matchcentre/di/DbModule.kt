@@ -1,7 +1,6 @@
 package com.yb.uadnd.matchcentre.di
 
 import android.app.Application
-import com.yb.uadnd.matchcentre.data.local.CommentDao
 import com.yb.uadnd.matchcentre.data.local.LocalCommentaryDataSource
 import com.yb.uadnd.matchcentre.data.local.MatchCentreDatabase
 import com.yb.uadnd.matchcentre.data.local.MatchInfoDao
@@ -21,10 +20,7 @@ class DbModule(private val appContext: Application) {
     }
 
     @Provides
-    fun provideCommentDao(db: MatchCentreDatabase):CommentDao = db.commentDao
-
-    @Provides
-    fun provideMatchInfoDao(db: MatchCentreDatabase):MatchInfoDao = db.matchInfoDao
+    fun provideMatchInfoDao(db: MatchCentreDatabase): MatchInfoDao = db.matchInfoDao
 
     @Singleton
     @Provides

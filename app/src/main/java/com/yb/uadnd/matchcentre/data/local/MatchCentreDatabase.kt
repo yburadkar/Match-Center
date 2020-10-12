@@ -10,7 +10,6 @@ import com.yb.uadnd.matchcentre.data.local.models.DbMatchInfo
 @Database(entities = [DbMatchInfo::class, DbComment::class], version = 1, exportSchema = false)
 abstract class MatchCentreDatabase : RoomDatabase() {
     abstract val matchInfoDao: MatchInfoDao
-    abstract val commentDao: CommentDao
 
     companion object {
         private const val DATABASE_NAME = "MatchCentre.db"
