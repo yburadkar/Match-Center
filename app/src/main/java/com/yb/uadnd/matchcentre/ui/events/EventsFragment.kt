@@ -12,7 +12,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.yb.uadnd.matchcentre.App
 import com.yb.uadnd.matchcentre.databinding.FragmentEventsBinding
 import com.yb.uadnd.matchcentre.di.ViewModelFactory
-import com.yb.uadnd.matchcentre.ui.main.MainActivityViewModel
+import com.yb.uadnd.matchcentre.ui.main.MainViewModel
 import com.yb.uadnd.matchcentre.ui.models.UiMatchEvent
 import javax.inject.Inject
 
@@ -21,7 +21,7 @@ class EventsFragment : Fragment() {
     private var _binding: FragmentEventsBinding? = null
     private val binding get() = _binding!!
     @Inject lateinit var viewModelFactory: ViewModelFactory
-    private val viewModel: MainActivityViewModel by activityViewModels { viewModelFactory }
+    private val viewModel: MainViewModel by activityViewModels { viewModelFactory }
     private lateinit var eventsAdapter: EventsAdapter
 
     override fun onAttach(context: Context) {

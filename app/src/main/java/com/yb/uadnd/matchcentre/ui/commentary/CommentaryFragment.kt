@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.yb.uadnd.matchcentre.App
 import com.yb.uadnd.matchcentre.databinding.FragmentCommentaryBinding
 import com.yb.uadnd.matchcentre.di.ViewModelFactory
-import com.yb.uadnd.matchcentre.ui.main.MainActivityViewModel
+import com.yb.uadnd.matchcentre.ui.main.MainViewModel
 import com.yb.uadnd.matchcentre.ui.models.UiComment
 import javax.inject.Inject
 
@@ -20,7 +20,7 @@ class CommentaryFragment : Fragment() {
     private var _binding: FragmentCommentaryBinding? = null
     private val binding get() = _binding!!
     @Inject lateinit var viewModelFactory: ViewModelFactory
-    private val viewModel: MainActivityViewModel by activityViewModels { viewModelFactory }
+    private val viewModel: MainViewModel by activityViewModels { viewModelFactory }
     private lateinit var commentaryAdapter: CommentaryAdapter
 
     override fun onAttach(context: Context) {

@@ -13,7 +13,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.yb.uadnd.matchcentre.App
 import com.yb.uadnd.matchcentre.databinding.FragmentStatsBinding
 import com.yb.uadnd.matchcentre.di.ViewModelFactory
-import com.yb.uadnd.matchcentre.ui.main.MainActivityViewModel
+import com.yb.uadnd.matchcentre.ui.main.MainViewModel
 import com.yb.uadnd.matchcentre.ui.models.UiTeamStat
 import javax.inject.Inject
 
@@ -21,7 +21,7 @@ class StatsFragment : Fragment() {
     private var _binding: FragmentStatsBinding? = null
     private val binding get() = _binding!!
     @Inject lateinit var viewModelFactory: ViewModelFactory
-    private val viewModel: MainActivityViewModel by activityViewModels { viewModelFactory }
+    private val viewModel: MainViewModel by activityViewModels { viewModelFactory }
     private var statsAdapter = StatsAdapter()
 
     override fun onAttach(context: Context) {

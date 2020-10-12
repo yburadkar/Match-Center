@@ -18,7 +18,7 @@ import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Named
 
-class MainActivityViewModel @Inject constructor(
+class MainViewModel @Inject constructor(
     private val matchRepo: MatchRepository,
     private val matchCommentaryRepo: MatchCommentaryRepository,
     @Named("io") private val io: Scheduler,
