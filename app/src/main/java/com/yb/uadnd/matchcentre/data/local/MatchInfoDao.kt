@@ -10,6 +10,7 @@ import com.yb.uadnd.matchcentre.data.local.models.DbComment
 import com.yb.uadnd.matchcentre.data.local.models.DbMatchInfo
 import com.yb.uadnd.matchcentre.data.local.models.DbMatchInfoComments
 import io.reactivex.Completable
+import io.reactivex.Maybe
 import io.reactivex.Single
 
 @Dao
@@ -25,7 +26,7 @@ interface MatchInfoDao {
     fun getLastRefreshTime(matchId: Int): Single<List<Long>>
 
     @Query("DELETE FROM matchInfo WHERE matchId = :matchId")
-    fun deleteMatchInfo(matchId: Int): Single<Int>
+    fun deleteMatchInfo(matchId: Int): Maybe<Int>
 
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -33,6 +34,6 @@ interface MatchInfoDao {
 
     @Transaction
     @Query("SELECT * FROM matchInfo WHERE matchId = :matchId")
-    fun getMatchInfoWithComments(matchId: Int): Single<DbMatchInfoComments>
+    fun getMatchInfoWithComments(matchId: Int): Maybe<DbMatchInfoComments>
 
 }

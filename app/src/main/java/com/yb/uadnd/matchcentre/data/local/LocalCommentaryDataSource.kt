@@ -3,16 +3,16 @@ package com.yb.uadnd.matchcentre.data.local
 import com.yb.uadnd.matchcentre.data.local.models.DbComment
 import com.yb.uadnd.matchcentre.data.local.models.DbMatchCommentary
 import com.yb.uadnd.matchcentre.data.local.models.DbMatchInfo
-import com.yb.uadnd.matchcentre.domain.repos.CachedCommentaryDataSource
 import com.yb.uadnd.matchcentre.domain.models.MatchCommentary
-import io.reactivex.Single
+import com.yb.uadnd.matchcentre.domain.repos.CachedCommentaryDataSource
+import io.reactivex.Maybe
 import javax.inject.Inject
 
 class LocalCommentaryDataSource @Inject constructor(
     private val matchInfoDao: MatchInfoDao
 ) : CachedCommentaryDataSource {
 
-    override fun getMatchCommentary(matchId: Int): Single<MatchCommentary> {
+    override fun getMatchCommentary(matchId: Int): Maybe<MatchCommentary> {
         return matchInfoDao.getMatchInfoWithComments(matchId).map { DbMatchCommentary(it) }
     }
 
@@ -27,7 +27,7 @@ class LocalCommentaryDataSource @Inject constructor(
         )
     }
 
-    override fun deleteMatchCommentary(matchId: Int): Single<Int> {
+    override fun deleteMatchCommentary(matchId: Int): Maybe<Int> {
         return matchInfoDao.deleteMatchInfo(matchId)
     }
 
