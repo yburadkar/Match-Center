@@ -1,6 +1,6 @@
 package com.yb.uadnd.matchcentre.ui.models
 
-import com.yb.uadnd.matchcentre.domain.MatchData
+import com.yb.uadnd.matchcentre.domain.models.MatchData
 
 data class UiTeamStat(var statName: String, var homeText: String, var awayText: String, var isPercent: Boolean) {
 

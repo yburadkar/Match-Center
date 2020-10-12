@@ -1,15 +1,15 @@
 package com.yb.uadnd.matchcentre.data.remote.models
 
-import com.yb.uadnd.matchcentre.domain.Booking
-import com.yb.uadnd.matchcentre.domain.Goal
-import com.yb.uadnd.matchcentre.domain.Match
-import com.yb.uadnd.matchcentre.domain.MatchData
-import com.yb.uadnd.matchcentre.domain.MatchEvent
-import com.yb.uadnd.matchcentre.domain.MatchTeam
-import com.yb.uadnd.matchcentre.domain.Player
-import com.yb.uadnd.matchcentre.domain.Substitution
-import com.yb.uadnd.matchcentre.domain.TeamPlayer
-import com.yb.uadnd.matchcentre.domain.TeamStats
+import com.yb.uadnd.matchcentre.domain.models.Booking
+import com.yb.uadnd.matchcentre.domain.models.Goal
+import com.yb.uadnd.matchcentre.domain.models.Match
+import com.yb.uadnd.matchcentre.domain.models.MatchData
+import com.yb.uadnd.matchcentre.domain.models.MatchEvent
+import com.yb.uadnd.matchcentre.domain.models.MatchTeam
+import com.yb.uadnd.matchcentre.domain.models.Player
+import com.yb.uadnd.matchcentre.domain.models.Substitution
+import com.yb.uadnd.matchcentre.domain.models.TeamPlayer
+import com.yb.uadnd.matchcentre.domain.models.TeamStats
 
 class ApiMatch(
     override val data: ApiMatchData? = null

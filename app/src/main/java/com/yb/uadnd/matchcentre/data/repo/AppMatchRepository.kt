@@ -2,8 +2,8 @@ package com.yb.uadnd.matchcentre.data.repo
 
 import com.yb.uadnd.matchcentre.data.remote.MatchService
 import com.yb.uadnd.matchcentre.data.remote.MatchesDataSource
-import com.yb.uadnd.matchcentre.domain.Match
-import com.yb.uadnd.matchcentre.domain.MatchRepository
+import com.yb.uadnd.matchcentre.domain.models.Match
+import com.yb.uadnd.matchcentre.domain.repos.MatchRepository
 import io.reactivex.Single
 import javax.inject.Inject
 

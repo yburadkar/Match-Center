@@ -1,6 +1,6 @@
 package com.yb.uadnd.matchcentre.data.remote.models
 
-import com.yb.uadnd.matchcentre.domain.Comment
+import com.yb.uadnd.matchcentre.domain.models.Comment
 
 class ApiCommentary(
     val data: ApiCommentaryData? = null

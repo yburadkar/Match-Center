@@ -1,6 +1,6 @@
 package com.yb.uadnd.matchcentre.ui.models
 
-import com.yb.uadnd.matchcentre.domain.Comment
+import com.yb.uadnd.matchcentre.domain.models.Comment
 
 data class UiComment(
     val type: String? = null,

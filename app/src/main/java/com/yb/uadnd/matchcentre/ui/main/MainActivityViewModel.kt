@@ -4,10 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.yb.uadnd.matchcentre.helpers.Resource
 import com.yb.uadnd.matchcentre.helpers.SimpleIdlingResource
-import com.yb.uadnd.matchcentre.domain.Match
-import com.yb.uadnd.matchcentre.domain.MatchData
-import com.yb.uadnd.matchcentre.domain.MatchEvent
-import com.yb.uadnd.matchcentre.domain.MatchRepository
+import com.yb.uadnd.matchcentre.domain.models.Match
+import com.yb.uadnd.matchcentre.domain.models.MatchData
+import com.yb.uadnd.matchcentre.domain.models.MatchEvent
+import com.yb.uadnd.matchcentre.domain.repos.MatchRepository
 import com.yb.uadnd.matchcentre.domain.models.MatchCommentary
 import com.yb.uadnd.matchcentre.domain.repos.MatchCommentaryRepository
 import com.yb.uadnd.matchcentre.helpers.DisposingViewModel

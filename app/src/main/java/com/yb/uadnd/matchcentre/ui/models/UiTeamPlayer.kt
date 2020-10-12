@@ -1,6 +1,6 @@
 package com.yb.uadnd.matchcentre.ui.models
 
-import com.yb.uadnd.matchcentre.domain.TeamPlayer
+import com.yb.uadnd.matchcentre.domain.models.TeamPlayer
 
 data class UiTeamPlayer(
     val id: Int = 0,

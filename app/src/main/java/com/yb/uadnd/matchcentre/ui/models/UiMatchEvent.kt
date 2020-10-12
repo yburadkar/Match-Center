@@ -1,10 +1,10 @@
 package com.yb.uadnd.matchcentre.ui.models
 
-import com.yb.uadnd.matchcentre.domain.Booking
-import com.yb.uadnd.matchcentre.domain.Goal
-import com.yb.uadnd.matchcentre.domain.MatchEvent
-import com.yb.uadnd.matchcentre.domain.Player
-import com.yb.uadnd.matchcentre.domain.Substitution
+import com.yb.uadnd.matchcentre.domain.models.Booking
+import com.yb.uadnd.matchcentre.domain.models.Goal
+import com.yb.uadnd.matchcentre.domain.models.MatchEvent
+import com.yb.uadnd.matchcentre.domain.models.Player
+import com.yb.uadnd.matchcentre.domain.models.Substitution
 
 data class UiMatchEvent(
     val time: String? = null,

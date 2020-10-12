@@ -1,7 +1,5 @@
 package com.yb.uadnd.matchcentre.domain.models
 
-import com.yb.uadnd.matchcentre.domain.Comment
-
 interface MatchCommentary {
     val feedMatchId: Int
     val homeTeamName: String?

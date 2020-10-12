@@ -4,7 +4,7 @@ import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import com.yb.uadnd.matchcentre.data.remote.models.ApiCommentaryData
-import com.yb.uadnd.matchcentre.domain.CommentaryMatchInfo
+import com.yb.uadnd.matchcentre.domain.models.CommentaryMatchInfo
 import com.yb.uadnd.matchcentre.domain.models.MatchCommentary
 
 @Entity(tableName = "matchInfo")

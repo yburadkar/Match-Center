@@ -7,7 +7,7 @@ import androidx.room.ForeignKey.CASCADE
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import com.yb.uadnd.matchcentre.data.remote.models.ApiCommentaryEntry
-import com.yb.uadnd.matchcentre.domain.Comment
+import com.yb.uadnd.matchcentre.domain.models.Comment
 
 @Entity(
     tableName = "comment",

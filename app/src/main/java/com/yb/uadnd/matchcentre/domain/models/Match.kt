@@ -1,4 +1,4 @@
-package com.yb.uadnd.matchcentre.domain
+package com.yb.uadnd.matchcentre.domain.models
 
 interface Match {
     val data: MatchData?
