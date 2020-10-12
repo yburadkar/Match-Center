@@ -16,6 +16,7 @@ import com.yb.uadnd.matchcentre.domain.Comment
         parentColumns = ["matchId"],
         childColumns = ["matchId"],
         onDelete = CASCADE,
+        onUpdate = CASCADE,
         deferred = true
     )]
 )
@@ -33,4 +34,12 @@ class DbComment(
     @Ignore
     constructor(matchId: Int, entry: ApiCommentaryEntry) : this(matchId = matchId, type = entry.type, comment = entry.comment, time = entry.time, period = entry.period)
 
+    @Ignore
+    constructor(matchId: Int, comment: Comment) : this(
+        matchId = matchId,
+        type = comment.type,
+        comment = comment.comment,
+        time = comment.time,
+        period = comment.period,
+    )
 }
