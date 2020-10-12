@@ -25,7 +25,7 @@ interface MatchInfoDao {
     fun getLastRefreshTime(matchId: Int): Single<List<Long>>
 
     @Query("DELETE FROM matchInfo WHERE matchId = :matchId")
-    fun deleteMatchInfo(matchId: Int): Completable
+    fun deleteMatchInfo(matchId: Int): Single<Int>
 
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

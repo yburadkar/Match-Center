@@ -5,7 +5,7 @@ import com.yb.uadnd.matchcentre.data.local.CommentDao
 import com.yb.uadnd.matchcentre.data.local.LocalCommentaryDataSource
 import com.yb.uadnd.matchcentre.data.local.MatchCentreDatabase
 import com.yb.uadnd.matchcentre.data.local.MatchInfoDao
-import com.yb.uadnd.matchcentre.domain.CachedCommentaryDataSource
+import com.yb.uadnd.matchcentre.domain.repos.CachedCommentaryDataSource
 import dagger.Module
 import dagger.Provides
 import javax.inject.Named
