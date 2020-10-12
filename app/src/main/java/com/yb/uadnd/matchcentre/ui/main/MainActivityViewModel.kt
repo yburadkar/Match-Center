@@ -2,8 +2,8 @@ package com.yb.uadnd.matchcentre.ui.main
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.yb.uadnd.matchcentre.Resource
-import com.yb.uadnd.matchcentre.SimpleIdlingResource
+import com.yb.uadnd.matchcentre.helpers.Resource
+import com.yb.uadnd.matchcentre.helpers.SimpleIdlingResource
 import com.yb.uadnd.matchcentre.domain.Match
 import com.yb.uadnd.matchcentre.domain.MatchData
 import com.yb.uadnd.matchcentre.domain.MatchEvent

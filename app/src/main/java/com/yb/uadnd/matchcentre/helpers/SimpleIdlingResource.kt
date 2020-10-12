@@ -1,4 +1,4 @@
-package com.yb.uadnd.matchcentre
+package com.yb.uadnd.matchcentre.helpers
 
 import androidx.test.espresso.IdlingResource
 
@@ -17,7 +17,7 @@ object SimpleIdlingResource : IdlingResource {
     }
 
     override fun registerIdleTransitionCallback(callback: IdlingResource.ResourceCallback) {
-        this.resourceCallback = callback
+        resourceCallback = callback
     }
 
     fun setIdleState(isIdleNow: Boolean) {

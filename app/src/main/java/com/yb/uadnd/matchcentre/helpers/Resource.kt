@@ -1,4 +1,4 @@
-package com.yb.uadnd.matchcentre
+package com.yb.uadnd.matchcentre.helpers
 
 data class Resource<out T>(val status: ResourceStatus, val data: T?, val error: Throwable? = null) {
     companion object {

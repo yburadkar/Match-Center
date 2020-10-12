@@ -1,5 +1,6 @@
-package com.yb.uadnd.matchcentre
+package com.yb.uadnd.matchcentre.helpers
 
+import com.yb.uadnd.matchcentre.R
 import timber.log.Timber
 
 object Utils {
