@@ -4,8 +4,9 @@ import com.yb.uadnd.matchcentre.data.remote.models.RemoteMatchCommentary
 import com.yb.uadnd.matchcentre.domain.models.MatchCommentary
 import com.yb.uadnd.matchcentre.domain.repos.CommentaryDataSource
 import io.reactivex.Single
+import javax.inject.Inject
 
-class RemoteCommentaryDataSource(
+class RemoteCommentaryDataSource @Inject constructor(
     private val commentaryService: CommentaryService
 ) : CommentaryDataSource {
 

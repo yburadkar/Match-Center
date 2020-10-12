@@ -40,9 +40,6 @@ class AppModule {
     @Named("ui")
     fun uiScheduler(): Scheduler = AndroidSchedulers.mainThread()
 
-    @Provides
-    fun provideMatchesDataSource(): MatchesDataSource = MatchesDataSource
-
     @Singleton
     @Provides
     fun provideIdlingRes(): SimpleIdlingResource = SimpleIdlingResource
