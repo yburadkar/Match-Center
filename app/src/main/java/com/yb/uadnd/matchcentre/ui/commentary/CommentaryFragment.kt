@@ -41,7 +41,8 @@ class CommentaryFragment : Fragment() {
     }
 
     private fun observeViewModel() {
-        viewModel.comments.observe(viewLifecycleOwner) { comments ->
+        viewModel.matchCommentary.observe(viewLifecycleOwner) { resource ->
+            val comments = resource.data?.commentaryEntries ?: emptyList()
             commentaryAdapter.submitList(comments.map { UiComment.from(it) })
         }
     }

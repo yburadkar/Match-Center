@@ -5,8 +5,13 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.squareup.picasso.Picasso
 import com.yb.uadnd.matchcentre.App
+import com.yb.uadnd.matchcentre.R
+import com.yb.uadnd.matchcentre.Resource
+import com.yb.uadnd.matchcentre.ResourceStatus
 import com.yb.uadnd.matchcentre.databinding.ActivityMainBinding
 import com.yb.uadnd.matchcentre.di.ViewModelFactory
+import com.yb.uadnd.matchcentre.domain.models.MatchCommentary
+import com.yb.uadnd.matchcentre.helpers.showSnackbar
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
@@ -27,14 +32,12 @@ class MainActivity : AppCompatActivity() {
     private fun setUpViews() {
         initViewPager()
         binding.rightButton.setOnClickListener {
-            viewModel.matchInfo.removeObservers(this)
             viewModel.loadNextMatch()
             initViewPager()
             observeViewModel()
         }
 
         binding.leftButton.setOnClickListener {
-            viewModel.matchInfo.removeObservers(this)
             viewModel.loadPrevMatch()
             initViewPager()
             observeViewModel()
@@ -52,15 +55,30 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun observeViewModel() {
-        viewModel.matchInfo.observe(this) {
-            it?.run {
-                val scoreText = "$homeScore - $awayScore"
-                binding.score.text = scoreText
-                binding.homeTeam.text = homeTeamName
-                binding.awayTeam.text = awayTeamName
-                binding.competition.text = this.competition
-                Picasso.get().load(homeTeamImageUrl).into(binding.homeLogo)
-                Picasso.get().load(awayTeamImageUrl).into(binding.awayLogo)
+        viewModel.matchCommentary.observe(this) {
+            showUserMessages(it.status)
+            renderViewState(it)
+        }
+    }
+
+    private fun renderViewState(resource: Resource<MatchCommentary>) {
+        with(binding) {
+            val homeScore = resource.data?.homeScore ?: ""
+            val awayScore = resource.data?.awayScore ?: ""
+            val scoreText = "$homeScore - $awayScore"
+            score.text = scoreText
+            homeTeam.text = resource.data?.homeTeamName
+            awayTeam.text = resource.data?.awayTeamName
+            competition.text = resource.data?.competition
+            Picasso.get().load(resource.data?.homeTeamImageUrl).into(homeLogo)
+            Picasso.get().load(resource.data?.awayTeamImageUrl).into(awayLogo)
+        }
+    }
+
+    private fun showUserMessages(status: ResourceStatus) {
+        with(binding) {
+            if (status == ResourceStatus.ERROR) {
+                root.showSnackbar(getString(R.string.loading_error_message))
             }
         }
     }

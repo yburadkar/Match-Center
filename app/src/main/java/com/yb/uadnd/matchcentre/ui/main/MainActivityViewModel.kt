@@ -4,13 +4,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.yb.uadnd.matchcentre.Resource
 import com.yb.uadnd.matchcentre.SimpleIdlingResource
-import com.yb.uadnd.matchcentre.domain.Comment
-import com.yb.uadnd.matchcentre.domain.CommentaryMatchInfo
 import com.yb.uadnd.matchcentre.domain.Match
 import com.yb.uadnd.matchcentre.domain.MatchData
 import com.yb.uadnd.matchcentre.domain.MatchEvent
 import com.yb.uadnd.matchcentre.domain.MatchRepository
-import com.yb.uadnd.matchcentre.domain.repos.CommentaryRepository
+import com.yb.uadnd.matchcentre.domain.models.MatchCommentary
+import com.yb.uadnd.matchcentre.domain.repos.MatchCommentaryRepository
 import com.yb.uadnd.matchcentre.helpers.DisposingViewModel
 import io.reactivex.Scheduler
 import io.reactivex.rxkotlin.addTo
@@ -21,7 +20,7 @@ import javax.inject.Named
 
 class MainActivityViewModel @Inject constructor(
     private val matchRepo: MatchRepository,
-    private val commRepo: CommentaryRepository,
+    private val matchCommentaryRepo: MatchCommentaryRepository,
     @Named("io") private val io: Scheduler,
     @Named("ui") private val ui: Scheduler,
     private val idlingRes: SimpleIdlingResource
@@ -30,11 +29,8 @@ class MainActivityViewModel @Inject constructor(
     private val _match = MutableLiveData<Resource<Match>>()
     val match: LiveData<Resource<Match>> = _match
 
-    lateinit var comments: LiveData<List<Comment>>
-        private set
-
-    lateinit var matchInfo: LiveData<CommentaryMatchInfo>
-        private set
+    private val _matchCommentary = MutableLiveData<Resource<MatchCommentary>>()
+    val matchCommentary: LiveData<Resource<MatchCommentary>> = _matchCommentary
 
     private val matchIds: List<Int> by lazy { matchRepo.getMatchList() }
     private var matchIndex = -1
@@ -46,9 +42,23 @@ class MainActivityViewModel @Inject constructor(
 
     private fun loadMatch(newMatchId: Int) {
         currentMatchId = newMatchId
-        comments = commRepo.getMatchCommentary(newMatchId)
-        matchInfo = commRepo.getMatchInfo(newMatchId.toString())
+        fetchMatchCommentary(newMatchId)
         fetchMatch(newMatchId)
+    }
+
+    private fun fetchMatchCommentary(matchId: Int) {
+        matchCommentaryRepo.getMatchCommentary(matchId)
+            .subscribeOn(io)
+            .observeOn(ui)
+            .doOnSubscribe { _matchCommentary.postValue(Resource.loading(data = null)) }
+            .subscribeBy(
+                onError = {
+                    _matchCommentary.value = Resource.error(data = null, error = it)
+                },
+                onSuccess = {
+                    _matchCommentary.value = Resource.success(data = it)
+                }
+            ).addTo(disposables)
     }
 
     fun loadNextMatch() = loadMatch(nextMatchId())

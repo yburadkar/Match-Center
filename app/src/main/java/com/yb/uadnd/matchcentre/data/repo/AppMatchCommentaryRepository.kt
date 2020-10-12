@@ -1,9 +1,9 @@
 package com.yb.uadnd.matchcentre.data.repo
 
-import com.yb.uadnd.matchcentre.domain.repos.CachedCommentaryDataSource
-import com.yb.uadnd.matchcentre.domain.repos.MatchCommentaryRepository
 import com.yb.uadnd.matchcentre.domain.models.MatchCommentary
+import com.yb.uadnd.matchcentre.domain.repos.CachedCommentaryDataSource
 import com.yb.uadnd.matchcentre.domain.repos.CommentaryDataSource
+import com.yb.uadnd.matchcentre.domain.repos.MatchCommentaryRepository
 import io.reactivex.Observable
 import io.reactivex.Single
 import javax.inject.Inject
@@ -21,14 +21,15 @@ class AppMatchCommentaryRepository @Inject constructor(
         val networkCommentaryObservable = fetchCommentaryAndSaveToCache(matchId).toObservable()
 
         return Observable.concat(dbCommentaryObservable, networkCommentaryObservable)
-            .filter { System.currentTimeMillis()/1000 - it.lastRefreshed < refreshInterval }
+            .filter { (System.currentTimeMillis() / 1000) - it.lastRefreshed < refreshInterval }
             .firstOrError()
     }
 
     private fun fetchCommentaryAndSaveToCache(matchId: Int): Single<MatchCommentary> {
-        return localCommentaryDataSource.deleteMatchCommentary(matchId)
-        .flatMap { remoteCommentaryDataSource.getMatchCommentary(matchId) }
-        .doOnSuccess(localCommentaryDataSource::saveMatchCommentary)
+        return localCommentaryDataSource.deleteMatchCommentary(matchId).toObservable()
+            .first(0)
+            .flatMap { remoteCommentaryDataSource.getMatchCommentary(matchId) }
+            .doOnSuccess(localCommentaryDataSource::saveMatchCommentary)
     }
 
 }
