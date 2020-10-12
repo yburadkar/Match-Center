@@ -6,11 +6,11 @@ import androidx.appcompat.app.AppCompatActivity
 import com.squareup.picasso.Picasso
 import com.yb.uadnd.matchcentre.App
 import com.yb.uadnd.matchcentre.R
-import com.yb.uadnd.matchcentre.helpers.Resource
-import com.yb.uadnd.matchcentre.helpers.ResourceStatus
 import com.yb.uadnd.matchcentre.databinding.ActivityMainBinding
 import com.yb.uadnd.matchcentre.di.ViewModelFactory
 import com.yb.uadnd.matchcentre.domain.models.MatchCommentary
+import com.yb.uadnd.matchcentre.helpers.Resource
+import com.yb.uadnd.matchcentre.helpers.ResourceStatus
 import com.yb.uadnd.matchcentre.helpers.showSnackbar
 import javax.inject.Inject
 

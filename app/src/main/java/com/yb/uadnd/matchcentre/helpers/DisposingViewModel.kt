@@ -4,7 +4,7 @@ import androidx.annotation.CallSuper
 import androidx.lifecycle.ViewModel
 import io.reactivex.disposables.CompositeDisposable
 
-open class DisposingViewModel: ViewModel() {
+open class DisposingViewModel : ViewModel() {
 
     val disposables = CompositeDisposable()
 

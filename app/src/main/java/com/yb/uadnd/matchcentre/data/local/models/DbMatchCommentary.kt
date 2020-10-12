@@ -13,7 +13,7 @@ class DbMatchCommentary(
     override val homeTeamImageUrl: String? = null,
     override val awayTeamImageUrl: String? = null,
     override val lastRefreshed: Long
-): MatchCommentary {
+) : MatchCommentary {
 
     constructor(dbMatchInfoComments: DbMatchInfoComments) : this(
         dbMatchInfoComments.matchInfo.matchId,

@@ -2,7 +2,7 @@ package com.yb.uadnd.matchcentre.data.remote.models
 
 import com.yb.uadnd.matchcentre.domain.models.MatchCommentary
 
-class RemoteMatchCommentary (
+class RemoteMatchCommentary(
     override val feedMatchId: Int = 0,
     override val homeTeamName: String? = null,
     override val homeScore: Int = 0,

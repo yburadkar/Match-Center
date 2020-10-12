@@ -22,7 +22,7 @@ class DbMatchInfo(
 ) : CommentaryMatchInfo {
 
     @Ignore
-    constructor(matchCommentary: MatchCommentary): this(
+    constructor(matchCommentary: MatchCommentary) : this(
         matchId = matchCommentary.feedMatchId,
         homeTeamName = matchCommentary.homeTeamName,
         homeScore = matchCommentary.homeScore,
