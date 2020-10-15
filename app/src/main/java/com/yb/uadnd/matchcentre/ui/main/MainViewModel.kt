@@ -33,56 +33,25 @@ class MainViewModel @Inject constructor(
     val matchCommentary: LiveData<Resource<MatchCommentary>> = _matchCommentary
 
     private val matchIds: List<Int> by lazy { matchRepo.getMatchList() }
-    private var matchIndex = -1
+    private var currentMatchIndex = -1
     private var currentMatchId = 0
 
     init {
         loadNextMatch()
     }
 
-    private fun loadMatch(newMatchId: Int) {
-        currentMatchId = newMatchId
-        fetchMatchCommentary(newMatchId)
-        fetchMatch(newMatchId)
-    }
-
-    private fun fetchMatchCommentary(matchId: Int) {
-        matchCommentaryRepo.getMatchCommentary(matchId)
-            .subscribeOn(io)
-            .observeOn(ui)
-            .doOnSubscribe { _matchCommentary.postValue(Resource.loading(data = null)) }
-            .subscribeBy(
-                onError = {
-                    _matchCommentary.value = Resource.error(data = null, error = it)
-                },
-                onSuccess = {
-                    _matchCommentary.value = Resource.success(data = it)
-                }
-            ).addTo(disposables)
-    }
-
     fun loadNextMatch() = loadMatch(nextMatchId())
 
     fun loadPrevMatch() = loadMatch(prevMatchId())
 
-    fun reloadMatch() {
-        fetchMatch(currentMatchId)
+    private fun loadMatch(newMatchId: Int) {
+        currentMatchId = newMatchId
+        fetchMatchCommentary()
+        fetchMatchData()
     }
 
-    private fun nextMatchId(): Int {
-        matchIndex++
-        if (matchIndex == matchIds.size) matchIndex = 0
-        return matchIds[matchIndex]
-    }
-
-    private fun prevMatchId(): Int {
-        if (matchIndex == 0) matchIndex = matchIds.size - 1
-        else matchIndex--
-        return matchIds[matchIndex]
-    }
-
-    private fun fetchMatch(matchId: Int) {
-        matchRepo.fetchMatch(matchId = matchId.toString())
+    fun fetchMatchData() {
+        matchRepo.fetchMatch(matchId = currentMatchId.toString())
             .subscribeOn(io)
             .observeOn(ui)
             .doOnSubscribe {
@@ -101,6 +70,31 @@ class MainViewModel @Inject constructor(
                 }
 
             ).addTo(disposables)
+    }
+
+    private fun fetchMatchCommentary() {
+        matchCommentaryRepo.getMatchCommentary(currentMatchId)
+            .subscribeOn(io)
+            .observeOn(ui)
+            .doOnSubscribe { _matchCommentary.postValue(Resource.loading(data = null)) }
+            .subscribeBy(
+                onError = {
+                    _matchCommentary.value = Resource.error(data = null, error = it)
+                },
+                onSuccess = {
+                    _matchCommentary.value = Resource.success(data = it)
+                }
+            ).addTo(disposables)
+    }
+
+    private fun nextMatchId(): Int {
+        if (++currentMatchIndex == matchIds.size) currentMatchIndex = 0
+        return matchIds[currentMatchIndex]
+    }
+
+    private fun prevMatchId(): Int {
+        if(--currentMatchIndex == -1) currentMatchIndex = matchIds.lastIndex
+        return matchIds[currentMatchIndex]
     }
 
     private fun updateMatchEvents(match: Match): Match {

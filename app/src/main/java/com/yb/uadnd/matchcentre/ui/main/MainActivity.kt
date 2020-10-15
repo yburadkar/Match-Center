@@ -30,28 +30,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setUpViews() {
-        initViewPager()
-        binding.rightButton.setOnClickListener {
-            viewModel.loadNextMatch()
-            initViewPager()
-            observeViewModel()
-        }
-
-        binding.leftButton.setOnClickListener {
-            viewModel.loadPrevMatch()
-            initViewPager()
-            observeViewModel()
+        val pagerAdapter = MatchPagerAdapter(this, supportFragmentManager)
+        with (binding) {
+            viewPager.adapter = pagerAdapter
+            matchTabLayout.setupWithViewPager(binding.viewPager)
+            rightButton.setOnClickListener { viewModel.loadNextMatch() }
+            leftButton.setOnClickListener { viewModel.loadPrevMatch() }
         }
     }
 
     private fun inject() {
         (application as App).appComponent.inject(this)
-    }
-
-    private fun initViewPager() {
-        val pagerAdapter = MatchPagerAdapter(this, supportFragmentManager)
-        binding.viewPager.adapter = pagerAdapter
-        binding.matchTabLayout.setupWithViewPager(binding.viewPager)
     }
 
     private fun observeViewModel() {

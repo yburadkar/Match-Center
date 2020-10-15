@@ -41,7 +41,7 @@ class EventsFragment : Fragment() {
         initRecyclerView()
         observeViewModel()
         binding.swipeRefresh.setOnRefreshListener {
-            viewModel.reloadMatch()
+            viewModel.fetchMatchData()
         }
     }
 

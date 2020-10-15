@@ -42,7 +42,7 @@ class StatsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initRecyclerView()
         observeViewModel()
-        binding.swipeRefresh.setOnRefreshListener { viewModel.reloadMatch() }
+        binding.swipeRefresh.setOnRefreshListener { viewModel.fetchMatchData() }
     }
 
     private fun observeViewModel() {
