@@ -75,4 +75,8 @@ class LineUpFragment : Fragment() {
         _binding = null
     }
 
+    companion object {
+        fun newInstance(): LineUpFragment = LineUpFragment()
+    }
+
 }

@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initViewPager() {
-        val pagerAdapter = MatchPagerAdapter(supportFragmentManager)
+        val pagerAdapter = MatchPagerAdapter(this, supportFragmentManager)
         binding.viewPager.adapter = pagerAdapter
         binding.matchTabLayout.setupWithViewPager(binding.viewPager)
     }

@@ -60,4 +60,10 @@ class CommentaryFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
+    companion object {
+        fun newInstance(): CommentaryFragment {
+            return CommentaryFragment()
+        }
+    }
 }

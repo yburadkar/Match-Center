@@ -7,4 +7,8 @@
     <string name="left_button_content_desc">Left Button</string>
     <string name="right_button_content_description">Right button</string>
     <string name="loading_error_message">Failed to load match data</string>
+    <string name="commentary_tab_title">Commentary</string>
+    <string name="events_tab_title">Events</string>
+    <string name="lineups_tab_title">Line Ups</string>
+    <string name="stats_tab_title">Stats</string>
 </resources>

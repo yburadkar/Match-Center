@@ -74,4 +74,8 @@ class StatsFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
+    companion object {
+        fun newInstance(): StatsFragment = StatsFragment()
+    }
 }
