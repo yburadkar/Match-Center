@@ -36,10 +36,6 @@ class MainViewModel @Inject constructor(
     private var currentMatchIndex = -1
     private var currentMatchId = 0
 
-    init {
-        loadNextMatch()
-    }
-
     fun loadNextMatch() = loadMatch(nextMatchId())
 
     fun loadPrevMatch() = loadMatch(prevMatchId())

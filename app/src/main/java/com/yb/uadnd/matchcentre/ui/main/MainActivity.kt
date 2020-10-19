@@ -27,6 +27,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         setUpViews()
         observeViewModel()
+        if(savedInstanceState == null) viewModel.loadNextMatch()
     }
 
     private fun setUpViews() {
