@@ -1,4 +1,4 @@
-package com.yb.uadnd.matchcentre.ui.lineups
+package com.yb.uadnd.matchcentre.features.lineups
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

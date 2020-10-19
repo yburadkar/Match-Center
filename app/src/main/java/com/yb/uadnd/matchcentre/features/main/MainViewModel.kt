@@ -1,4 +1,4 @@
-package com.yb.uadnd.matchcentre.ui.main
+package com.yb.uadnd.matchcentre.features.main
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

@@ -1,4 +1,4 @@
-package com.yb.uadnd.matchcentre.ui.events
+package com.yb.uadnd.matchcentre.features.events
 
 import android.content.Context
 import android.os.Bundle
@@ -12,7 +12,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.yb.uadnd.matchcentre.App
 import com.yb.uadnd.matchcentre.databinding.FragmentEventsBinding
 import com.yb.uadnd.matchcentre.di.ViewModelFactory
-import com.yb.uadnd.matchcentre.ui.main.MainViewModel
+import com.yb.uadnd.matchcentre.features.main.MainViewModel
 import com.yb.uadnd.matchcentre.models.UiMatchEvent
 import javax.inject.Inject
 

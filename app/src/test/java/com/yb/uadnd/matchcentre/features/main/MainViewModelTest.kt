@@ -1,4 +1,4 @@
-package com.yb.uadnd.matchcentre.ui.main
+package com.yb.uadnd.matchcentre.features.main
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer

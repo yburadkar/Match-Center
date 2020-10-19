@@ -2,7 +2,7 @@ package com.yb.uadnd.matchcentre.di
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.yb.uadnd.matchcentre.ui.main.MainViewModel
+import com.yb.uadnd.matchcentre.features.main.MainViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap

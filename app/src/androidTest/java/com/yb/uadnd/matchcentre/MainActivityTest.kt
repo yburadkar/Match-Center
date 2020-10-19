@@ -12,7 +12,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.rule.ActivityTestRule
 import com.yb.uadnd.matchcentre.helpers.SimpleIdlingResource
-import com.yb.uadnd.matchcentre.ui.main.MainActivity
+import com.yb.uadnd.matchcentre.features.main.MainActivity
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule

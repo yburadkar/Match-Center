@@ -1,4 +1,4 @@
-package com.yb.uadnd.matchcentre.ui.events
+package com.yb.uadnd.matchcentre.features.events
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

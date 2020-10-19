@@ -1,4 +1,4 @@
-package com.yb.uadnd.matchcentre.ui.stats
+package com.yb.uadnd.matchcentre.features.stats
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

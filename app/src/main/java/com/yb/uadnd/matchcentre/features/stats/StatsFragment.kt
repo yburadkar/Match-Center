@@ -1,4 +1,4 @@
-package com.yb.uadnd.matchcentre.ui.stats
+package com.yb.uadnd.matchcentre.features.stats
 
 
 import android.content.Context
@@ -13,7 +13,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.yb.uadnd.matchcentre.App
 import com.yb.uadnd.matchcentre.databinding.FragmentStatsBinding
 import com.yb.uadnd.matchcentre.di.ViewModelFactory
-import com.yb.uadnd.matchcentre.ui.main.MainViewModel
+import com.yb.uadnd.matchcentre.features.main.MainViewModel
 import com.yb.uadnd.matchcentre.models.UiTeamStat
 import javax.inject.Inject
 

@@ -1,4 +1,4 @@
-package com.yb.uadnd.matchcentre.ui.commentary
+package com.yb.uadnd.matchcentre.features.commentary
 
 import android.content.Context
 import android.os.Bundle
@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.yb.uadnd.matchcentre.App
 import com.yb.uadnd.matchcentre.databinding.FragmentCommentaryBinding
 import com.yb.uadnd.matchcentre.di.ViewModelFactory
-import com.yb.uadnd.matchcentre.ui.main.MainViewModel
+import com.yb.uadnd.matchcentre.features.main.MainViewModel
 import com.yb.uadnd.matchcentre.models.UiComment
 import javax.inject.Inject
 

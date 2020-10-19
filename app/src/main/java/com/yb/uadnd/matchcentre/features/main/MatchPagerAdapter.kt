@@ -1,14 +1,14 @@
-package com.yb.uadnd.matchcentre.ui.main
+package com.yb.uadnd.matchcentre.features.main
 
 import android.content.Context
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.yb.uadnd.matchcentre.R
-import com.yb.uadnd.matchcentre.ui.commentary.CommentaryFragment
-import com.yb.uadnd.matchcentre.ui.events.EventsFragment
-import com.yb.uadnd.matchcentre.ui.lineups.LineUpFragment
-import com.yb.uadnd.matchcentre.ui.stats.StatsFragment
+import com.yb.uadnd.matchcentre.features.commentary.CommentaryFragment
+import com.yb.uadnd.matchcentre.features.events.EventsFragment
+import com.yb.uadnd.matchcentre.features.lineups.LineUpFragment
+import com.yb.uadnd.matchcentre.features.stats.StatsFragment
 
 class MatchPagerAdapter(
     private val context: Context,

@@ -1,4 +1,4 @@
-package com.yb.uadnd.matchcentre.ui.commentary
+package com.yb.uadnd.matchcentre.features.commentary
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
