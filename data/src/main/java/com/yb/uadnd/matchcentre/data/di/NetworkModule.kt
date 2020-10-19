@@ -1,4 +1,4 @@
-package com.yb.uadnd.matchcentre.di
+package com.yb.uadnd.matchcentre.data.di
 
 import com.yb.uadnd.matchcentre.data.remote.CommentaryService
 import com.yb.uadnd.matchcentre.data.remote.MatchService

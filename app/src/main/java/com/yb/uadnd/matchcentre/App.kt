@@ -3,7 +3,7 @@ package com.yb.uadnd.matchcentre
 import android.app.Application
 import com.yb.uadnd.matchcentre.di.AppComponent
 import com.yb.uadnd.matchcentre.di.DaggerAppComponent
-import com.yb.uadnd.matchcentre.di.DbModule
+import com.yb.uadnd.matchcentre.data.di.DbModule
 import timber.log.Timber
 
 class App : Application() {

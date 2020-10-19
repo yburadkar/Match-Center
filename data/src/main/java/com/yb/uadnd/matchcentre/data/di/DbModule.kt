@@ -1,4 +1,4 @@
-package com.yb.uadnd.matchcentre.di
+package com.yb.uadnd.matchcentre.data.di
 
 import android.app.Application
 import com.yb.uadnd.matchcentre.data.local.LocalCommentaryDataSource

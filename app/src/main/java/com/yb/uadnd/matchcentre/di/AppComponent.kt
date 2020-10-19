@@ -1,5 +1,7 @@
 package com.yb.uadnd.matchcentre.di
 
+import com.yb.uadnd.matchcentre.data.di.DbModule
+import com.yb.uadnd.matchcentre.data.di.NetworkModule
 import com.yb.uadnd.matchcentre.ui.commentary.CommentaryFragment
 import com.yb.uadnd.matchcentre.ui.events.EventsFragment
 import com.yb.uadnd.matchcentre.ui.lineups.LineUpFragment
