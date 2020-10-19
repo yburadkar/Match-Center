@@ -13,7 +13,7 @@ import com.yb.uadnd.matchcentre.App
 import com.yb.uadnd.matchcentre.databinding.FragmentEventsBinding
 import com.yb.uadnd.matchcentre.di.ViewModelFactory
 import com.yb.uadnd.matchcentre.ui.main.MainViewModel
-import com.yb.uadnd.matchcentre.ui.models.UiMatchEvent
+import com.yb.uadnd.matchcentre.models.UiMatchEvent
 import javax.inject.Inject
 
 class EventsFragment : Fragment() {

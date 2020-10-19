@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.yb.uadnd.matchcentre.databinding.CommentaryListItemBinding
 import com.yb.uadnd.matchcentre.helpers.Utils
-import com.yb.uadnd.matchcentre.ui.models.UiComment
+import com.yb.uadnd.matchcentre.models.UiComment
 
 class CommentaryAdapter : ListAdapter<UiComment, CommentaryAdapter.CommentaryViewHolder>(DIFF_CALLBACK) {
 

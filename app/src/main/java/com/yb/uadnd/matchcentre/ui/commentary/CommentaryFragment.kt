@@ -12,7 +12,7 @@ import com.yb.uadnd.matchcentre.App
 import com.yb.uadnd.matchcentre.databinding.FragmentCommentaryBinding
 import com.yb.uadnd.matchcentre.di.ViewModelFactory
 import com.yb.uadnd.matchcentre.ui.main.MainViewModel
-import com.yb.uadnd.matchcentre.ui.models.UiComment
+import com.yb.uadnd.matchcentre.models.UiComment
 import javax.inject.Inject
 
 class CommentaryFragment : Fragment() {

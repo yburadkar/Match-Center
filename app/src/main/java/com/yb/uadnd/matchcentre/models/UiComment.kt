@@ -1,4 +1,4 @@
-package com.yb.uadnd.matchcentre.ui.models
+package com.yb.uadnd.matchcentre.models
 
 import com.yb.uadnd.matchcentre.domain.models.Comment
 

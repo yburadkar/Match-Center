@@ -12,7 +12,7 @@ import com.yb.uadnd.matchcentre.App
 import com.yb.uadnd.matchcentre.databinding.FragmentLineUpBinding
 import com.yb.uadnd.matchcentre.di.ViewModelFactory
 import com.yb.uadnd.matchcentre.ui.main.MainViewModel
-import com.yb.uadnd.matchcentre.ui.models.UiTeamPlayer
+import com.yb.uadnd.matchcentre.models.UiTeamPlayer
 import javax.inject.Inject
 
 class LineUpFragment : Fragment() {

@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.yb.uadnd.matchcentre.databinding.LineUpListItemBinding
-import com.yb.uadnd.matchcentre.ui.models.UiTeamPlayer
+import com.yb.uadnd.matchcentre.models.UiTeamPlayer
 
 class LineUpAdapter : ListAdapter<UiTeamPlayer, LineUpAdapter.PlayerViewHolder>(DIFF_CALLBACK) {
 

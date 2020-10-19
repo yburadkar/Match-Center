@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import com.yb.uadnd.matchcentre.databinding.EventListItemBinding
 import com.yb.uadnd.matchcentre.helpers.Utils
-import com.yb.uadnd.matchcentre.ui.models.UiMatchEvent
+import com.yb.uadnd.matchcentre.models.UiMatchEvent
 
 class EventsAdapter : ListAdapter<UiMatchEvent, EventsAdapter.EventViewHolder>(DIFF_CALLBACK) {
 
