@@ -1,4 +1,4 @@
-package com.yb.uadnd.matchcentre.data.repo
+package com.yb.uadnd.matchcentre.data.repos
 
 import com.yb.uadnd.matchcentre.data.remote.MatchService
 import com.yb.uadnd.matchcentre.data.remote.MatchesDataSource

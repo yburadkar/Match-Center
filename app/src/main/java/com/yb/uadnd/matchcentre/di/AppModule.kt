@@ -1,7 +1,7 @@
 package com.yb.uadnd.matchcentre.di
 
-import com.yb.uadnd.matchcentre.data.repo.AppMatchCommentaryRepository
-import com.yb.uadnd.matchcentre.data.repo.AppMatchRepository
+import com.yb.uadnd.matchcentre.data.repos.AppMatchCommentaryRepository
+import com.yb.uadnd.matchcentre.data.repos.AppMatchRepository
 import com.yb.uadnd.matchcentre.domain.repos.MatchCommentaryRepository
 import com.yb.uadnd.matchcentre.domain.repos.MatchRepository
 import com.yb.uadnd.matchcentre.helpers.SimpleIdlingResource
